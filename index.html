@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ambrogio &amp; Francesca · 24.04.2027</title>
+<meta name="description" content="Ambrogio e Francesca si sposano il 24 aprile 2027: la messa a Calcinate e il ricevimento alla Cascina Camporosso di Martinengo. Indicazioni, parcheggi e conferma della presenza.">
+<!-- Una pagina per gli invitati, non per i motori di ricerca: contiene un IBAN. -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#F4EEE3">
+<meta name="color-scheme" content="light">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="it_IT">
+<meta property="og:title" content="Ambrogio &amp; Francesca · 24.04.2027">
+<meta property="og:description" content="Il 24 aprile ci sposiamo: qui trovate tutto quello che serve per festeggiare con noi.">
+<meta property="og:image" content="https://matrimonio.vercel.app/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" as="image" type="image/webp"
+      imagesrcset="img/anello-800.webp 800w, img/anello-1600.webp 1442w" imagesizes="100vw">
+<link rel="preload" href="fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/fraunces-italic-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css">
+<script src="main.js" defer></script>
+</head>
+<body>
+
+<!-- Il rametto d'ulivo: disegnato una volta, riusato in tutta la pagina. -->
+<svg width="0" height="0" class="sr-only" aria-hidden="true">
+  <symbol id="rametto" viewBox="0 0 120 40">
+    <path d="M4 22 C 30 18, 62 18, 116 21" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+    <g fill="currentColor" opacity=".85">
+      <path d="M22 20 c 3 -8 10 -11 15 -11 c -2 6 -8 11 -15 11z"/>
+      <path d="M30 20 c 4 6 10 9 16 9 c -3 -6 -9 -9 -16 -9z"/>
+      <path d="M48 19.5 c 3 -8 10 -11 15 -11 c -2 6 -8 11 -15 11z"/>
+      <path d="M56 19.5 c 4 6 10 9 16 9 c -3 -6 -9 -9 -16 -9z"/>
+      <path d="M74 19.8 c 3 -8 10 -11 15 -11 c -2 6 -8 11 -15 11z"/>
+      <path d="M82 20 c 4 6 10 9 16 9 c -3 -6 -9 -9 -16 -9z"/>
+      <path d="M100 20.6 c 3 -6 8 -8 12 -8 c -2 5 -6 8 -12 8z"/>
+    </g>
+    <circle cx="40" cy="25" r="2.4" fill="currentColor" opacity=".55"/>
+    <circle cx="66" cy="14" r="2.2" fill="currentColor" opacity=".55"/>
+  </symbol>
+</svg>
+
+<header class="barra">
+  <a class="monogramma" href="#inizio" aria-label="Torna all'inizio">A<span>&amp;</span>F</a>
+  <nav aria-label="Sezioni">
+    <ul>
+      <li><a href="#cerimonia">Cerimonia</a></li>
+      <li><a href="#ricevimento">Ricevimento</a></li>
+      <li><a href="#regalo">Regalo</a></li>
+      <li><a class="nav-rsvp" href="#rsvp">RSVP</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="inizio">
+
+  <!-- ============ APERTURA: la mano con l'anello, a tutto schermo ============ -->
+  <section class="apertura">
+    <img class="apertura-foto"
+         src="img/anello-1600.webp"
+         srcset="img/anello-800.webp 800w, img/anello-1600.webp 1442w"
+         sizes="100vw" width="1442" height="1066"
+         alt="La mano di Francesca con l'anello di fidanzamento, stretta da quella di Ambrogio, sulle colline al tramonto"
+         fetchpriority="high">
+    <div class="apertura-testo">
+      <h1 class="nomi">
+        Ambrogio <span class="e">&amp;</span> Francesca
+      </h1>
+      <p class="data"><time datetime="2027-04-24">24.04.2027</time></p>
+      <p class="luoghi">Calcinate, Bergamo</p>
+    </div>
+  </section>
+
+  <!-- ============ FOTOGRAFIE ============
+       Scorrono da sole; si possono anche trascinare col mouse, scorrere col
+       trackpad o con il dito. Per cambiare le foto basta cambiare la prima
+       serie: le copie (aria-hidden) che rendono il giro continuo le crea
+       main.js. -->
+  <section class="nastro" aria-label="Fotografie">
+    <div class="nastro-binario" data-nastro tabindex="0">
+      <ul class="nastro-serie">
+        <li><img src="img/nastro-coppia.webp" width="846" height="560" alt="Ambrogio e Francesca abbracciati, lei con la corona d'alloro" draggable="false"></li>
+        <li><img src="img/nastro-cascina.webp" width="841" height="560" alt="La Cascina Camporosso" draggable="false"></li>
+        <li><img src="img/nastro-anello.webp" width="560" height="560" alt="L'anello di fidanzamento, al tramonto in collina" draggable="false"></li>
+        <li><img src="img/nastro-chiesa.webp" width="748" height="560" alt="La Chiesa di Santa Maria Assunta a Calcinate" draggable="false"></li>
+        <li><img src="img/nastro-islanda.webp" width="840" height="560" alt="Una strada in Islanda al tramonto" draggable="false"></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ INVITO ============ -->
+  <section id="invito" class="invito rivela">
+    <svg class="rametto" aria-hidden="true"><use href="#rametto"/></svg>
+    <p class="invito-frase">
+      Il 24 aprile ci sposiamo e saremmo molto felici di vivere questa giornata insieme a voi.
+    </p>
+    <p class="conto" data-conto hidden></p>
+    <div class="azioni">
+      <a class="btn btn-pieno" href="#rsvp">Conferma la presenza</a>
+      <a class="btn btn-filo" href="matrimonio-ambrogio-francesca.ics" download>Aggiungi al calendario</a>
+    </div>
+  </section>
+
+  <!-- ============ CERIMONIA ============ -->
+  <section id="cerimonia" class="sezione luogo">
+    <figure class="luogo-foto rivela">
+      <img src="img/chiesa.webp" width="640" height="479" loading="lazy"
+           alt="La facciata barocca della Chiesa di Santa Maria Assunta a Calcinate, con il campanile">
+    </figure>
+
+    <div class="luogo-testo">
+      <header class="titolo rivela">
+        <p class="occhiello">Cerimonia &middot; ore 14:30</p>
+        <h2>Messa</h2>
+      </header>
+      <p class="rivela">Ci sposiamo nella <strong>Chiesa di Santa Maria Assunta</strong> di Calcinate.</p>
+      <address class="indirizzo rivela">
+        Piazza della Chiesa<br>
+        24050 Calcinate (BG)
+      </address>
+      <p class="rivela">
+        <a class="btn btn-filo btn-piccolo" target="_blank" rel="noopener"
+           href="https://www.google.com/maps/search/?api=1&amp;query=Chiesa+di+Santa+Maria+Assunta%2C+Piazza+della+Chiesa%2C+Calcinate+BG">Apri in Google Maps</a>
+      </p>
+    </div>
+
+    <div class="parcheggi rivela">
+      <h3>Dove parcheggiare</h3>
+      <p class="nota">Dal più vicino alla chiesa.</p>
+      <ul class="tessere">
+        <li>
+          <a class="tessera" target="_blank" rel="noopener" href="https://maps.app.goo.gl/SagnneQ7xDmBn6Uk8">
+            <span class="dist">1 min</span>
+            <span class="desc">Il più vicino</span>
+            <span class="vai">Mappa</span>
+          </a>
+        </li>
+        <li>
+          <div class="tessera tessera-doppia">
+            <span class="dist">3 min</span>
+            <span class="desc">Due parcheggi vicini</span>
+            <span class="vai-doppio">
+              <a class="vai" target="_blank" rel="noopener" href="https://maps.app.goo.gl/jc8AfWM6DBBHQ9kz9">Mappa 1</a>
+              <a class="vai" target="_blank" rel="noopener" href="https://maps.app.goo.gl/ZZ5Xcmp1xtrPjvf88">Mappa 2</a>
+            </span>
+          </div>
+        </li>
+        <li>
+          <a class="tessera" target="_blank" rel="noopener" href="https://maps.app.goo.gl/yGabG8D2ogLYt7rQ6">
+            <span class="dist">5 min</span>
+            <span class="desc">Il più grande</span>
+            <span class="vai">Mappa</span>
+          </a>
+        </li>
+        <li>
+          <a class="tessera" target="_blank" rel="noopener" href="https://maps.app.goo.gl/RzDdhkcigYFG6U2s7">
+            <span class="dist">8 min</span>
+            <span class="desc">Se gli altri sono pieni</span>
+            <span class="vai">Mappa</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="divisore" aria-hidden="true"><svg><use href="#rametto"/></svg></div>
+
+  <!-- ============ RICEVIMENTO ============ -->
+  <section id="ricevimento" class="sezione luogo luogo-inverso">
+    <figure class="luogo-foto rivela">
+      <img src="img/cascina.webp" width="1024" height="682" loading="lazy"
+           alt="La Cascina Camporosso: edifici in mattoni a vista con il tetto in coppi, il prato e la piscina">
+    </figure>
+
+    <div class="luogo-testo">
+      <header class="titolo rivela">
+        <p class="occhiello">Ricevimento &middot; dalle 16:30</p>
+        <h2>Cascina Camporosso</h2>
+      </header>
+      <p class="rivela">Dopo la messa ci spostiamo all'<strong>Agriturismo Il Camporosso</strong> per festeggiare tutti insieme.</p>
+      <address class="indirizzo rivela">
+        Cascina Camporosso, Via Serioletto<br>
+        24057 Martinengo (BG)
+      </address>
+      <p class="rivela">
+        <a class="btn btn-filo btn-piccolo" target="_blank" rel="noopener"
+           href="https://www.google.com/maps/search/?api=1&amp;query=Agriturismo+Il+Camporosso%2C+Via+Serioletto%2C+24057+Martinengo+BG">Apri in Google Maps</a>
+      </p>
+    </div>
+
+    <aside class="strada rivela" aria-labelledby="strada-titolo">
+      <h3 id="strada-titolo">Come arrivare</h3>
+      <div class="strada-scelte">
+        <div class="si">
+          <span class="segno" aria-hidden="true">&#10003;</span>
+          <p>Arrivate da <strong>Via Serioletto</strong> e proseguite su <strong>Via Molino Nuovo</strong>: è tutta asfaltata.</p>
+        </div>
+        <div class="no">
+          <span class="segno" aria-hidden="true">&#10005;</span>
+          <p>Evitate <strong>Via Cortenuova</strong>: ha un tratto sterrato che con la pioggia diventa molto fangoso.</p>
+        </div>
+      </div>
+    </aside>
+  </section>
+
+  <!-- ============ REGALO ============ -->
+  <section id="regalo" class="regalo">
+    <header class="titolo sezione-stretta rivela">
+      <p class="occhiello">Regalo di nozze</p>
+      <h2>Se volete farci un regalo</h2>
+      <p class="sottotitolo">Il regalo più bello è avervi con noi. Se però volete farci un pensiero, ecco due idee.</p>
+    </header>
+
+    <!-- Due fasce fotografiche a tutta larghezza, ciascuna con la sua carta sopra -->
+    <div class="fascia">
+      <img class="fascia-foto"
+           src="img/islanda-800.webp"
+           srcset="img/islanda-800.webp 800w, img/islanda-1920.webp 1920w"
+           sizes="100vw" width="1920" height="1280" loading="lazy"
+           alt="Una strada che attraversa la campagna islandese, sotto una parete di roccia e un cielo rosa al tramonto">
+      <article class="regalo-carta rivela">
+        <p class="occhiello">Viaggio di nozze</p>
+        <h3>Islanda</h3>
+        <p>Se volete contribuire al nostro viaggio di nozze, potete farlo con un bonifico.</p>
+        <div class="iban">
+          <span class="iban-etichetta">IBAN</span>
+          <code data-iban="IT94Z0329601601000067841707">IT94 Z032 9601 6010 0006 7841 707</code>
+          <button type="button" class="copia" data-copia hidden>Copia</button>
+        </div>
+        <p class="intestato">Intestato a <strong>Ambrogio Silecchia e Francesca Micheletti</strong></p>
+      </article>
+    </div>
+
+    <div class="fascia fascia-sinistra">
+      <img class="fascia-foto"
+           src="img/casa-up.webp" width="1200" height="750" loading="lazy"
+           alt="La casa di Up che vola appesa a centinaia di palloncini colorati">
+      <article class="regalo-carta rivela">
+        <p class="occhiello">Lista nozze</p>
+        <h3>La nostra casa</h3>
+        <p>Se preferite aiutarci a costruire la nostra casa, abbiamo aperto una lista nozze da:</p>
+        <div class="negozio">
+          <strong>Bartolini</strong>
+          <span>Via dei Servi 72/R, 50122 Firenze</span>
+          <span class="link-negozio">
+            <a href="https://www.bartolinifirenze.it/" target="_blank" rel="noopener">Sito</a>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Bartolini%2C+Via+dei+Servi+72R%2C+50122+Firenze" target="_blank" rel="noopener">Mappa</a>
+          </span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ RSVP ============
+       Le risposte vanno dritte nel modulo Google che Ambrogio e Francesca
+       usavano già: stesse domande, stesso foglio delle risposte. Con il
+       JavaScript l'invio resta nella pagina; senza, il modulo si invia
+       comunque e si apre la conferma di Google. I nomi dei campi (entry.*)
+       e i valori delle due scelte devono restare identici a quelli del modulo. -->
+  <section id="rsvp" class="rsvp">
+    <div class="rsvp-carta rivela">
+      <p class="occhiello">RSVP</p>
+      <h2>Ci sarete?</h2>
+      <p class="rsvp-intro">Fatecelo sapere il prima possibile: ci aiuta tanto a organizzare.</p>
+
+      <form class="modulo" method="post" data-rsvp
+            action="https://docs.google.com/forms/d/e/1FAIpQLSdAo9dpCc1vCxBs_UNWGRK0Qs3uGHxhH39Fxw54y7LeLvClqQ/formResponse">
+        <fieldset class="scelta">
+          <legend class="sr-only">Parteciperete?</legend>
+          <label class="opzione">
+            <input type="radio" name="entry.877086558" value="Sì, parteciperò" required>
+            <span>Sì, ci saremo</span>
+          </label>
+          <label class="opzione">
+            <input type="radio" name="entry.877086558" value="No, non posso partecipare">
+            <span>Purtroppo no</span>
+          </label>
+        </fieldset>
+
+        <div class="campo">
+          <label for="rsvp-nomi" data-etichetta-nomi>Nome e cognome di chi verrà</label>
+          <textarea id="rsvp-nomi" name="entry.1498135098" rows="2" required
+                    placeholder="Per esempio: Mario Rossi, Anna Bianchi"></textarea>
+        </div>
+
+        <div class="se-presenti" data-se-presenti>
+          <div class="campo">
+            <label for="rsvp-bambini">Bambini <span class="facoltativo">facoltativo</span></label>
+            <p class="aiuto" id="aiuto-bambini">Quanti sono e quanti anni hanno? Vi serve un seggiolone?</p>
+            <textarea id="rsvp-bambini" name="entry.1525822404" rows="2" aria-describedby="aiuto-bambini"></textarea>
+          </div>
+          <div class="campo">
+            <label for="rsvp-allergie">Allergie o intolleranze <span class="facoltativo">facoltativo</span></label>
+            <p class="aiuto" id="aiuto-allergie">Anche altre esigenze alimentari, se ne avete.</p>
+            <textarea id="rsvp-allergie" name="entry.636293364" rows="2" aria-describedby="aiuto-allergie"></textarea>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-pieno btn-grande" data-invia>Invia la risposta</button>
+        <p class="modulo-stato" role="status" aria-live="polite" data-stato></p>
+      </form>
+
+      <div class="grazie" data-grazie hidden tabindex="-1">
+        <svg class="rametto" aria-hidden="true"><use href="#rametto"/></svg>
+        <h3 data-grazie-titolo>Grazie!</h3>
+        <p data-grazie-testo></p>
+        <button type="button" class="btn btn-filo btn-piccolo" data-di-nuovo>Invia un'altra risposta</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="piede">
+  <svg class="rametto" aria-hidden="true"><use href="#rametto"/></svg>
+  <p class="piede-nomi">Ambrogio <span>&amp;</span> Francesca</p>
+  <p class="piede-data">24.04.2027</p>
+  <p class="piede-contatti">Per qualsiasi domanda, scriveteci:</p>
+  <p class="piede-link">
+    <a class="btn btn-filo btn-piccolo" href="mailto:ambrogiosilecchia@gmail.com">Scrivi ad Ambrogio</a>
+    <a class="btn btn-filo btn-piccolo" href="mailto:m.francesca18@gmail.com">Scrivi a Francesca</a>
+  </p>
+</footer>
+
+<div class="avviso" role="status" aria-live="polite" data-avviso></div>
+</body>
+</html>

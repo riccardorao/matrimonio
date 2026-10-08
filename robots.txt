@@ -1,0 +1,3 @@
+# Pagina per gli invitati: contiene un IBAN e non deve comparire nei motori di ricerca.
+User-agent: *
+Disallow: /
