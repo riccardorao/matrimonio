@@ -9,12 +9,12 @@ senza build e senza dipendenze. Si pubblica così com'è.
 2. *Framework Preset*: **Other**. Lascia vuoti *Build Command* e *Output Directory*.
 3. **Deploy**. Ogni push su `main` ripubblica il sito in pochi secondi.
 
-Dopo il primo deploy, con l'indirizzo definitivo (quello di Vercel o un dominio proprio):
+Il dominio è `www.ambrogioefrancesca.it` (Vercel → Project → Settings → Domains). Gli indirizzi assoluti da tenere allineati:
 
 - in `index.html`, la riga `og:image`: è l'anteprima che compare quando si condivide il link;
 - in `matrimonio-ambrogio-francesca.ics`: `URL` e la riga di `DESCRIPTION`.
 
-Vanno scritti con l'indirizzo assoluto, e ora contengono `https://matrimonio.vercel.app`.
+Vanno scritti con l'indirizzo assoluto, e ora contengono `https://www.ambrogioefrancesca.it`: da cambiare solo se cambia dominio.
 
 ## Come si cambia qualcosa
 

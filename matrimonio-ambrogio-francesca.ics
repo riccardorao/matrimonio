@@ -4,13 +4,13 @@ PRODID:-//Ambrogio e Francesca//Matrimonio//IT
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
 BEGIN:VEVENT
-UID:matrimonio-ambrogio-francesca-20270424@matrimonio.vercel.app
+UID:matrimonio-ambrogio-francesca-20270424@ambrogioefrancesca.it
 DTSTAMP:20261004T120000Z
 DTSTART:20270424T123000Z
 SUMMARY:Matrimonio di Ambrogio e Francesca
 LOCATION:Chiesa di Santa Maria Assunta\, Piazza della Chiesa\, Calcinate (BG)
-DESCRIPTION:Ore 14:30 Messa - Chiesa di Santa Maria Assunta\, Calcinate.\nDalle 16:30 ricevimento all'Agriturismo Il Camporosso\, Via Serioletto\, Martinengo (BG).\nTutte le informazioni: https://matrimonio.vercel.app/
-URL:https://matrimonio.vercel.app/
+DESCRIPTION:Ore 14:30 Messa - Chiesa di Santa Maria Assunta\, Calcinate.\nDalle 16:30 ricevimento all'Agriturismo Il Camporosso\, Via Serioletto\, Martinengo (BG).\nTutte le informazioni: https://www.ambrogioefrancesca.it/
+URL:https://www.ambrogioefrancesca.it/
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:Domani il matrimonio di Ambrogio e Francesca
