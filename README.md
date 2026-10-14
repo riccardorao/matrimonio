@@ -12,7 +12,7 @@ senza build e senza dipendenze. Si pubblica così com'è.
 Il dominio è `www.ambrogioefrancesca.it` (Vercel → Project → Settings → Domains). Gli indirizzi assoluti da tenere allineati:
 
 - in `index.html`, la riga `og:image`: è l'anteprima che compare quando si condivide il link;
-- in `matrimonio-ambrogio-francesca.ics`: `URL` e la riga di `DESCRIPTION`.
+- in `download/matrimonio-ambrogio-francesca.ics`: `URL` e la riga di `DESCRIPTION`.
 
 Vanno scritti con l'indirizzo assoluto, e ora contengono `https://www.ambrogioefrancesca.it`: da cambiare solo se cambia dominio.
 
@@ -21,11 +21,11 @@ Vanno scritti con l'indirizzo assoluto, e ora contengono `https://www.ambrogioef
 | Cosa | Dove |
 |---|---|
 | Testi, orari, indirizzi, link alle mappe | `index.html` |
-| Colori, spaziature, tondezza degli angoli | `style.css` (in cima, le variabili in `:root`) |
-| **Foto che scorrono** | `index.html`, sezione `data-nastro`: una riga `<li><img …></li>` per foto. Le copie per il giro continuo le crea `main.js`. Le foto vanno messe in `img/`, alte 560 px, in formato WebP. |
-| **Galleria «Un po' della nostra storia»** | `index.html`, sezione `id="foto"`: una riga `<li>` per foto (le prime nove sempre in vista, le altre dietro «Vedi tutte»). Per ogni foto servono due WebP in `img/foto/`: anteprima larga 720 px (`NN.webp`) e versione grande con lato lungo 1600 px (`NN-grande.webp`). Gli originali JPEG sono in `originali/` (non pubblicati). |
-| Foto grandi (apertura, Islanda, casa) | `img/` e i relativi `<img>` in `index.html` |
-| Orari nel calendario | `matrimonio-ambrogio-francesca.ics` |
+| Colori, spaziature, tondezza degli angoli | `css/style.css` (in cima, le variabili in `:root`) |
+| **Foto che scorrono** | `index.html`, sezione `data-nastro`: una riga `<li><img …></li>` per foto. Le copie per il giro continuo le crea `js/main.js`. Le foto vanno messe in `img/nastro/`, alte 560 px, in formato WebP. |
+| **Galleria «Un po' della nostra storia»** | `index.html`, sezione `id="foto"`: una riga `<li>` per foto (sono tutte sempre in vista). Per ogni foto servono due WebP in `img/foto/`: anteprima larga 560 px (`NN.webp`) e versione grande con lato lungo 1600 px (`NN-grande.webp`). Gli originali JPEG sono in `originali/` (non pubblicati). |
+| Foto grandi (apertura, Islanda, casa) | `img/apertura/`, `img/regalo/`, `img/luoghi/` e i relativi `<img>` in `index.html` |
+| Orari nel calendario | `download/matrimonio-ambrogio-francesca.ics` |
 
 ## L'RSVP
 
@@ -51,4 +51,21 @@ Il sito è anche escluso dai motori di ricerca (`robots.txt` e intestazione
 
 ```bash
 npx serve .
+```
+
+## Struttura delle cartelle
+
+```
+index.html            la pagina
+css/style.css         stili
+js/main.js            JavaScript (conto, galleria, RSVP…)
+fonts/                caratteri, serviti dal sito
+img/apertura/         foto a tutta pagina in testa
+img/nastro/           foto che scorrono sotto l'apertura
+img/foto/             galleria (NN.webp anteprima, NN-grande.webp ingrandita)
+img/luoghi/           chiesa e cascina
+img/regalo/           Islanda e casa di Up
+img/og.jpg            anteprima per la condivisione del link
+download/             file scaricabili (calendario .ics)
+originali/            JPEG originali, non pubblicati (.vercelignore)
 ```

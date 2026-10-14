@@ -11,15 +11,15 @@
 ============================================================ */
 
 @font-face{font-family:'Fraunces';font-style:normal;font-weight:400 800;font-display:swap;
-  src:url(fonts/fraunces-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+  src:url(../fonts/fraunces-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
 @font-face{font-family:'Fraunces';font-style:normal;font-weight:400 800;font-display:swap;
-  src:url(fonts/fraunces-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+  src:url(../fonts/fraunces-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
 @font-face{font-family:'Fraunces';font-style:italic;font-weight:300 600;font-display:swap;
-  src:url(fonts/fraunces-italic-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+  src:url(../fonts/fraunces-italic-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
 @font-face{font-family:'Karla';font-style:normal;font-weight:400 700;font-display:swap;
-  src:url(fonts/karla-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+  src:url(../fonts/karla-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
 @font-face{font-family:'Karla';font-style:normal;font-weight:400 700;font-display:swap;
-  src:url(fonts/karla-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+  src:url(../fonts/karla-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
 
 :root{
   --lino:#F4EEE3;
@@ -198,28 +198,23 @@ address{font-style:normal}
   border-radius:var(--raggio);pointer-events:none;
 }
 
-/* ---------- foto: mosaico a colonne + ingrandimento ----------
-   Il mosaico tiene le proporzioni vere di ogni foto. Le prime nove sono
-   sempre in vista, le altre si aprono con il bottone: così ci sono tutte
-   ma nessuna schiaccia il resto della pagina. */
+/* ---------- foto: mosaico compatto + ingrandimento ----------
+   Tutte le foto sono in vista, a miniatura piccola e con le proporzioni
+   vere: il mosaico occupa poco spazio ma nessuna foto è nascosta. */
 .foto{padding-top:clamp(2rem, 5vw, 3.5rem);text-align:center}
 .galleria{
   list-style:none;margin:0;padding:0;text-align:left;
-  columns:3;column-gap:clamp(.6rem, 1.6vw, 1.1rem);
+  columns:4;column-gap:clamp(.4rem, 1vw, .7rem);
 }
-@media (max-width:760px){ .galleria{columns:2} }
-.galleria li{break-inside:avoid;margin:0 0 clamp(.6rem, 1.6vw, 1.1rem)}
-.galleria li[hidden]{display:none}
+@media (max-width:900px){ .galleria{columns:3} }
+.galleria li{break-inside:avoid;margin:0 0 clamp(.4rem, 1vw, .7rem)}
 .galleria button{
   display:block;width:100%;padding:0;border:0;background:var(--sabbia);
-  border-radius:var(--raggio);overflow:hidden;cursor:zoom-in;
-  box-shadow:0 18px 36px -26px rgba(47,42,35,.55);
+  border-radius:10px;overflow:hidden;cursor:zoom-in;
 }
 .galleria img{width:100%;height:auto;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
 .galleria button:hover img{transform:scale(1.03)}
 .galleria button:focus-visible{outline-offset:3px}
-.foto-azioni{margin:clamp(1.4rem, 3vw, 2.2rem) 0 0}
-.foto-azioni:has([hidden]){display:none}
 
 .lightbox{
   border:0;padding:0;margin:0;max-width:none;max-height:none;
@@ -504,6 +499,6 @@ a.tessera:hover{border-color:var(--salvia-scura);transform:translateY(-2px);box-
 }
 
 @media print{
-  .barra,.azioni,.avviso,.copia,.nastro,.lightbox,.foto-azioni{display:none !important}
+  .barra,.azioni,.avviso,.copia,.nastro,.lightbox{display:none !important}
   body{background:#fff}
 }

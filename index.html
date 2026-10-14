@@ -21,11 +21,11 @@
 
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preload" as="image" type="image/webp"
-      imagesrcset="img/anello-800.webp 800w, img/anello-1600.webp 1442w" imagesizes="100vw">
+      imagesrcset="img/apertura/anello-800.webp 800w, img/apertura/anello-1600.webp 1442w" imagesizes="100vw">
 <link rel="preload" href="fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/fraunces-italic-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="style.css">
-<script src="main.js" defer></script>
+<link rel="stylesheet" href="css/style.css">
+<script src="js/main.js" defer></script>
 </head>
 <body>
 
@@ -65,8 +65,8 @@
   <!-- ============ APERTURA: la mano con l'anello, a tutto schermo ============ -->
   <section class="apertura">
     <img class="apertura-foto"
-         src="img/anello-1600.webp"
-         srcset="img/anello-800.webp 800w, img/anello-1600.webp 1442w"
+         src="img/apertura/anello-1600.webp"
+         srcset="img/apertura/anello-800.webp 800w, img/apertura/anello-1600.webp 1442w"
          sizes="100vw" width="1442" height="1066"
          alt="La mano di Francesca con l'anello di fidanzamento, stretta da quella di Ambrogio, sulle colline al tramonto"
          fetchpriority="high">
@@ -87,11 +87,11 @@
   <section class="nastro" aria-label="Fotografie">
     <div class="nastro-binario" data-nastro tabindex="0">
       <ul class="nastro-serie">
-        <li><img src="img/nastro-coppia.webp" width="846" height="560" alt="Ambrogio e Francesca abbracciati, lei con la corona d'alloro" draggable="false"></li>
-        <li><img src="img/nastro-cascina.webp" width="841" height="560" alt="La Cascina Camporosso" draggable="false"></li>
-        <li><img src="img/nastro-anello.webp" width="560" height="560" alt="L'anello di fidanzamento, al tramonto in collina" draggable="false"></li>
-        <li><img src="img/nastro-chiesa.webp" width="748" height="560" alt="La Chiesa di Santa Maria Assunta a Calcinate" draggable="false"></li>
-        <li><img src="img/nastro-islanda.webp" width="840" height="560" alt="Una strada in Islanda al tramonto" draggable="false"></li>
+        <li><img src="img/nastro/nastro-coppia.webp" width="846" height="560" alt="Ambrogio e Francesca abbracciati, lei con la corona d'alloro" draggable="false"></li>
+        <li><img src="img/nastro/nastro-cascina.webp" width="841" height="560" alt="La Cascina Camporosso" draggable="false"></li>
+        <li><img src="img/nastro/nastro-anello.webp" width="560" height="560" alt="L'anello di fidanzamento, al tramonto in collina" draggable="false"></li>
+        <li><img src="img/nastro/nastro-chiesa.webp" width="748" height="560" alt="La Chiesa di Santa Maria Assunta a Calcinate" draggable="false"></li>
+        <li><img src="img/nastro/nastro-islanda.webp" width="840" height="560" alt="Una strada in Islanda al tramonto" draggable="false"></li>
       </ul>
     </div>
   </section>
@@ -105,68 +105,64 @@
     <p class="conto" data-conto hidden></p>
     <div class="azioni">
       <a class="btn btn-pieno" href="#rsvp">Conferma la presenza</a>
-      <a class="btn btn-filo" href="matrimonio-ambrogio-francesca.ics" download>Aggiungi al calendario</a>
+      <a class="btn btn-filo" href="download/matrimonio-ambrogio-francesca.ics" download>Aggiungi al calendario</a>
     </div>
   </section>
 
   <!-- ============ FOTO ============
-       Le prime nove sono sempre in vista; le altre si aprono con il bottone
-       (senza JavaScript sono tutte visibili). Ogni foto si ingrandisce e si
-       sfoglia con le frecce. Per aggiungerne una: due file WebP in img/foto/
+       Tutte le foto sono sempre in vista, in un mosaico compatto. Ogni foto
+       si ingrandisce e si sfoglia con le frecce. Per aggiungerne una: due file WebP in img/foto/
        (anteprima larga 720 px e versione grande, lato lungo 1600 px) e una riga <li>. -->
   <section id="foto" class="foto sezione">
     <header class="titolo rivela">
       <p class="occhiello">Noi due</p>
       <h2>Un po' della nostra storia</h2>
-      <p class="sottotitolo">Alcuni momenti degli anni passati insieme. Toccate una foto per ingrandirla.</p>
+      <p class="sottotitolo">Gli anni passati insieme, in qualche foto. Toccatene una per ingrandirla e sfogliare.</p>
     </header>
     <ul class="galleria" data-galleria>
-      <li class="in-vista"><button type="button" data-foto="img/foto/01-grande.webp" data-w="1202" data-h="1600" aria-label="Ingrandisci: Un bacio con l'anello al dito, in collina"><img src="img/foto/01.webp" width="720" height="958" loading="lazy" alt="Un bacio con l'anello al dito, in collina"></button></li>
-      <li class="in-vista"><button type="button" data-foto="img/foto/02-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Un bacio sul Lago di Braies"><img src="img/foto/02.webp" width="720" height="540" loading="lazy" alt="Un bacio sul Lago di Braies"></button></li>
-      <li class="in-vista"><button type="button" data-foto="img/foto/03-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Ambrogio e Francesca davanti al Duomo di Firenze, lui con la corona d'alloro"><img src="img/foto/03.webp" width="720" height="540" loading="lazy" alt="Ambrogio e Francesca davanti al Duomo di Firenze, lui con la corona d'alloro"></button></li>
-      <li class="in-vista"><button type="button" data-foto="img/foto/04-grande.webp" data-w="900" data-h="1600" aria-label="Ingrandisci: Francesca in abito verde e Ambrogio in camicia e cravatta rossa, abbracciati sulle colline"><img src="img/foto/04.webp" width="720" height="1280" loading="lazy" alt="Francesca in abito verde e Ambrogio in camicia e cravatta rossa, abbracciati sulle colline"></button></li>
-      <li class="in-vista"><button type="button" data-foto="img/foto/05-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Un bacio davanti alle pareti rocciose delle Dolomiti"><img src="img/foto/05.webp" width="720" height="960" loading="lazy" alt="Un bacio davanti alle pareti rocciose delle Dolomiti"></button></li>
-      <li class="in-vista"><button type="button" data-foto="img/foto/06-grande.webp" data-w="1202" data-h="1600" aria-label="Ingrandisci: Ambrogio e Francesca davanti alla Torre Eiffel illuminata di notte"><img src="img/foto/06.webp" width="720" height="958" loading="lazy" alt="Ambrogio e Francesca davanti alla Torre Eiffel illuminata di notte"></button></li>
-      <li class="in-vista"><button type="button" data-foto="img/foto/07-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Un bacio al tramonto, con la corona d'alloro e un mazzo di girasoli; sullo sfondo la cupola di Firenze"><img src="img/foto/07.webp" width="720" height="960" loading="lazy" alt="Un bacio al tramonto, con la corona d'alloro e un mazzo di girasoli; sullo sfondo la cupola di Firenze"></button></li>
-      <li class="in-vista"><button type="button" data-foto="img/foto/08-grande.webp" data-w="1600" data-h="1202" aria-label="Ingrandisci: Ambrogio e Francesca abbracciati nella luce dorata del tramonto"><img src="img/foto/08.webp" width="720" height="541" loading="lazy" alt="Ambrogio e Francesca abbracciati nella luce dorata del tramonto"></button></li>
-      <li class="in-vista"><button type="button" data-foto="img/foto/09-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Ambrogio e Francesca sorridono tra gli ulivi"><img src="img/foto/09.webp" width="720" height="540" loading="lazy" alt="Ambrogio e Francesca sorridono tra gli ulivi"></button></li>
-      <li class="altra"><button type="button" data-foto="img/foto/10-grande.webp" data-w="1600" data-h="1067" aria-label="Ingrandisci: Ambrogio e Francesca seduti per terra, abbracciati, a una serata tra amici"><img src="img/foto/10.webp" width="720" height="480" loading="lazy" alt="Ambrogio e Francesca seduti per terra, abbracciati, a una serata tra amici"></button></li>
-      <li class="altra"><button type="button" data-foto="img/foto/11-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Francesca con il naso da clown e Ambrogio con il grembiule, ridono con una birra in mano"><img src="img/foto/11.webp" width="720" height="960" loading="lazy" alt="Francesca con il naso da clown e Ambrogio con il grembiule, ridono con una birra in mano"></button></li>
-      <li class="altra"><button type="button" data-foto="img/foto/12-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Un selfie ravvicinato: Ambrogio con gli occhi chiusi, Francesca che sorride"><img src="img/foto/12.webp" width="720" height="960" loading="lazy" alt="Un selfie ravvicinato: Ambrogio con gli occhi chiusi, Francesca che sorride"></button></li>
-      <li class="altra"><button type="button" data-foto="img/foto/13-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Ambrogio e Francesca camminano sotto un porticato"><img src="img/foto/13.webp" width="720" height="540" loading="lazy" alt="Ambrogio e Francesca camminano sotto un porticato"></button></li>
-      <li class="altra"><button type="button" data-foto="img/foto/14-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Un bacio sulla guancia davanti a un negozio in centro"><img src="img/foto/14.webp" width="720" height="960" loading="lazy" alt="Un bacio sulla guancia davanti a un negozio in centro"></button></li>
-      <li class="altra"><button type="button" data-foto="img/foto/15-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Un selfie tra antiche rovine in pietra"><img src="img/foto/15.webp" width="720" height="540" loading="lazy" alt="Un selfie tra antiche rovine in pietra"></button></li>
-      <li class="altra"><button type="button" data-foto="img/foto/16-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Francesca con la bandana rossa ride in montagna, Ambrogio le dà un bacio"><img src="img/foto/16.webp" width="720" height="540" loading="lazy" alt="Francesca con la bandana rossa ride in montagna, Ambrogio le dà un bacio"></button></li>
-      <li class="altra"><button type="button" data-foto="img/foto/17-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Un selfie buffo a un matrimonio: urlano entrambi"><img src="img/foto/17.webp" width="720" height="960" loading="lazy" alt="Un selfie buffo a un matrimonio: urlano entrambi"></button></li>
-      <li class="altra"><button type="button" data-foto="img/foto/18-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Francesca con il casco sorride su una parete di roccia"><img src="img/foto/18.webp" width="720" height="540" loading="lazy" alt="Francesca con il casco sorride su una parete di roccia"></button></li>
-      <li class="altra"><button type="button" data-foto="img/foto/19-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Un selfie davanti alla tenda, con Ambrogio in cappuccio sullo sfondo"><img src="img/foto/19.webp" width="720" height="540" loading="lazy" alt="Un selfie davanti alla tenda, con Ambrogio in cappuccio sullo sfondo"></button></li>
-      <li class="altra"><button type="button" data-foto="img/foto/20-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Ambrogio e Francesca abbracciati in una sala"><img src="img/foto/20.webp" width="720" height="960" loading="lazy" alt="Ambrogio e Francesca abbracciati in una sala"></button></li>
-      <li class="altra"><button type="button" data-foto="img/foto/21-grande.webp" data-w="912" data-h="1600" aria-label="Ingrandisci: Ambrogio e Francesca stretti, a occhi chiusi"><img src="img/foto/21.webp" width="720" height="1262" loading="lazy" alt="Ambrogio e Francesca stretti, a occhi chiusi"></button></li>
-      <li class="altra"><button type="button" data-foto="img/foto/22-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Un bacio sulla guancia davanti a un muro di ciottoli"><img src="img/foto/22.webp" width="720" height="540" loading="lazy" alt="Un bacio sulla guancia davanti a un muro di ciottoli"></button></li>
-      <li class="altra"><button type="button" data-foto="img/foto/23-grande.webp" data-w="1600" data-h="1059" aria-label="Ingrandisci: Ambrogio abbraccia Francesca, che porta la corona d'alloro"><img src="img/foto/23.webp" width="720" height="477" loading="lazy" alt="Ambrogio abbraccia Francesca, che porta la corona d'alloro"></button></li>
-      <li class="altra"><button type="button" data-foto="img/foto/24-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Ambrogio e Francesca camminano nel verde, lei in abito chiaro"><img src="img/foto/24.webp" width="720" height="960" loading="lazy" alt="Ambrogio e Francesca camminano nel verde, lei in abito chiaro"></button></li>
-      <li class="altra"><button type="button" data-foto="img/foto/25-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Quattro amici sul Ponte Vecchio"><img src="img/foto/25.webp" width="720" height="960" loading="lazy" alt="Quattro amici sul Ponte Vecchio"></button></li>
-      <li class="altra"><button type="button" data-foto="img/foto/26-grande.webp" data-w="912" data-h="1600" aria-label="Ingrandisci: Ambrogio e Francesca seduti a un tavolo da picnic in montagna, con un cane"><img src="img/foto/26.webp" width="720" height="1262" loading="lazy" alt="Ambrogio e Francesca seduti a un tavolo da picnic in montagna, con un cane"></button></li>
-      <li class="altra"><button type="button" data-foto="img/foto/27-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Un selfie in escursione, con lo zaino e il bastone"><img src="img/foto/27.webp" width="720" height="960" loading="lazy" alt="Un selfie in escursione, con lo zaino e il bastone"></button></li>
-      <li class="altra"><button type="button" data-foto="img/foto/28-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Un selfie con Ambrogio che mostra il bicipite"><img src="img/foto/28.webp" width="720" height="960" loading="lazy" alt="Un selfie con Ambrogio che mostra il bicipite"></button></li>
-      <li class="altra"><button type="button" data-foto="img/foto/29-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Selfie sorridenti durante un'escursione, con le bandane"><img src="img/foto/29.webp" width="720" height="540" loading="lazy" alt="Selfie sorridenti durante un'escursione, con le bandane"></button></li>
-      <li class="altra"><button type="button" data-foto="img/foto/30-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Ambrogio e Francesca seduti su un muretto dopo una camminata"><img src="img/foto/30.webp" width="720" height="960" loading="lazy" alt="Ambrogio e Francesca seduti su un muretto dopo una camminata"></button></li>
-      <li class="altra"><button type="button" data-foto="img/foto/31-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Un selfie nella neve, con Ambrogio che salta sullo sfondo"><img src="img/foto/31.webp" width="720" height="960" loading="lazy" alt="Un selfie nella neve, con Ambrogio che salta sullo sfondo"></button></li>
-      <li class="altra"><button type="button" data-foto="img/foto/32-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Un selfie con smorfie in montagna"><img src="img/foto/32.webp" width="720" height="540" loading="lazy" alt="Un selfie con smorfie in montagna"></button></li>
-      <li class="altra"><button type="button" data-foto="img/foto/33-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Un selfie dorato dal balcone, con un bacio sulla guancia"><img src="img/foto/33.webp" width="720" height="540" loading="lazy" alt="Un selfie dorato dal balcone, con un bacio sulla guancia"></button></li>
-      <li class="altra"><button type="button" data-foto="img/foto/34-grande.webp" data-w="911" data-h="1600" aria-label="Ingrandisci: Ambrogio fotografa il tramonto sopra la neve, in silhouette"><img src="img/foto/34.webp" width="720" height="1265" loading="lazy" alt="Ambrogio fotografa il tramonto sopra la neve, in silhouette"></button></li>
-      <li class="altra"><button type="button" data-foto="img/foto/35-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Amici e familiari davanti al portale di una chiesa"><img src="img/foto/35.webp" width="720" height="960" loading="lazy" alt="Amici e familiari davanti al portale di una chiesa"></button></li>
-      <li class="altra"><button type="button" data-foto="img/foto/36-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Un selfie in mezzo alla folla, a un evento sportivo"><img src="img/foto/36.webp" width="720" height="540" loading="lazy" alt="Un selfie in mezzo alla folla, a un evento sportivo"></button></li>
-      <li class="altra"><button type="button" data-foto="img/foto/37-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Un selfie allo specchio, con gli occhiali da sole, in un negozio"><img src="img/foto/37.webp" width="720" height="960" loading="lazy" alt="Un selfie allo specchio, con gli occhiali da sole, in un negozio"></button></li>
-      <li class="altra"><button type="button" data-foto="img/foto/38-grande.webp" data-w="903" data-h="1600" aria-label="Ingrandisci: Ambrogio e Francesca passeggiano in un viale alberato, visti di spalle"><img src="img/foto/38.webp" width="720" height="1276" loading="lazy" alt="Ambrogio e Francesca passeggiano in un viale alberato, visti di spalle"></button></li>
-      <li class="altra"><button type="button" data-foto="img/foto/39-grande.webp" data-w="1202" data-h="1600" aria-label="Ingrandisci: Un bacio con l'anello al dito, sul prato"><img src="img/foto/39.webp" width="720" height="958" loading="lazy" alt="Un bacio con l'anello al dito, sul prato"></button></li>
-      <li class="altra"><button type="button" data-foto="img/foto/40-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Un selfie al tramonto, con un bacio sulla guancia"><img src="img/foto/40.webp" width="720" height="540" loading="lazy" alt="Un selfie al tramonto, con un bacio sulla guancia"></button></li>
-      <li class="altra"><button type="button" data-foto="img/foto/41-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Ambrogio e Francesca guancia contro guancia, tra le rocce"><img src="img/foto/41.webp" width="720" height="960" loading="lazy" alt="Ambrogio e Francesca guancia contro guancia, tra le rocce"></button></li>
-      <li class="altra"><button type="button" data-foto="img/foto/42-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Ambrogio e Francesca sorridono durante un'escursione"><img src="img/foto/42.webp" width="720" height="540" loading="lazy" alt="Ambrogio e Francesca sorridono durante un'escursione"></button></li>
+      <li><button type="button" data-foto="img/foto/01-grande.webp" data-w="1202" data-h="1600" aria-label="Ingrandisci: Un bacio con l'anello al dito, in collina"><img src="img/foto/01.webp" width="560" height="745" loading="lazy" alt="Un bacio con l'anello al dito, in collina"></button></li>
+      <li><button type="button" data-foto="img/foto/02-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Un bacio sul Lago di Braies"><img src="img/foto/02.webp" width="560" height="420" loading="lazy" alt="Un bacio sul Lago di Braies"></button></li>
+      <li><button type="button" data-foto="img/foto/03-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Ambrogio e Francesca davanti al Duomo di Firenze, lui con la corona d'alloro"><img src="img/foto/03.webp" width="560" height="420" loading="lazy" alt="Ambrogio e Francesca davanti al Duomo di Firenze, lui con la corona d'alloro"></button></li>
+      <li><button type="button" data-foto="img/foto/04-grande.webp" data-w="900" data-h="1600" aria-label="Ingrandisci: Francesca in abito verde e Ambrogio in camicia e cravatta rossa, abbracciati sulle colline"><img src="img/foto/04.webp" width="560" height="996" loading="lazy" alt="Francesca in abito verde e Ambrogio in camicia e cravatta rossa, abbracciati sulle colline"></button></li>
+      <li><button type="button" data-foto="img/foto/05-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Un bacio davanti alle pareti rocciose delle Dolomiti"><img src="img/foto/05.webp" width="560" height="747" loading="lazy" alt="Un bacio davanti alle pareti rocciose delle Dolomiti"></button></li>
+      <li><button type="button" data-foto="img/foto/06-grande.webp" data-w="1202" data-h="1600" aria-label="Ingrandisci: Ambrogio e Francesca davanti alla Torre Eiffel illuminata di notte"><img src="img/foto/06.webp" width="560" height="745" loading="lazy" alt="Ambrogio e Francesca davanti alla Torre Eiffel illuminata di notte"></button></li>
+      <li><button type="button" data-foto="img/foto/07-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Un bacio al tramonto, con la corona d'alloro e un mazzo di girasoli; sullo sfondo la cupola di Firenze"><img src="img/foto/07.webp" width="560" height="747" loading="lazy" alt="Un bacio al tramonto, con la corona d'alloro e un mazzo di girasoli; sullo sfondo la cupola di Firenze"></button></li>
+      <li><button type="button" data-foto="img/foto/08-grande.webp" data-w="1600" data-h="1202" aria-label="Ingrandisci: Ambrogio e Francesca abbracciati nella luce dorata del tramonto"><img src="img/foto/08.webp" width="560" height="421" loading="lazy" alt="Ambrogio e Francesca abbracciati nella luce dorata del tramonto"></button></li>
+      <li><button type="button" data-foto="img/foto/09-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Ambrogio e Francesca sorridono tra gli ulivi"><img src="img/foto/09.webp" width="560" height="420" loading="lazy" alt="Ambrogio e Francesca sorridono tra gli ulivi"></button></li>
+      <li><button type="button" data-foto="img/foto/10-grande.webp" data-w="1600" data-h="1067" aria-label="Ingrandisci: Ambrogio e Francesca seduti per terra, abbracciati, a una serata tra amici"><img src="img/foto/10.webp" width="560" height="373" loading="lazy" alt="Ambrogio e Francesca seduti per terra, abbracciati, a una serata tra amici"></button></li>
+      <li><button type="button" data-foto="img/foto/11-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Francesca con il naso da clown e Ambrogio con il grembiule, ridono con una birra in mano"><img src="img/foto/11.webp" width="560" height="747" loading="lazy" alt="Francesca con il naso da clown e Ambrogio con il grembiule, ridono con una birra in mano"></button></li>
+      <li><button type="button" data-foto="img/foto/12-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Un selfie ravvicinato: Ambrogio con gli occhi chiusi, Francesca che sorride"><img src="img/foto/12.webp" width="560" height="747" loading="lazy" alt="Un selfie ravvicinato: Ambrogio con gli occhi chiusi, Francesca che sorride"></button></li>
+      <li><button type="button" data-foto="img/foto/13-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Ambrogio e Francesca camminano sotto un porticato"><img src="img/foto/13.webp" width="560" height="420" loading="lazy" alt="Ambrogio e Francesca camminano sotto un porticato"></button></li>
+      <li><button type="button" data-foto="img/foto/14-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Un bacio sulla guancia davanti a un negozio in centro"><img src="img/foto/14.webp" width="560" height="747" loading="lazy" alt="Un bacio sulla guancia davanti a un negozio in centro"></button></li>
+      <li><button type="button" data-foto="img/foto/15-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Un selfie tra antiche rovine in pietra"><img src="img/foto/15.webp" width="560" height="420" loading="lazy" alt="Un selfie tra antiche rovine in pietra"></button></li>
+      <li><button type="button" data-foto="img/foto/16-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Francesca con la bandana rossa ride in montagna, Ambrogio le dà un bacio"><img src="img/foto/16.webp" width="560" height="420" loading="lazy" alt="Francesca con la bandana rossa ride in montagna, Ambrogio le dà un bacio"></button></li>
+      <li><button type="button" data-foto="img/foto/17-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Un selfie buffo a un matrimonio: urlano entrambi"><img src="img/foto/17.webp" width="560" height="747" loading="lazy" alt="Un selfie buffo a un matrimonio: urlano entrambi"></button></li>
+      <li><button type="button" data-foto="img/foto/18-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Francesca con il casco sorride su una parete di roccia"><img src="img/foto/18.webp" width="560" height="420" loading="lazy" alt="Francesca con il casco sorride su una parete di roccia"></button></li>
+      <li><button type="button" data-foto="img/foto/19-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Un selfie davanti alla tenda, con Ambrogio in cappuccio sullo sfondo"><img src="img/foto/19.webp" width="560" height="420" loading="lazy" alt="Un selfie davanti alla tenda, con Ambrogio in cappuccio sullo sfondo"></button></li>
+      <li><button type="button" data-foto="img/foto/20-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Ambrogio e Francesca abbracciati in una sala"><img src="img/foto/20.webp" width="560" height="747" loading="lazy" alt="Ambrogio e Francesca abbracciati in una sala"></button></li>
+      <li><button type="button" data-foto="img/foto/21-grande.webp" data-w="912" data-h="1600" aria-label="Ingrandisci: Ambrogio e Francesca stretti, a occhi chiusi"><img src="img/foto/21.webp" width="560" height="982" loading="lazy" alt="Ambrogio e Francesca stretti, a occhi chiusi"></button></li>
+      <li><button type="button" data-foto="img/foto/22-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Un bacio sulla guancia davanti a un muro di ciottoli"><img src="img/foto/22.webp" width="560" height="420" loading="lazy" alt="Un bacio sulla guancia davanti a un muro di ciottoli"></button></li>
+      <li><button type="button" data-foto="img/foto/23-grande.webp" data-w="1600" data-h="1059" aria-label="Ingrandisci: Ambrogio abbraccia Francesca, che porta la corona d'alloro"><img src="img/foto/23.webp" width="560" height="371" loading="lazy" alt="Ambrogio abbraccia Francesca, che porta la corona d'alloro"></button></li>
+      <li><button type="button" data-foto="img/foto/24-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Ambrogio e Francesca camminano nel verde, lei in abito chiaro"><img src="img/foto/24.webp" width="560" height="747" loading="lazy" alt="Ambrogio e Francesca camminano nel verde, lei in abito chiaro"></button></li>
+      <li><button type="button" data-foto="img/foto/25-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Quattro amici sul Ponte Vecchio"><img src="img/foto/25.webp" width="560" height="747" loading="lazy" alt="Quattro amici sul Ponte Vecchio"></button></li>
+      <li><button type="button" data-foto="img/foto/26-grande.webp" data-w="912" data-h="1600" aria-label="Ingrandisci: Ambrogio e Francesca seduti a un tavolo da picnic in montagna, con un cane"><img src="img/foto/26.webp" width="560" height="982" loading="lazy" alt="Ambrogio e Francesca seduti a un tavolo da picnic in montagna, con un cane"></button></li>
+      <li><button type="button" data-foto="img/foto/27-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Un selfie in escursione, con lo zaino e il bastone"><img src="img/foto/27.webp" width="560" height="747" loading="lazy" alt="Un selfie in escursione, con lo zaino e il bastone"></button></li>
+      <li><button type="button" data-foto="img/foto/28-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Un selfie con Ambrogio che mostra il bicipite"><img src="img/foto/28.webp" width="560" height="747" loading="lazy" alt="Un selfie con Ambrogio che mostra il bicipite"></button></li>
+      <li><button type="button" data-foto="img/foto/29-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Selfie sorridenti durante un'escursione, con le bandane"><img src="img/foto/29.webp" width="560" height="420" loading="lazy" alt="Selfie sorridenti durante un'escursione, con le bandane"></button></li>
+      <li><button type="button" data-foto="img/foto/30-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Ambrogio e Francesca seduti su un muretto dopo una camminata"><img src="img/foto/30.webp" width="560" height="747" loading="lazy" alt="Ambrogio e Francesca seduti su un muretto dopo una camminata"></button></li>
+      <li><button type="button" data-foto="img/foto/31-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Un selfie nella neve, con Ambrogio che salta sullo sfondo"><img src="img/foto/31.webp" width="560" height="747" loading="lazy" alt="Un selfie nella neve, con Ambrogio che salta sullo sfondo"></button></li>
+      <li><button type="button" data-foto="img/foto/32-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Un selfie con smorfie in montagna"><img src="img/foto/32.webp" width="560" height="420" loading="lazy" alt="Un selfie con smorfie in montagna"></button></li>
+      <li><button type="button" data-foto="img/foto/33-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Un selfie dorato dal balcone, con un bacio sulla guancia"><img src="img/foto/33.webp" width="560" height="420" loading="lazy" alt="Un selfie dorato dal balcone, con un bacio sulla guancia"></button></li>
+      <li><button type="button" data-foto="img/foto/34-grande.webp" data-w="911" data-h="1600" aria-label="Ingrandisci: Ambrogio fotografa il tramonto sopra la neve, in silhouette"><img src="img/foto/34.webp" width="560" height="984" loading="lazy" alt="Ambrogio fotografa il tramonto sopra la neve, in silhouette"></button></li>
+      <li><button type="button" data-foto="img/foto/35-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Amici e familiari davanti al portale di una chiesa"><img src="img/foto/35.webp" width="560" height="747" loading="lazy" alt="Amici e familiari davanti al portale di una chiesa"></button></li>
+      <li><button type="button" data-foto="img/foto/36-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Un selfie in mezzo alla folla, a un evento sportivo"><img src="img/foto/36.webp" width="560" height="420" loading="lazy" alt="Un selfie in mezzo alla folla, a un evento sportivo"></button></li>
+      <li><button type="button" data-foto="img/foto/37-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Un selfie allo specchio, con gli occhiali da sole, in un negozio"><img src="img/foto/37.webp" width="560" height="747" loading="lazy" alt="Un selfie allo specchio, con gli occhiali da sole, in un negozio"></button></li>
+      <li><button type="button" data-foto="img/foto/38-grande.webp" data-w="903" data-h="1600" aria-label="Ingrandisci: Ambrogio e Francesca passeggiano in un viale alberato, visti di spalle"><img src="img/foto/38.webp" width="560" height="992" loading="lazy" alt="Ambrogio e Francesca passeggiano in un viale alberato, visti di spalle"></button></li>
+      <li><button type="button" data-foto="img/foto/39-grande.webp" data-w="1202" data-h="1600" aria-label="Ingrandisci: Un bacio con l'anello al dito, sul prato"><img src="img/foto/39.webp" width="560" height="745" loading="lazy" alt="Un bacio con l'anello al dito, sul prato"></button></li>
+      <li><button type="button" data-foto="img/foto/40-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Un selfie al tramonto, con un bacio sulla guancia"><img src="img/foto/40.webp" width="560" height="420" loading="lazy" alt="Un selfie al tramonto, con un bacio sulla guancia"></button></li>
+      <li><button type="button" data-foto="img/foto/41-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Ambrogio e Francesca guancia contro guancia, tra le rocce"><img src="img/foto/41.webp" width="560" height="747" loading="lazy" alt="Ambrogio e Francesca guancia contro guancia, tra le rocce"></button></li>
+      <li><button type="button" data-foto="img/foto/42-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Ambrogio e Francesca sorridono durante un'escursione"><img src="img/foto/42.webp" width="560" height="420" loading="lazy" alt="Ambrogio e Francesca sorridono durante un'escursione"></button></li>
     </ul>
-    <p class="foto-azioni">
-      <button type="button" class="btn btn-filo" data-altre hidden aria-expanded="false" aria-controls="foto"></button>
-    </p>
   </section>
 
   <dialog class="lightbox" data-lightbox aria-label="Fotografia ingrandita">
@@ -180,7 +176,7 @@
   <!-- ============ CERIMONIA ============ -->
   <section id="cerimonia" class="sezione luogo">
     <figure class="luogo-foto rivela">
-      <img src="img/chiesa.webp" width="640" height="479" loading="lazy"
+      <img src="img/luoghi/chiesa.webp" width="640" height="479" loading="lazy"
            alt="La facciata barocca della Chiesa di Santa Maria Assunta a Calcinate, con il campanile">
     </figure>
 
@@ -244,7 +240,7 @@
   <!-- ============ RICEVIMENTO ============ -->
   <section id="ricevimento" class="sezione luogo luogo-inverso">
     <figure class="luogo-foto rivela">
-      <img src="img/cascina.webp" width="1024" height="682" loading="lazy"
+      <img src="img/luoghi/cascina.webp" width="1024" height="682" loading="lazy"
            alt="La Cascina Camporosso: edifici in mattoni a vista con il tetto in coppi, il prato e la piscina">
     </figure>
 
@@ -290,8 +286,8 @@
     <!-- Due fasce fotografiche a tutta larghezza, ciascuna con la sua carta sopra -->
     <div class="fascia">
       <img class="fascia-foto"
-           src="img/islanda-800.webp"
-           srcset="img/islanda-800.webp 800w, img/islanda-1920.webp 1920w"
+           src="img/regalo/islanda-800.webp"
+           srcset="img/regalo/islanda-800.webp 800w, img/regalo/islanda-1920.webp 1920w"
            sizes="100vw" width="1920" height="1280" loading="lazy"
            alt="Una strada che attraversa la campagna islandese, sotto una parete di roccia e un cielo rosa al tramonto">
       <article class="regalo-carta rivela">
@@ -309,7 +305,7 @@
 
     <div class="fascia fascia-sinistra">
       <img class="fascia-foto"
-           src="img/casa-up.webp" width="1200" height="750" loading="lazy"
+           src="img/regalo/casa-up.webp" width="1200" height="750" loading="lazy"
            alt="La casa di Up che vola appesa a centinaia di palloncini colorati">
       <article class="regalo-carta rivela">
         <p class="occhiello">Lista nozze</p>

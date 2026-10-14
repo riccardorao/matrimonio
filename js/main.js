@@ -150,33 +150,12 @@
     }
   }
 
-  /* ---------- foto: "mostra tutte" e ingrandimento ----------
-     Senza JavaScript le foto sono tutte visibili e non si ingrandiscono.
-     Con, le ultime si nascondono dietro il bottone e ogni foto si apre in
-     un <dialog> che si sfoglia con le frecce, la tastiera o il dito. */
+  /* ---------- foto: ingrandimento ----------
+     Le foto sono tutte in vista nel mosaico; con JavaScript ognuna si apre
+     in un <dialog> che si sfoglia con le frecce, la tastiera o il dito. */
   var galleria = document.querySelector('[data-galleria]');
   if (galleria) {
     var bottoni = Array.prototype.slice.call(galleria.querySelectorAll('button[data-foto]'));
-    var altre = galleria.querySelectorAll('li.altra');
-    var toggle = document.querySelector('[data-altre]');
-    var sezioneFoto = document.getElementById('foto');
-    var aperta = false;
-
-    function mostraAltre(si) {
-      aperta = si;
-      altre.forEach(function (li) { li.hidden = !si; });
-      toggle.textContent = si ? 'Mostra meno' : 'Vedi tutte le foto (' + bottoni.length + ')';
-      toggle.setAttribute('aria-expanded', si ? 'true' : 'false');
-    }
-    if (toggle && altre.length) {
-      toggle.hidden = false;
-      mostraAltre(false);
-      toggle.addEventListener('click', function () {
-        var si = !aperta;
-        mostraAltre(si);
-        if (!si && sezioneFoto) sezioneFoto.scrollIntoView({ block: 'start' });
-      });
-    }
 
     var lb = document.querySelector('[data-lightbox]');
     if (lb && typeof lb.showModal === 'function') {
