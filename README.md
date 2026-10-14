@@ -23,6 +23,7 @@ Vanno scritti con l'indirizzo assoluto, e ora contengono `https://www.ambrogioef
 | Testi, orari, indirizzi, link alle mappe | `index.html` |
 | Colori, spaziature, tondezza degli angoli | `style.css` (in cima, le variabili in `:root`) |
 | **Foto che scorrono** | `index.html`, sezione `data-nastro`: una riga `<li><img …></li>` per foto. Le copie per il giro continuo le crea `main.js`. Le foto vanno messe in `img/`, alte 560 px, in formato WebP. |
+| **Galleria «Un po' della nostra storia»** | `index.html`, sezione `id="foto"`: una riga `<li>` per foto (le prime nove sempre in vista, le altre dietro «Vedi tutte»). Per ogni foto servono due WebP in `img/foto/`: anteprima larga 720 px (`NN.webp`) e versione grande con lato lungo 1600 px (`NN-grande.webp`). Gli originali JPEG sono in `originali/` (non pubblicati). |
 | Foto grandi (apertura, Islanda, casa) | `img/` e i relativi `<img>` in `index.html` |
 | Orari nel calendario | `matrimonio-ambrogio-francesca.ics` |
 
