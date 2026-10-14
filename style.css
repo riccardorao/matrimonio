@@ -198,6 +198,61 @@ address{font-style:normal}
   border-radius:var(--raggio);pointer-events:none;
 }
 
+/* ---------- foto: mosaico a colonne + ingrandimento ----------
+   Il mosaico tiene le proporzioni vere di ogni foto. Le prime nove sono
+   sempre in vista, le altre si aprono con il bottone: così ci sono tutte
+   ma nessuna schiaccia il resto della pagina. */
+.foto{padding-top:clamp(2rem, 5vw, 3.5rem);text-align:center}
+.galleria{
+  list-style:none;margin:0;padding:0;text-align:left;
+  columns:3;column-gap:clamp(.6rem, 1.6vw, 1.1rem);
+}
+@media (max-width:760px){ .galleria{columns:2} }
+.galleria li{break-inside:avoid;margin:0 0 clamp(.6rem, 1.6vw, 1.1rem)}
+.galleria li[hidden]{display:none}
+.galleria button{
+  display:block;width:100%;padding:0;border:0;background:var(--sabbia);
+  border-radius:var(--raggio);overflow:hidden;cursor:zoom-in;
+  box-shadow:0 18px 36px -26px rgba(47,42,35,.55);
+}
+.galleria img{width:100%;height:auto;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.galleria button:hover img{transform:scale(1.03)}
+.galleria button:focus-visible{outline-offset:3px}
+.foto-azioni{margin:clamp(1.4rem, 3vw, 2.2rem) 0 0}
+.foto-azioni:has([hidden]){display:none}
+
+.lightbox{
+  border:0;padding:0;margin:0;max-width:none;max-height:none;
+  width:100%;height:100%;background:rgba(25,22,18,.94);color:#fff;
+  display:none;align-items:center;justify-content:center;
+}
+.lightbox[open]{display:flex}
+.lightbox::backdrop{background:rgba(25,22,18,.94)}
+.lb-img{
+  max-width:min(94vw, 1200px);max-height:calc(100svh - 7rem);
+  width:auto;height:auto;object-fit:contain;border-radius:8px;
+}
+.lb-chiudi,.lb-freccia{
+  position:absolute;border:0;cursor:pointer;color:#fff;
+  background:rgba(255,255,255,.12);border-radius:50%;
+  width:48px;height:48px;font-size:2rem;line-height:1;display:grid;place-items:center;
+  transition:background-color .2s;
+}
+.lb-chiudi:hover,.lb-freccia:hover{background:rgba(255,255,255,.26)}
+.lb-chiudi{top:max(.9rem, env(safe-area-inset-top));right:.9rem}
+.lb-freccia{top:50%;transform:translateY(-50%);padding-bottom:.2rem}
+.lb-prec{left:.9rem}
+.lb-succ{right:.9rem}
+@media (max-width:620px){
+  .lb-freccia{top:auto;bottom:max(.9rem, env(safe-area-inset-bottom));transform:none}
+  .lb-img{max-height:calc(100svh - 9rem)}
+}
+.lb-conta{
+  position:absolute;left:0;right:0;bottom:max(1.2rem, env(safe-area-inset-bottom));
+  margin:0;text-align:center;font-size:.9rem;letter-spacing:.12em;color:rgba(255,255,255,.75);
+  pointer-events:none;
+}
+
 /* ---------- invito ---------- */
 .invito{
   max-width:820px;margin:0 auto;text-align:center;
@@ -449,6 +504,6 @@ a.tessera:hover{border-color:var(--salvia-scura);transform:translateY(-2px);box-
 }
 
 @media print{
-  .barra,.azioni,.avviso,.copia,.nastro{display:none !important}
+  .barra,.azioni,.avviso,.copia,.nastro,.lightbox,.foto-azioni{display:none !important}
   body{background:#fff}
 }
