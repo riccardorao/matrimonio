@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RSVP · Ambrogio &amp; Francesca</title>
+<!-- Pagina privata degli sposi: non va indicizzata. -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#4E5C45">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/admin.css">
+<script src="../js/admin.js" defer></script>
+</head>
+<body class="admin">
+
+<header class="adm-testa">
+  <div class="adm-testa-in">
+    <h1 class="adm-titolo">RSVP <span>Ambrogio &amp; Francesca</span></h1>
+    <div class="adm-azioni" data-azioni hidden>
+      <button type="button" class="btn btn-filo btn-piccolo" data-aggiorna>Aggiorna</button>
+      <button type="button" class="btn btn-filo btn-piccolo" data-csv>Scarica CSV</button>
+      <button type="button" class="btn btn-filo btn-piccolo" data-esci>Esci</button>
+    </div>
+  </div>
+</header>
+
+<main class="adm-pagina">
+
+  <form class="adm-accesso" data-accesso>
+    <p class="adm-nota">Pagina riservata agli sposi. Inserite la chiave segreta delle risposte.</p>
+    <label class="adm-campo">
+      <span>Chiave</span>
+      <input type="password" name="chiave" autocomplete="current-password" required>
+    </label>
+    <button type="submit" class="btn btn-pieno btn-largo">Entra</button>
+    <p class="modulo-stato" data-stato-accesso role="status" aria-live="polite"></p>
+  </form>
+
+  <div data-cruscotto hidden>
+    <p class="adm-aggiornato" data-aggiornato role="status" aria-live="polite"></p>
+
+    <section class="adm-numeri" aria-label="Riepilogo">
+      <div class="adm-numero adm-numero-grande"><strong data-n="persone">0</strong><span>persone confermate</span></div>
+      <div class="adm-numero"><strong data-n="risposte_si">0</strong><span>risposte sì</span></div>
+      <div class="adm-numero"><strong data-n="risposte_no">0</strong><span>risposte no</span></div>
+      <div class="adm-numero"><strong data-n="fascia_12_piu">0</strong><span>12 anni o più</span></div>
+      <div class="adm-numero"><strong data-n="fascia_4_11">0</strong><span>4–11 anni</span></div>
+      <div class="adm-numero"><strong data-n="fascia_0_3">0</strong><span>0–3 anni</span></div>
+    </section>
+
+    <section class="adm-avviso" data-duplicati hidden>
+      <h2>Stesso nome in più risposte</h2>
+      <p data-duplicati-elenco></p>
+    </section>
+
+    <section class="adm-blocco" data-blocco-allergie hidden>
+      <h2>Allergie e intolleranze</h2>
+      <ul class="adm-elenco" data-allergie></ul>
+    </section>
+
+    <section class="adm-blocco">
+      <div class="adm-filtri">
+        <h2>Risposte</h2>
+        <div class="adm-filtri-comandi">
+          <input type="search" placeholder="Cerca un nome" aria-label="Cerca un nome" data-cerca>
+          <select aria-label="Filtra" data-filtro>
+            <option value="tutte">Tutte</option>
+            <option value="si">Vengono</option>
+            <option value="no">Non vengono</option>
+          </select>
+        </div>
+      </div>
+      <div class="adm-tabella-scroll">
+        <table class="adm-tabella">
+          <thead><tr><th>Chi risponde</th><th>Viene</th><th class="num">Persone</th><th>Ospiti</th><th>Aggiornata</th></tr></thead>
+          <tbody data-righe></tbody>
+        </table>
+      </div>
+      <p class="adm-vuoto" data-vuoto hidden>Nessuna risposta da mostrare.</p>
+    </section>
+
+    <section class="adm-blocco">
+      <h2>Ultime modifiche</h2>
+      <ul class="adm-elenco" data-storico></ul>
+    </section>
+  </div>
+
+</main>
+</body>
+</html>

@@ -1,0 +1,77 @@
+/* Pagina /admin: stessi colori, font e misure del sito (variabili di style.css). */
+.admin{background:var(--lino);color:var(--inchiostro);font-family:var(--sans);min-height:100vh}
+.adm-testa{background:var(--salvia-scura);color:var(--carta);position:sticky;top:0;z-index:5}
+.adm-testa-in{max-width:var(--larghezza);margin:0 auto;padding:.7rem var(--gutter);display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.adm-titolo{font-family:var(--sans);font-size:.95rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin:0}
+.adm-titolo span{font-family:var(--serif);font-size:1.2rem;letter-spacing:0;text-transform:none;font-weight:500;margin-left:.5rem}
+.adm-azioni{display:flex;gap:.5rem;flex-wrap:wrap}
+.adm-azioni[hidden]{display:none}
+.adm-azioni .btn-filo{border-color:var(--carta);color:var(--carta)}
+.adm-azioni .btn-filo:hover{background:var(--carta);color:var(--salvia-scura)}
+.adm-pagina{max-width:var(--larghezza);margin:0 auto;padding:1.4rem var(--gutter) 4rem}
+
+.adm-accesso{max-width:420px;margin:12vh auto 0;background:var(--carta);border:1px solid var(--filo);border-radius:var(--raggio);padding:1.6rem;box-shadow:var(--ombra-carta)}
+.adm-nota{margin:0 0 1rem;color:var(--tenue)}
+.adm-campo{display:block;margin-bottom:1rem}
+.adm-campo span{display:block;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--tenue);margin-bottom:.35rem;font-weight:700}
+.adm-campo input,.adm-filtri-comandi input,.adm-filtri-comandi select{width:100%;min-height:var(--pulsante);padding:.5rem .8rem;font:inherit;color:var(--inchiostro);background:var(--lino);border:1px solid var(--filo);border-radius:var(--pillola)}
+.adm-campo input:focus,.adm-filtri-comandi input:focus,.adm-filtri-comandi select:focus{outline:2px solid var(--salvia);outline-offset:1px}
+
+.adm-aggiornato{margin:0 0 1rem;color:var(--tenue);font-size:.9rem}
+.adm-numeri{display:grid;grid-template-columns:repeat(6,1fr);gap:.7rem;margin-bottom:1.4rem}
+.adm-numeri .adm-numero{grid-column:span 2}
+.adm-numeri .adm-numero:nth-child(2),.adm-numeri .adm-numero:nth-child(3){grid-column:span 3}
+.adm-numero{background:var(--carta);border:1px solid var(--filo);border-radius:var(--raggio);padding:.9rem 1rem;display:flex;flex-direction:column}
+.adm-numero strong{font-family:var(--serif);font-size:2.4rem;font-weight:500;line-height:1;color:var(--salvia-scura)}
+.adm-numero span{margin-top:.3rem;font-size:.82rem;color:var(--tenue)}
+.adm-numeri .adm-numero-grande{grid-column:1 / -1;background:var(--salvia-scura);border-color:var(--salvia-scura)}
+.adm-numero-grande strong{color:var(--carta);font-size:3.4rem}
+.adm-numero-grande span{color:var(--sabbia)}
+
+.adm-blocco{background:var(--carta);border:1px solid var(--filo);border-radius:var(--raggio);padding:1.1rem 1.1rem 1.2rem;margin-bottom:1.2rem}
+.adm-blocco h2,.adm-avviso h2{font-family:var(--serif);font-weight:500;font-size:1.5rem;margin:0 0 .6rem}
+.adm-avviso{background:#F6E7DC;border:1px solid var(--cotto);border-radius:var(--raggio);padding:1rem 1.1rem;margin-bottom:1.2rem;color:var(--cotto-scuro)}
+.adm-avviso p{margin:0}
+.adm-elenco{list-style:none;margin:0;padding:0}
+.adm-elenco li{padding:.5rem 0;border-top:1px solid var(--filo);font-size:.95rem}
+.adm-elenco li:first-child{border-top:0}
+.adm-elenco small{color:var(--tenue)}
+
+.adm-filtri{display:flex;flex-direction:column;gap:.6rem;margin-bottom:.6rem}
+.adm-filtri h2{margin:0}
+.adm-filtri-comandi{display:grid;grid-template-columns:1fr 150px;gap:.5rem}
+.adm-tabella-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.adm-tabella{width:100%;border-collapse:collapse;font-size:.93rem;min-width:640px}
+.adm-tabella th{text-align:left;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--tenue);padding:.5rem .6rem;border-bottom:1px solid var(--inchiostro);white-space:nowrap}
+.adm-tabella td{padding:.65rem .6rem;border-bottom:1px solid var(--filo);vertical-align:top}
+.adm-tabella .num{text-align:center}
+.adm-tabella td.num{font-weight:700}
+.adm-si{color:var(--salvia-scura);font-weight:700}
+.adm-no{color:var(--cotto-scuro);font-weight:700}
+.adm-ospite{display:block;margin-bottom:.25rem}
+.adm-ospite:last-child{margin-bottom:0}
+.adm-etichetta{display:inline-block;margin-left:.35rem;padding:0 .45rem;border:1px solid var(--filo);border-radius:99px;font-size:.75rem;color:var(--tenue)}
+.adm-allergia{display:block;color:var(--cotto-scuro);font-size:.85rem}
+.adm-doppio{display:inline-block;margin-left:.35rem;padding:0 .45rem;border-radius:99px;background:var(--cotto);color:var(--carta);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase}
+.adm-vuoto{margin:.6rem 0 0;color:var(--tenue)}
+.adm-vuoto[hidden]{display:none}
+
+/* Telefono: ogni risposta diventa una scheda, senza scorrere di lato */
+@media (max-width:719px){
+  .adm-tabella{min-width:0}
+  .adm-tabella thead{display:none}
+  .adm-tabella,.adm-tabella tbody,.adm-tabella tr,.adm-tabella td{display:block}
+  .adm-tabella tr{border:1px solid var(--filo);border-radius:var(--raggio-piccolo);padding:.55rem .8rem;margin-bottom:.6rem;background:var(--lino)}
+  .adm-tabella td{border:0;padding:.25rem 0;display:flex;gap:.8rem}
+  .adm-tabella td::before{content:attr(data-label);flex:0 0 5.2rem;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--tenue);padding-top:.2rem;font-weight:400}
+  .adm-tabella td>*:first-child{min-width:0}
+  .adm-tabella .num,.adm-tabella td.num{text-align:left}
+  .adm-ospiti-celle{display:block}
+}
+
+@media (min-width:720px){
+  .adm-numeri{grid-template-columns:2fr repeat(5,1fr)}
+  .adm-numeri .adm-numero,.adm-numeri .adm-numero:nth-child(2),.adm-numeri .adm-numero:nth-child(3),.adm-numeri .adm-numero-grande{grid-column:auto}
+  .adm-filtri{flex-direction:row;align-items:center;justify-content:space-between}
+  .adm-filtri-comandi{width:min(100%,420px)}
+}

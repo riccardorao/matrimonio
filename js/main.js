@@ -44,17 +44,16 @@
   var conto = document.querySelector('[data-conto]');
   if (conto) {
     var giorni = Math.ceil((MATRIMONIO - new Date()) / 86400000);
-    // una riga sola: «Mancano» in maiuscoletto, il numero in serif
-    if (giorni > 1) {
-      conto.innerHTML = '<span>Mancano</span> <strong>' + giorni.toLocaleString('it-IT') + ' giorni</strong>';
-    } else if (giorni === 1) {
-      conto.innerHTML = '<span>Manca</span> <strong>un giorno</strong>';
-    } else if (giorni === 0) {
-      conto.innerHTML = '<span>Oggi</span> <strong>è il giorno</strong>';
-    } else {
-      conto.innerHTML = '<span>Grazie</span> <strong>di aver festeggiato</strong>';
+    var testoConto;
+    if (giorni > 1) testoConto = 'Mancano ' + giorni.toLocaleString('it-IT') + ' giorni';
+    else if (giorni === 1) testoConto = 'Manca un giorno';
+    else if (giorni === 0) testoConto = 'Oggi è il giorno';
+    else testoConto = null;
+    if (testoConto) {
+      conto.textContent = testoConto;
+      var pill = conto.closest('a');
+      if (pill) pill.setAttribute('aria-label', testoConto + '. Aggiungi al calendario');
     }
-    conto.hidden = false;
   }
 
   /* ---------- aggiungi al calendario ----------

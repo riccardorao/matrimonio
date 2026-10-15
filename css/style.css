@@ -145,18 +145,16 @@ address{font-style:normal}
   height:var(--barra);
   display:flex;align-items:center;gap:.5rem;
   padding:0 max(var(--gutter), env(safe-area-inset-right)) 0 max(var(--gutter), env(safe-area-inset-left));
-  background:rgba(244,238,227,.9);
-  -webkit-backdrop-filter:saturate(1.2) blur(10px);
-  backdrop-filter:saturate(1.2) blur(10px);
+  background:var(--salvia-scura);color:var(--carta);
   border-bottom:1px solid transparent;
   transition:border-color .3s;
 }
-.barra.scrollata{border-bottom-color:var(--filo)}
+.barra.scrollata{border-bottom-color:rgba(251,248,242,.18)}
 .monogramma{
   font-family:var(--serif);font-size:1.6rem;font-weight:500;text-decoration:none;white-space:nowrap;
   letter-spacing:.02em;margin-right:auto;
 }
-.monogramma span{font-style:italic;color:var(--cotto);margin:0 .1em}
+.monogramma span{font-style:italic;color:var(--rosa);margin:0 .1em}
 .barra-rsvp{
   display:inline-flex;align-items:center;min-height:var(--pulsante);padding:.4rem .95rem;
   border-radius:var(--pillola);background:var(--cotto);color:var(--carta);
@@ -174,10 +172,10 @@ address{font-style:normal}
   transition:background-color .2s;
 }
 .menu-bottone::-webkit-details-marker{display:none}
-.menu-bottone:hover,.menu[open] .menu-bottone{background:var(--sabbia)}
+.menu-bottone:hover,.menu[open] .menu-bottone{background:rgba(251,248,242,.14)}
 .menu-icona{position:relative;width:22px;height:14px;display:block}
 .menu-icona i{
-  position:absolute;left:0;right:0;height:1.6px;border-radius:2px;background:var(--inchiostro);
+  position:absolute;left:0;right:0;height:1.6px;border-radius:2px;background:var(--carta);
   transition:transform .25s, opacity .2s, top .25s;
 }
 .menu-icona i:nth-child(1){top:0}
@@ -190,19 +188,20 @@ address{font-style:normal}
 .menu-pannello{
   position:absolute;right:-8px;top:calc(100% + 10px);
   width:min(calc(100vw - 2 * var(--gutter)), 260px);
-  background:var(--carta);border:1px solid var(--filo);border-radius:var(--raggio);
+  background:var(--salvia-scura);border:1px solid rgba(251,248,242,.2);border-radius:var(--raggio);
   box-shadow:var(--ombra-float);
   padding:.4rem;
   animation:comparsa .22s cubic-bezier(.2,.7,.2,1);
 }
 @keyframes comparsa{from{opacity:0;transform:translateY(-6px)}}
 .menu-pannello ol{list-style:none;margin:0;padding:0}
-.menu-pannello li + li{border-top:1px solid var(--sabbia)}
+.menu-pannello li + li{border-top:1px solid rgba(251,248,242,.14)}
 .menu-pannello a{
-  display:block;padding:.85rem 1rem;border-radius:var(--pillola);text-decoration:none;
-  font-family:var(--serif);font-size:1.55rem;font-weight:500;line-height:1.15;
+  display:block;padding:.8rem 1rem;border-radius:var(--pillola);text-decoration:none;
+  /* stessi carattere e misura del pulsante RSVP */
+  font-family:var(--sans);font-size:.92rem;font-weight:600;line-height:1.2;color:var(--carta);
 }
-.menu-pannello a:hover{background:var(--lino)}
+.menu-pannello a:hover{background:rgba(251,248,242,.12)}
 
 /* ---------- apertura: la mano con l'anello ----------
    Sul telefono lascia vedere sotto le prime foto del mosaico. */
@@ -291,26 +290,23 @@ address{font-style:normal}
 .titolo h2{font-size:var(--h2)}
 .sottotitolo{max-width:560px;margin:1rem auto 0;color:var(--tenue)}
 
-/* ---------- conto alla rovescia e calendario, sotto la testata ---------- */
+/* ---------- conto alla rovescia + calendario: un'unica pill verde ---------- */
 .striscia{
   max-width:var(--larghezza);margin:0 auto;
-  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.8rem 1rem;
-  padding:1.1rem var(--gutter) 1.4rem;
+  display:flex;justify-content:center;
+  padding:1.2rem var(--gutter) 1.4rem;
 }
-.conto{
-  display:inline-flex;align-items:baseline;gap:.45rem;flex:0 0 auto;margin:0;white-space:nowrap;
-  padding:.5rem 1rem;border:1px solid var(--filo);border-radius:var(--pillola);
-  line-height:1.2;color:var(--salvia-scura);
+.pill-calendario{
+  display:inline-flex;align-items:center;gap:.8rem;min-height:52px;
+  padding:.5rem .6rem .5rem 1.3rem;
+  background:var(--salvia-scura);color:var(--carta);border-radius:var(--pillola);
+  font-family:var(--sans);font-size:1rem;font-weight:600;text-decoration:none;white-space:nowrap;
+  transition:background-color .2s, transform .15s;
 }
-.conto span{font-size:var(--occhiello-dimensione);font-weight:700;letter-spacing:var(--occhiello-spazio);text-transform:uppercase}
-.conto strong{font-family:var(--serif);font-weight:600;font-size:1.3rem;color:var(--inchiostro)}
-.conto[hidden]{display:none}
-.striscia .btn{flex:0 1 auto;line-height:1.2;text-align:center;max-width:9.5rem;white-space:normal;padding:.55rem .9rem}
-.btn-icona{width:48px;height:48px;min-height:48px;padding:0;flex:none}
-.btn-icona .icona{width:24px;height:24px}
-.striscia .btn-icona{max-width:none;padding:0}
-/* su schermi più larghi il bottone torna su una riga sola */
-@media (min-width:600px){ .striscia .btn:not(.btn-icona){max-width:none;white-space:nowrap} }
+.pill-calendario:hover{background:var(--inchiostro)}
+.pill-calendario:active{transform:scale(.98)}
+.pill-icona{display:grid;place-items:center;width:40px;height:36px;padding-left:.8rem;border-left:1px solid rgba(251,248,242,.3);box-sizing:content-box}
+.pill-icona .icona{width:22px;height:22px}
 
 /* ---------- luoghi (messa, ricevimento) ---------- */
 .luogo{display:grid;gap:clamp(1.6rem, 4vw, 3rem) clamp(2rem, 5vw, 4.5rem);align-items:center}
@@ -343,7 +339,7 @@ address{font-style:normal}
 
 /* parcheggi: micromappa con i pallini; al tocco, un fumetto */
 .parcheggi{grid-column:1/-1;margin-top:clamp(.25rem, 2vw, 1rem);position:relative}
-.parcheggi h3{font-family:var(--sans);font-weight:600;font-size:clamp(1.3rem, 3.4vw, 1.6rem);line-height:1.3;letter-spacing:-.005em;margin-bottom:1.5rem}
+.parcheggi h3{font-family:var(--sans);font-weight:700;font-size:1rem;line-height:1.3;letter-spacing:.2em;text-transform:uppercase;color:var(--salvia-scura);margin-bottom:1.5rem}
 @media (min-width:900px){ .parcheggi{max-width:600px} }
 
 .micromappa{
@@ -489,7 +485,7 @@ address{font-style:normal}
 .copia-temp{position:fixed;top:0;left:0;opacity:0;pointer-events:none}
 
 .negozi{display:grid;gap:.8rem;margin-top:1.2rem}
-.negozio-nota{margin:.9rem 0 0;font-size:.9rem;line-height:1.4;color:var(--tenue)}
+.negozio-nota{margin:1rem 0 0;padding-left:.9rem;border-left:2px solid var(--salvia);font-family:var(--serif);font-style:italic;font-weight:500;font-size:1.2rem;line-height:1.3;color:var(--salvia-scura)}
 .negozio{
   display:flex;flex-direction:column;gap:.1rem;padding:1rem 1.1rem 1.1rem;
   border:1px solid var(--sabbia);border-radius:var(--pillola);background:var(--lino);
@@ -498,89 +494,71 @@ address{font-style:normal}
 .negozio > span:not(.link-esterni){font-size:.93rem;color:var(--tenue)}
 
 /* ---------- 5. RSVP ----------
-   La sezione più importante della pagina: carta larga, tessere grandi. */
-.rsvp{padding:var(--respiro) var(--gutter)}
+   Stessa carta delle sezioni del regalo; un solo componente («.scelta»)
+   per ogni risposta a tocco: Sì/No, quante persone, fascia d'età. */
+.rsvp{max-width:var(--larghezza);margin:0 auto;text-align:center;padding:var(--respiro) var(--gutter)}
 .rsvp-carta{
-  max-width:1040px;margin:0 auto;text-align:center;
+  max-width:720px;margin:0 auto;text-align:left;
   background:var(--carta);border:1px solid var(--filo);border-radius:var(--raggio);
-  padding:clamp(2.4rem, 6vw, 4.5rem) clamp(1.1rem, 5vw, 4.5rem);
-  position:relative;box-shadow:var(--ombra-carta);
+  padding:clamp(1.25rem, 4vw, 2.2rem);box-shadow:var(--ombra-carta);
 }
-.rsvp-carta::before{
-  content:"";position:absolute;inset:8px;border:1px solid var(--sabbia);border-radius:calc(var(--raggio) - 5px);pointer-events:none;
-}
-.rsvp h2{font-size:var(--h2);line-height:1;margin-bottom:.8rem}
-.rsvp-carta > .occhiello{font-family:var(--serif);font-size:clamp(1.9rem, 4.4vw, 2.6rem);font-weight:500;letter-spacing:.12em;line-height:1;margin-bottom:.5rem}
-
-.modulo{max-width:780px;margin:0 auto;text-align:left}
-.modulo fieldset{border:0;padding:0;margin:0 0 2.2rem;min-width:0}
-.modulo legend{
-  width:100%;text-align:center;margin:0 0 1.3rem;padding:0;
-  font-family:var(--serif);font-size:clamp(1.7rem, 4vw, 2.2rem);font-weight:500;line-height:1.1;
-}
+.modulo fieldset{border:0;padding:0;margin:0;min-width:0}
+.modulo fieldset.campo{margin-bottom:1.2rem}
 [hidden]{display:none !important}
 .trappola{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 
-/* Sì / No: due tessere grandi */
-.tessere-scelta{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.tessera-scelta,.numero,.tessera-eta{position:relative;display:grid;cursor:pointer}
-.tessera-scelta input,.numero input,.tessera-eta input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
-.tessera-scelta span,.numero span,.tessera-eta span{
-  display:flex;align-items:center;justify-content:center;text-align:center;
-  border:1px solid var(--filo);border-radius:var(--raggio);background:var(--lino);
-  font-family:var(--serif);font-weight:500;line-height:1.1;
-  transition:background-color .2s, border-color .2s, color .2s;
-}
-.tessera-scelta span{min-height:72px;font-size:clamp(1.6rem, 4vw, 2rem)}
-.tessera-scelta:hover span,.numero:hover span,.tessera-eta:hover span{border-color:var(--salvia)}
-.tessera-scelta input:checked + span,.numero input:checked + span,.tessera-eta input:checked + span{
-  background:var(--salvia-scura);border-color:var(--salvia-scura);color:var(--carta);
-}
-.tessera-scelta input:focus-visible + span,.numero input:focus-visible + span,.tessera-eta input:focus-visible + span{
-  outline:2px solid var(--cotto);outline-offset:3px;
+/* le domande: serif, come i titoli delle carte */
+.domanda{margin:0 0 1.6rem !important}
+.domanda legend{
+  padding:0;margin:0 0 .9rem;
+  font-family:var(--serif);font-size:var(--h3);font-weight:500;line-height:1.1;
 }
 
-/* quante persone: dieci numeri in fila (due righe sul telefono) */
-.numeri{display:grid;grid-template-columns:repeat(5, 1fr);gap:.6rem}
-.numero span{min-height:64px;font-size:1.8rem}
-@media (min-width:640px){ .numeri{grid-template-columns:repeat(10, 1fr)} }
-
-/* un blocco per ospite */
-.ospite{
-  border:1px solid var(--filo);border-radius:var(--raggio);background:var(--lino);
-  padding:1.3rem clamp(1rem, 3vw, 1.5rem) .4rem;margin:0 0 1.2rem;
+/* il pulsante di risposta: contorno, e verde quando è scelto */
+.scelte{display:grid;gap:.6rem}
+.scelte-2{grid-template-columns:1fr 1fr}
+.scelte-3{grid-template-columns:repeat(3, 1fr)}
+.scelte-numeri{grid-template-columns:repeat(5, 1fr)}
+@media (min-width:600px){ .scelte-numeri{grid-template-columns:repeat(10, 1fr)} }
+.scelta{position:relative;display:grid;cursor:pointer}
+.scelta input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
+.scelta span{
+  display:flex;align-items:center;justify-content:center;min-height:52px;
+  border:1px solid var(--inchiostro);border-radius:var(--pillola);background:transparent;
+  font-family:var(--sans);font-weight:600;font-size:1rem;color:var(--inchiostro);
+  transition:background-color .2s, color .2s, border-color .2s;
 }
-.ospite-titolo{font-family:var(--serif);font-size:var(--h3);font-weight:500;margin-bottom:1rem}
-.scelta-eta{margin-bottom:1.3rem !important}
-.scelta-eta legend{text-align:left;font-family:var(--sans);font-size:1.02rem;font-weight:600;margin-bottom:.6rem}
-.tessere-eta{display:grid;grid-template-columns:repeat(3, 1fr);gap:.6rem}
-.tessera-eta span{min-height:58px;font-family:var(--sans);font-weight:600;font-size:1rem;letter-spacing:0}
+.scelta:hover span{background:var(--sabbia)}
+.scelta input:checked + span{background:var(--salvia-scura);border-color:var(--salvia-scura);color:var(--carta)}
+.scelta input:focus-visible + span{outline:2px solid var(--cotto);outline-offset:3px}
 
-/* campi di testo */
-.campo{display:block;margin:0 0 1.3rem}
-.campo > span{display:block;font-weight:600;font-size:1.05rem;margin-bottom:.45rem}
+/* un ospite: filo verde a sinistra, come gli indirizzi */
+.ospite{margin:0 0 1.6rem;padding:.2rem 0 .1rem 1rem;border-left:2px solid var(--salvia)}
+
+/* campi: etichetta in sans, come i dati del bonifico */
+.campo{display:block;margin:0 0 1.2rem;padding:0}
+.campo > span,.campo > legend{display:block;float:none;padding:0;margin:0 0 .45rem;font-weight:600;font-size:1rem}
 .campo input[type="text"],.campo textarea{
-  display:block;width:100%;font:inherit;font-size:max(16px, 1.1rem);line-height:1.4;color:var(--inchiostro);
-  padding:.85rem 1rem;border-radius:var(--pillola);border:1px solid var(--filo);background:#fff;
+  display:block;width:100%;font:inherit;font-size:max(16px, 1.05rem);line-height:1.4;color:var(--inchiostro);
+  padding:.8rem 1rem;border-radius:var(--pillola);border:1px solid var(--filo);background:#fff;
   transition:border-color .2s, box-shadow .2s;
 }
 .campo textarea{resize:vertical;min-height:4rem}
-.campo input::placeholder,.campo textarea::placeholder{color:#a39a8c}
 .campo input:focus,.campo textarea:focus{outline:none;border-color:var(--salvia-scura);box-shadow:0 0 0 3px rgba(124,140,110,.22)}
-.facoltativo{font-style:normal;font-weight:400;font-size:.82rem;color:var(--tenue);margin-left:.35rem}
+.facoltativo{font-style:normal;font-weight:400;font-size:.85rem;color:var(--tenue);margin-left:.35rem}
 
 .btn-invia{width:100%;margin-top:.4rem}
 .btn-invia[disabled]{opacity:.6;cursor:progress}
-.modulo-stato{min-height:1.4em;margin:.9rem 0 0;font-size:.98rem;text-align:center;color:var(--cotto-scuro)}
-.senza-script{color:var(--tenue);margin:1.4rem 0 0}
+.modulo-stato{margin:.9rem 0 0;font-size:.98rem;text-align:center;color:var(--cotto-scuro)}
+.modulo-stato:empty{margin:0}
+.senza-script{color:var(--tenue);margin:0}
 
 /* risposta già data */
-.grazie{text-align:center;padding:1rem 0 .5rem}
 .grazie:focus{outline:none}
-.grazie .rametto{margin:0 auto 1rem}
-.grazie h3{font-size:var(--h2);margin-bottom:.7rem}
-.grazie p{max-width:460px;margin:0 auto 1.8rem;color:var(--tenue);font-size:1.08rem}
-.grazie-azioni{display:flex;flex-wrap:wrap;gap:.7rem;justify-content:center}
+.grazie h3{font-size:var(--h3);margin-bottom:.6rem}
+.grazie p{color:var(--tenue);margin:0 0 1.3rem}
+.grazie-azioni{display:flex;flex-wrap:wrap;gap:.6rem}
+button.link-esterno{background:transparent;font-family:inherit;cursor:pointer}
 
 /* ---------- piede ---------- */
 .piede{

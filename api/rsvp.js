@@ -1,18 +1,15 @@
 /* La funzione che riceve le risposte dell'RSVP (POST /api/rsvp).
-   Il database arriva da DATABASE_URL, che Vercel imposta quando si collega
-   un Postgres dal Marketplace (Neon). Tutta la logica è in lib/rsvp.js. */
-import { neon } from '@neondatabase/serverless';
-import { gestisciRichiesta } from '../lib/rsvp.js';
-
-let sql = null;
+   Salva su Supabase tramite la funzione SQL rsvp_salva (vedi supabase/schema.sql).
+   Variabili d'ambiente: SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, RSVP_TOKEN.
+   Tutta la logica è in lib/rsvp.js. */
+import { creaDb, gestisciRichiesta } from '../lib/rsvp.js';
 
 export default async function handler(req, res) {
-  const url = process.env.DATABASE_URL || process.env.POSTGRES_URL;
-  if (!url) {
-    console.error('RSVP: DATABASE_URL non impostata');
+  const { SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, RSVP_TOKEN } = process.env;
+  if (!SUPABASE_URL || !SUPABASE_PUBLISHABLE_KEY || !RSVP_TOKEN) {
+    console.error('RSVP: SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY o RSVP_TOKEN non impostate');
     return res.status(503).json({ ok: false, errore: 'Le risposte non sono ancora attive: scriveteci, grazie.' });
   }
-  sql ??= neon(url);
 
   let corpo = req.body;
   if (typeof corpo === 'string') {
@@ -21,9 +18,10 @@ export default async function handler(req, res) {
   const esito = await gestisciRichiesta({
     metodo: req.method,
     corpo,
-    sql,
+    db: creaDb({ fetch, url: SUPABASE_URL, chiave: SUPABASE_PUBLISHABLE_KEY, token: RSVP_TOKEN }),
     fetch,
     env: process.env
   });
+  res.setHeader('Cache-Control', 'no-store');
   return res.status(esito.status).json(esito.corpo);
 }

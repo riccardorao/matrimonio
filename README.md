@@ -30,7 +30,7 @@ Il bottone RSVP resta sempre in alto; il menu ha solo Cerimonia, Ricevimento, Re
 | Colori, spaziature, caratteri | `css/style.css`: in cima, in `:root`, ci sono i token condivisi (misura delle etichette, dei titoli, dei bottoni, ombre). Cambiando un token cambia tutte le sezioni che lo usano. |
 | **Mosaico di foto** sotto l'apertura | `index.html`, sezione `data-mosaico`: una riga `<li>` per foto. Classe `v` = verticale (WebP 280×400), `o` = orizzontale (280×200), `g` = grande (560×400). Le miniature stanno in `img/mosaico/`, già ritagliate. La copia per il giro continuo la crea `js/main.js`, che lo fa scorrere e lo rende trascinabile (velocità e ritorno all'andatura in cima al blocco del mosaico). |
 | **Micromappa dei parcheggi** | Le vie sono in `img/luoghi/mappa-chiesa.svg` (da OpenStreetMap). I pallini sono in `index.html`, nella `.micromappa`: ogni `<a class="mm-p">` ha la posizione (`cx`/`cy`, in metri dall'angolo in alto a sinistra), il link Google Maps, `data-tempo` (il minuto mostrato) e `data-percorso` (il numero). Il tratteggio dal parcheggio alla chiesa è un `<path class="mm-percorso">` con lo stesso `data-percorso`: è calcolato a piedi sulla rete stradale OpenStreetMap; se si sposta un parcheggio, va ricalcolato. |
-| Conto alla rovescia e calendario | Sezione `#quando`, subito sotto la testata. Il bottone «Aggiungi al calendario» punta a `download/matrimonio-ambrogio-francesca.ics` (evento di tutto il giorno). Su Android, `js/main.js` lo fa puntare a Google Calendar, usando l'indirizzo nell'attributo `data-android`. |
+| Conto alla rovescia e calendario | Un'unica pill verde (`.pill-calendario`, sezione `#quando`) sotto la testata: «Mancano N giorni» con l'icona del calendario. Un tocco aggiunge l'evento: scarica `download/matrimonio-ambrogio-francesca.ics` (evento di tutto il giorno); su Android `js/main.js` punta a Google Calendar, usando l'indirizzo nell'attributo `data-android`. |
 | IBAN, intestatari, causale | `index.html`, sezione `#regalo`: il testo copiato è nell'attributo `data-copia` di ogni bottone. |
 | Negozi della lista nozze | `index.html`, sezione regalo: una `<div class="negozio">` per negozio. Sito e mappa sono `<a class="link-esterno">`, tutti con lo stesso stile. |
 | Foto grandi (apertura, chiesa, cascina, Islanda, casa) | `img/apertura/`, `img/luoghi/`, `img/regalo/` |
@@ -42,44 +42,61 @@ Il modulo chiede prima se si viene. **No**: solo nome e cognome. **Sì**: quante
 L'invio va a `POST /api/rsvp` (`api/rsvp.js`, con la logica in `lib/rsvp.js`), che:
 
 1. controlla i dati;
-2. salva o aggiorna la risposta in due tabelle: `rsvp_risposte` (una riga per risposta) e
-   `rsvp_ospiti` (una riga per ospite). Le tabelle si creano da sole al primo invio;
-3. manda il **report** con tutte le risposte a `ambrogiosilecchia@gmail.com` e
-   `m.francesca18@gmail.com`, a ogni invio o modifica.
+2. li salva su **Supabase** (progetto `matrimonio-rsvp`): una riga per risposta in
+   `rsvp_risposte` (con gli ospiti, il contatore delle modifiche e le date) e una riga per ogni
+   invio in `rsvp_storico`, così nulla si perde. Lo schema è in `supabase/schema.sql`;
+3. se la mail è configurata, manda il **report** con tutte le risposte a
+   `ambrogiosilecchia@gmail.com` e `m.francesca18@gmail.com`, a ogni invio o modifica.
 
 La risposta si ricorda su ogni dispositivo: «Modifica la risposta» la riapre, e il nuovo
 invio aggiorna la stessa riga (non ne crea una seconda). Il campo «web», nascosto, è una
 trappola per i robot.
 
-### Collegare il database e la mail (da fare una volta)
+### Dove gli sposi vedono le risposte
 
-Senza queste variabili il modulo mostra un messaggio di errore: il sito funziona lo stesso.
+- **`/admin`** (pagina privata, non indicizzata): si entra con la chiave segreta (`RSVP_TOKEN`).
+  Mostra persone confermate, sì/no, fasce d'età, allergie, nomi doppi, tutte le risposte con
+  ricerca e filtro e le ultime modifiche; si aggiorna da sola ogni minuto e ha il pulsante
+  «Scarica CSV». I numeri sono sempre calcolati dalle righe vere, non salvati a parte.
+- **Mail**: appena configurato Resend (sotto), a ogni invio arriva il report completo.
+- **Supabase**: *Table Editor* del progetto, se serve guardare i dati grezzi.
 
-1. **Database**: nella dashboard Vercel del progetto `matrimonio` → *Storage* → *Create
-   Database* → **Postgres (Neon)**, e collegarlo al progetto. Vercel imposta da solo
-   `DATABASE_URL`.
-2. **Mail**: creare un account su [Resend](https://resend.com), verificare il dominio
+### Come è collegato (già fatto)
+
+- Su Supabase le tabelle hanno RLS attivo e nessuna policy: dall'esterno non si legge e non si
+  scrive nulla. Si passa solo dalle funzioni `rsvp_salva` e `rsvp_report`, che funzionano solo
+  con la chiave segreta (nel database c'è solo la sua impronta SHA-256).
+- Variabili del progetto Vercel: `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY` (il lasciapassare
+  pubblico di Supabase, da solo non dà accesso ai dati) e `RSVP_TOKEN` (la chiave segreta,
+  «sensitive»: Vercel non la mostra più dopo il salvataggio).
+- Per cambiare la chiave: generarne una nuova, aggiornare `RSVP_TOKEN` su Vercel e l'impronta
+  nella tabella `rsvp_config` (`token_sha256`, vedi `supabase/schema.sql`), poi rifare il deploy.
+
+### Attivare la mail (da fare una volta)
+
+Senza queste variabili le risposte si salvano comunque e si leggono su `/admin`; manca solo la mail.
+
+1. Creare un account su [Resend](https://resend.com), verificare il dominio
    `ambrogioefrancesca.it` (Resend mostra i record DNS da aggiungere) e creare una chiave API.
-3. **Variabili** del progetto Vercel (*Settings → Environment Variables*):
+2. Variabili del progetto Vercel (*Settings → Environment Variables*):
    - `RESEND_API_KEY`: la chiave API di Resend;
    - `RSVP_FROM`: il mittente, per esempio `RSVP Matrimonio <rsvp@ambrogioefrancesca.it>`;
    - `RSVP_TO` (facoltativo): gli indirizzi a cui mandare il report, separati da virgola.
      Se manca, sono quelli di Ambrogio e Francesca.
-4. Rilanciare il deploy. Poi inviare una risposta di prova: il report deve arrivare via mail
-   e la riga deve comparire nel database (*Storage* → *Query*).
+3. Rilanciare il deploy. Poi inviare una risposta di prova: il report deve arrivare via mail.
 
 Il Google Form precedente non riceve più risposte: quelle già arrivate restano nel suo foglio.
 
 ### Dati personali
 
 Le risposte contengono nomi, fasce d'età dei bambini e allergie. Sono dati di persone
-identificabili: vanno tenuti solo per l'organizzazione del matrimonio e cancellati dopo.
-Il database si svuota con `DELETE FROM rsvp_ospiti; DELETE FROM rsvp_risposte;`.
+identificabili: vanno tenuti solo per l'organizzazione del matrimonio e cancellati dopo
+(dal *Table Editor* o dall'*SQL Editor* di Supabase).
 
 ## Sicurezza
 
 `vercel.json` imposta una politica molto stretta (CSP): niente script o stili inline,
-niente risorse esterne, e le chiamate solo verso il proprio dominio (`/api/rsvp`). Per questo
+niente risorse esterne, e le chiamate solo verso il proprio dominio (`/api/rsvp`, `/api/report`). Per questo
 `index.html` non ha `<script>` o `style=` inline: se se ne aggiungono, il browser li blocca.
 Il sito è anche escluso dai motori di ricerca (`robots.txt` e intestazione
 `X-Robots-Tag`), perché contiene un IBAN.
@@ -90,8 +107,8 @@ Il sito è anche escluso dai motori di ricerca (`robots.txt` e intestazione
 npx serve .
 ```
 
-La pagina si vede così. Le risposte RSVP richiedono la funzione: con `vercel dev`, dopo
-`npm install`. La logica dell'RSVP si prova con `npm test`, senza database né mail.
+La pagina si vede così. Le risposte RSVP e `/admin` richiedono le funzioni e le variabili
+d'ambiente: con `vercel dev`. La logica dell'RSVP si prova con `npm test`, senza database né mail.
 
 ## Struttura delle cartelle
 
@@ -99,9 +116,12 @@ La pagina si vede così. Le risposte RSVP richiedono la funzione: con `vercel de
 index.html            la pagina
 css/style.css         stili (prima per il telefono, poi per schermi grandi)
 js/main.js            JavaScript: menu, mosaico, calendario, copia, RSVP
-api/rsvp.js           la funzione che riceve le risposte (Vercel)
+admin/index.html      pagina privata degli sposi (css/admin.css, js/admin.js)
+api/rsvp.js           funzione che riceve le risposte (Vercel → Supabase)
+api/report.js         funzione che dà il report a /admin (serve la chiave)
 lib/rsvp.js           logica dell'RSVP: controllo, database, report via mail
-package.json          dipendenza del driver Postgres (solo per la funzione)
+supabase/schema.sql   tabelle e funzioni del database
+package.json          solo gli script (nessuna dipendenza)
 fonts/                Cormorant Garamond e Karla, serviti dal sito (licenza OFL)
 img/apertura/         foto a tutta pagina in testa
 img/mosaico/          miniature del mosaico
