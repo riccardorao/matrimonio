@@ -44,14 +44,15 @@
   var conto = document.querySelector('[data-conto]');
   if (conto) {
     var giorni = Math.ceil((MATRIMONIO - new Date()) / 86400000);
+    // una riga sola: «Mancano» in maiuscoletto, il numero in serif
     if (giorni > 1) {
-      conto.innerHTML = '<span>Mancano</span><strong>' + giorni.toLocaleString('it-IT') + ' giorni</strong>';
+      conto.innerHTML = '<span>Mancano</span> <strong>' + giorni.toLocaleString('it-IT') + ' giorni</strong>';
     } else if (giorni === 1) {
-      conto.innerHTML = '<span>Manca</span><strong>un giorno</strong>';
+      conto.innerHTML = '<span>Manca</span> <strong>un giorno</strong>';
     } else if (giorni === 0) {
-      conto.innerHTML = '<span>Oggi è</span><strong>il giorno</strong>';
+      conto.innerHTML = '<span>Oggi</span> <strong>è il giorno</strong>';
     } else {
-      conto.innerHTML = '<span>Grazie</span><strong>di aver festeggiato</strong>';
+      conto.innerHTML = '<span>Grazie</span> <strong>di aver festeggiato</strong>';
     }
     conto.hidden = false;
   }
@@ -285,6 +286,7 @@
     var contenitoreOspiti = modulo.querySelector('[data-ospiti]');
     var modello = document.getElementById('ospite-modello');
     var invia = modulo.querySelector('[data-invia]');
+    var testoInvia = invia.textContent;
     var stato = modulo.querySelector('[data-stato]');
     var trappola = modulo.querySelector('[name="web"]');
     var grazie = document.querySelector('[data-grazie]');
@@ -390,7 +392,6 @@
     document.querySelector('[data-modifica]').addEventListener('click', function () {
       if (!risposta) return;
       riempi(risposta.dati);
-      invia.textContent = 'Aggiorna la risposta';
       grazie.hidden = true;
       modulo.hidden = false;
       modulo.querySelector('input[name="presenza"]').focus();
@@ -399,7 +400,6 @@
       dimenticaRisposta();
       modulo.reset();
       aggiorna();
-      invia.textContent = 'Invia la risposta';
       stato.textContent = '';
       grazie.hidden = true;
       modulo.hidden = false;
@@ -433,7 +433,7 @@
         stato.textContent = 'Non siamo riusciti a inviare la risposta. Controllate la connessione e riprovate, oppure scriveteci.';
       }).then(function () {
         invia.disabled = false;
-        invia.textContent = risposta ? 'Aggiorna la risposta' : 'Invia la risposta';
+        invia.textContent = testoInvia;
       });
     });
     aggiorna();
