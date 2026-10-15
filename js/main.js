@@ -45,13 +45,13 @@
   if (conto) {
     var giorni = Math.ceil((MATRIMONIO - new Date()) / 86400000);
     if (giorni > 1) {
-      conto.innerHTML = 'Mancano <strong>' + giorni.toLocaleString('it-IT') + '</strong> giorni';
+      conto.innerHTML = '<span>Mancano</span><strong>' + giorni.toLocaleString('it-IT') + ' giorni</strong>';
     } else if (giorni === 1) {
-      conto.innerHTML = 'Manca <strong>un</strong> giorno';
+      conto.innerHTML = '<span>Manca</span><strong>un giorno</strong>';
     } else if (giorni === 0) {
-      conto.innerHTML = '<strong>Oggi</strong> è il giorno';
+      conto.innerHTML = '<span>Oggi è</span><strong>il giorno</strong>';
     } else {
-      conto.innerHTML = 'Grazie per aver festeggiato con noi';
+      conto.innerHTML = '<span>Grazie</span><strong>di aver festeggiato</strong>';
     }
     conto.hidden = false;
   }
@@ -192,41 +192,65 @@
     }
   }
 
-  /* ---------- micromappa: fumetto sui parcheggi ----------
-     Ogni pallino è un link a Google Maps (senza JavaScript ci porta
-     dritto). Qui il tocco apre invece un fumetto con i minuti a piedi e il
-     pulsante «Mappa»; si chiude toccando fuori, lo stesso pallino o con Esc. */
+  /* ---------- micromappa: fumetto e percorso ----------
+     Ogni pallino è un link a Google Maps (senza JavaScript ci porta dritto).
+     Qui il tocco apre un fumetto con i minuti a piedi e il pulsante «Mappa»,
+     e tratteggia la strada da quel parcheggio alla chiesa: un solo percorso
+     alla volta. Si chiude toccando fuori, ritoccando lo stesso pallino o con Esc. */
   var fumetto = document.querySelector('[data-fumetto]');
   if (fumetto) {
     var cornice = fumetto.parentNode;
+    var mappa = cornice.querySelector('.micromappa');
     var fTempo = fumetto.querySelector('[data-fumetto-tempo]');
-    var fNota = fumetto.querySelector('[data-fumetto-nota]');
     var fLink = fumetto.querySelector('[data-fumetto-link]');
     var pallini = cornice.querySelectorAll('.mm-p');
+    var percorsi = cornice.querySelectorAll('.mm-percorso');
     var aperto = null;
 
+    function mostraPercorso(n) {
+      percorsi.forEach(function (p) {
+        p.classList.toggle('visibile', p.getAttribute('data-percorso') === n);
+      });
+    }
     function chiudiFumetto() {
       fumetto.hidden = true;
+      mostraPercorso(null);
       if (aperto) { aperto.classList.remove('attivo'); aperto.setAttribute('aria-expanded', 'false'); }
       aperto = null;
+    }
+    // Posizione del fumetto, in coordinate del contenitore. Da telefono sta
+    // sopra o sotto il pallino (sovrapposto alla mappa); su desktop, a fianco.
+    function posiziona(p) {
+      var r = p.querySelector('.mm-p-pallino').getBoundingClientRect();
+      var c = cornice.getBoundingClientRect();
+      var m = mappa.getBoundingClientRect();
+      var ox = m.left - c.left, oy = m.top - c.top;
+      var cxm = r.left + r.width / 2 - m.left, cym = r.top + r.height / 2 - m.top;
+      if (window.matchMedia('(min-width: 900px)').matches) {
+        fumetto.classList.remove('sotto');
+        fumetto.classList.add('lato');
+        fumetto.style.left = (ox + m.width + 22) + 'px';
+        fumetto.style.top = (oy + cym) + 'px';
+        fumetto.style.removeProperty('--freccia');
+        return;
+      }
+      fumetto.classList.remove('lato');
+      var w = fumetto.offsetWidth, h = fumetto.offsetHeight;
+      var sinistra = Math.max(w / 2 + 8, Math.min(m.width - w / 2 - 8, cxm));
+      fumetto.classList.toggle('sotto', cym - h - 30 < 0);
+      fumetto.style.left = (ox + sinistra) + 'px';
+      fumetto.style.top = (oy + cym) + 'px';
+      fumetto.style.setProperty('--freccia', (cxm - sinistra + w / 2) + 'px');
     }
     function apriFumetto(p, daTastiera) {
       chiudiFumetto();
       fTempo.textContent = p.getAttribute('data-tempo');
-      fNota.textContent = p.getAttribute('data-nota');
       fLink.href = p.getAttribute('href');
       fumetto.hidden = false;
-      var r = p.querySelector('.mm-p-pallino').getBoundingClientRect();
-      var m = cornice.getBoundingClientRect();
-      var cx = r.left + r.width / 2 - m.left, cy = r.top + r.height / 2 - m.top;
-      var w = fumetto.offsetWidth, h = fumetto.offsetHeight;
-      var sinistra = Math.max(w / 2 + 8, Math.min(m.width - w / 2 - 8, cx));
-      fumetto.classList.toggle('sotto', cy - h - 30 < 0);
-      fumetto.style.left = sinistra + 'px';
-      fumetto.style.top = cy + 'px';
-      fumetto.style.setProperty('--freccia', (cx - sinistra + w / 2) + 'px');
+      posiziona(p);
       p.classList.add('attivo');
       p.setAttribute('aria-expanded', 'true');
+      mostraPercorso(p.getAttribute('data-percorso'));
       aperto = p;
       if (daTastiera) fLink.focus();
     }
@@ -247,40 +271,100 @@
   }
 
   /* ---------- RSVP ----------
-     Il modulo è un normale form che invia al modulo Google della coppia:
-     senza JavaScript funziona così com'è. Qui lo si invia restando nella
-     pagina. Google non permette di leggere la risposta (no-cors), quindi
-     "inviato" vuol dire che la richiesta è partita senza errori di rete. */
+     Prima si chiede se si viene. "No": solo il nome. "Sì": quante persone
+     (1–10) e, per ognuna, nome, fascia d'età e allergie. L'invio va a
+     /api/rsvp, che salva nel database e manda il report via mail. La
+     risposta si ricorda su questo dispositivo: "Modifica" la riapre e il
+     nuovo invio aggiorna la stessa risposta, senza crearne una seconda. */
   var modulo = document.querySelector('[data-rsvp]');
-  if (modulo && window.fetch && window.FormData && window.URLSearchParams) {
-    var presenti = modulo.querySelector('[data-se-presenti]');
-    var etichettaNomi = modulo.querySelector('[data-etichetta-nomi]');
-    var campoNomi = modulo.querySelector('textarea[name="entry.1498135098"]');
+  if (modulo && window.fetch) {
+    var CHIAVE = 'rsvp-ambrogio-francesca';
+    var MAX_PERSONE = 10;
+    var passoNo = modulo.querySelector('[data-passo="no"]');
+    var passoSi = modulo.querySelector('[data-passo="si"]');
+    var contenitoreOspiti = modulo.querySelector('[data-ospiti]');
+    var modello = document.getElementById('ospite-modello');
     var invia = modulo.querySelector('[data-invia]');
     var stato = modulo.querySelector('[data-stato]');
+    var trappola = modulo.querySelector('[name="web"]');
     var grazie = document.querySelector('[data-grazie]');
     var grazieTitolo = document.querySelector('[data-grazie-titolo]');
     var grazieTesto = document.querySelector('[data-grazie-testo]');
-    var CHIAVE = 'rsvp-ambrogio-francesca';
+    var risposta = null; // { id, dati } della risposta salvata su questo dispositivo
 
-    function ciSaranno() {
-      var scelta = modulo.querySelector('input[name="entry.877086558"]:checked');
-      return !scelta || scelta.value.indexOf('Sì') === 0;
+    function creaOspite(n) {
+      var blocco = modello.content.firstElementChild.cloneNode(true);
+      blocco.querySelector('[data-titolo]').textContent = 'Persona ' + n;
+      blocco.querySelectorAll('input[type="radio"]').forEach(function (r) { r.name = 'eta-' + n; });
+      contenitoreOspiti.appendChild(blocco);
     }
+    for (var n = 1; n <= MAX_PERSONE; n++) creaOspite(n);
+    var blocchi = contenitoreOspiti.querySelectorAll('[data-ospite]');
 
-    // Chi non viene non ha bisogno delle domande su bambini e allergie:
-    // le nascondiamo e le disattiviamo, così non vengono nemmeno inviate.
-    function aggiornaDomande() {
-      var si = ciSaranno();
-      presenti.hidden = !si;
-      presenti.querySelectorAll('textarea').forEach(function (t) { t.disabled = !si; });
-      etichettaNomi.textContent = si ? 'Nome e cognome di chi verrà' : 'Il vostro nome e cognome';
-      campoNomi.placeholder = si ? 'Per esempio: Mario Rossi, Anna Bianchi' : 'Per esempio: Mario Rossi';
+    function scelta(nome) {
+      var el = modulo.querySelector('input[name="' + nome + '"]:checked');
+      return el ? el.value : null;
     }
-    modulo.addEventListener('change', aggiornaDomande);
-    aggiornaDomande();
+    // I campi nascosti sono disabilitati: non vengono validati né inviati.
+    function abilita(contenitore, si) {
+      contenitore.querySelectorAll('input, textarea').forEach(function (el) { el.disabled = !si; });
+    }
+    function aggiorna() {
+      var presenza = scelta('presenza');
+      var numero = presenza === 'si' ? parseInt(scelta('numero'), 10) || 0 : 0;
+      passoNo.hidden = presenza !== 'no';
+      abilita(passoNo, presenza === 'no');
+      passoSi.hidden = presenza !== 'si';
+      abilita(passoSi, presenza === 'si');
+      blocchi.forEach(function (b, i) {
+        var mostra = i < numero;
+        b.hidden = !mostra;
+        abilita(b, mostra);
+      });
+      invia.hidden = !(presenza === 'no' || numero > 0);
+    }
+    modulo.addEventListener('change', aggiorna);
 
-    function mostraGrazie(si) {
+    function raccogli() {
+      var presenza = scelta('presenza');
+      if (presenza === 'no') {
+        return { presenza: 'no', rispondente: passoNo.querySelector('input').value.trim(), ospiti: [] };
+      }
+      var numero = parseInt(scelta('numero'), 10);
+      var ospiti = [];
+      for (var i = 0; i < numero; i++) {
+        var b = blocchi[i];
+        var eta = b.querySelector('input[type="radio"]:checked');
+        ospiti.push({
+          nome: b.querySelector('input[name="nome"]').value.trim(),
+          eta: eta ? eta.value : null,
+          allergie: b.querySelector('textarea').value.trim()
+        });
+      }
+      return { presenza: 'si', rispondente: ospiti[0].nome, ospiti: ospiti };
+    }
+    // Riempie il modulo con una risposta già data (per "Modifica").
+    function riempi(dati) {
+      modulo.reset();
+      var radio = modulo.querySelector('input[name="presenza"][value="' + dati.presenza + '"]');
+      if (radio) radio.checked = true;
+      if (dati.presenza === 'no') {
+        passoNo.querySelector('input').value = dati.rispondente || '';
+      } else {
+        var numeri = modulo.querySelector('input[name="numero"][value="' + dati.ospiti.length + '"]');
+        if (numeri) numeri.checked = true;
+        dati.ospiti.forEach(function (o, i) {
+          var b = blocchi[i];
+          b.querySelector('input[name="nome"]').value = o.nome;
+          var eta = b.querySelector('input[type="radio"][value="' + o.eta + '"]');
+          if (eta) eta.checked = true;
+          b.querySelector('textarea').value = o.allergie || '';
+        });
+      }
+      aggiorna();
+    }
+    function mostraGrazie(dati) {
+      var si = dati.presenza === 'si';
       grazieTitolo.textContent = si ? 'Grazie, a presto!' : 'Grazie per avercelo detto';
       grazieTesto.textContent = si
         ? 'Abbiamo ricevuto la vostra risposta. Non vediamo l\'ora di festeggiare con voi il 24 aprile.'
@@ -288,47 +372,71 @@
       modulo.hidden = true;
       grazie.hidden = false;
     }
+    function ricordaRisposta(id, dati) {
+      risposta = { id: id, dati: dati };
+      try { localStorage.setItem(CHIAVE, JSON.stringify(risposta)); } catch (e) {}
+    }
+    function dimenticaRisposta() {
+      risposta = null;
+      try { localStorage.removeItem(CHIAVE); } catch (e) {}
+    }
 
     // Chi ha già risposto da questo dispositivo ritrova il ringraziamento.
     try {
-      var precedente = localStorage.getItem(CHIAVE);
-      if (precedente) mostraGrazie(precedente === 'si');
+      var salvata = JSON.parse(localStorage.getItem(CHIAVE) || 'null');
+      if (salvata && salvata.dati) { risposta = salvata; mostraGrazie(salvata.dati); }
     } catch (e) {}
 
+    document.querySelector('[data-modifica]').addEventListener('click', function () {
+      if (!risposta) return;
+      riempi(risposta.dati);
+      invia.textContent = 'Aggiorna la risposta';
+      grazie.hidden = true;
+      modulo.hidden = false;
+      modulo.querySelector('input[name="presenza"]').focus();
+    });
     document.querySelector('[data-di-nuovo]').addEventListener('click', function () {
+      dimenticaRisposta();
       modulo.reset();
-      aggiornaDomande();
+      aggiorna();
+      invia.textContent = 'Invia la risposta';
       stato.textContent = '';
       grazie.hidden = true;
       modulo.hidden = false;
-      try { localStorage.removeItem(CHIAVE); } catch (e) {}
-      modulo.querySelector('input[type="radio"]').focus();
+      modulo.querySelector('input[name="presenza"]').focus();
     });
 
     modulo.addEventListener('submit', function (ev) {
       ev.preventDefault();
       if (!modulo.reportValidity()) return;
-      var si = ciSaranno();
-      var dati = new URLSearchParams();
-      new FormData(modulo).forEach(function (valore, nome) {
-        if (String(valore).trim() !== '') dati.append(nome, valore);
-      });
+      var dati = raccogli();
+      var corpo = { presenza: dati.presenza, rispondente: dati.rispondente, ospiti: dati.ospiti, web: trappola.value };
+      if (risposta && risposta.id) corpo.id = risposta.id;
       invia.disabled = true;
       invia.textContent = 'Invio in corso…';
       stato.textContent = '';
-      fetch(modulo.action, { method: 'POST', mode: 'no-cors', body: dati })
-        .then(function () {
-          try { localStorage.setItem(CHIAVE, si ? 'si' : 'no'); } catch (e) {}
-          mostraGrazie(si);
-          grazie.focus();
-        }, function () {
-          stato.textContent = 'Non siamo riusciti a inviare la risposta. Controllate la connessione e riprovate, oppure scriveteci.';
-        })
-        .then(function () {
-          invia.disabled = false;
-          invia.textContent = 'Invia la risposta';
-        });
+      fetch('/api/rsvp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(corpo)
+      }).then(function (r) {
+        return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok, corpo: j }; });
+      }).then(function (esito) {
+        if (!esito.ok || !esito.corpo.ok) {
+          stato.textContent = esito.corpo.errore || 'Non siamo riusciti a inviare la risposta. Controllate la connessione e riprovate, oppure scriveteci.';
+          return;
+        }
+        ricordaRisposta(esito.corpo.id || (risposta && risposta.id), dati);
+        mostraGrazie(dati);
+        grazie.focus();
+      }, function () {
+        stato.textContent = 'Non siamo riusciti a inviare la risposta. Controllate la connessione e riprovate, oppure scriveteci.';
+      }).then(function () {
+        invia.disabled = false;
+        invia.textContent = risposta ? 'Aggiorna la risposta' : 'Invia la risposta';
+      });
     });
+    aggiorna();
   }
 
   /* ---------- barra: bordo dopo lo scorrimento ---------- */
