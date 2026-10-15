@@ -18,8 +18,10 @@ Vanno scritti con l'indirizzo assoluto, e ora contengono `https://www.ambrogioef
 
 ## Come si cambia qualcosa
 
-La pagina segue l'ordine in cui un invitato cerca le cose: **data (nell'apertura)
-→ orari e calendario → messa (con parcheggi) → ricevimento → regalo → RSVP**.
+La pagina segue l'ordine in cui un invitato cerca le cose: **testata con la data
+→ conto alla rovescia e calendario → foto → messa (con parcheggi) → ricevimento
+→ regalo → RSVP**. Il bottone RSVP resta sempre in alto; il menu ha solo Cerimonia,
+Ricevimento e Regalo.
 Il bottone RSVP resta sempre in alto; il menu ha solo Cerimonia, Ricevimento, Regalo.
 
 | Cosa | Dove |
@@ -27,9 +29,10 @@ Il bottone RSVP resta sempre in alto; il menu ha solo Cerimonia, Ricevimento, Re
 | Testi, orari, indirizzi, link alle mappe | `index.html` |
 | Colori, spaziature, caratteri | `css/style.css`: in cima, in `:root`, ci sono i token condivisi (misura delle etichette, dei titoli, dei bottoni, ombre). Cambiando un token cambia tutte le sezioni che lo usano. |
 | **Mosaico di foto** sotto l'apertura | `index.html`, sezione `data-mosaico`: una riga `<li>` per foto. Classe `v` = verticale (WebP 280×400), `o` = orizzontale (280×200), `g` = grande (560×400). Le miniature stanno in `img/mosaico/`, già ritagliate. La copia per il giro continuo la crea `js/main.js`, che lo fa scorrere e lo rende trascinabile (velocità e ritorno all'andatura in cima al blocco del mosaico). |
-| **Micromappa dei parcheggi** | Le vie sono in `img/luoghi/mappa-chiesa.svg` (da OpenStreetMap). I pallini sono in `index.html`, nella `.micromappa`: ogni `<a class="mm-p">` ha la posizione (`cx`/`cy`, in metri dall'angolo in alto a sinistra), il link Google Maps e il testo del fumetto (`data-tempo`, `data-nota`). |
-| Calendario | Un solo bottone «Aggiungi al calendario» in `index.html`, che punta a `download/matrimonio-ambrogio-francesca.ics` (evento di tutto il giorno). Su Android, `js/main.js` lo fa puntare a Google Calendar, usando l'indirizzo nell'attributo `data-android`. |
+| **Micromappa dei parcheggi** | Le vie sono in `img/luoghi/mappa-chiesa.svg` (da OpenStreetMap). I pallini sono in `index.html`, nella `.micromappa`: ogni `<a class="mm-p">` ha la posizione (`cx`/`cy`, in metri dall'angolo in alto a sinistra), il link Google Maps, `data-tempo` (il minuto mostrato) e `data-percorso` (il numero). Il tratteggio dal parcheggio alla chiesa è un `<path class="mm-percorso">` con lo stesso `data-percorso`: è calcolato a piedi sulla rete stradale OpenStreetMap; se si sposta un parcheggio, va ricalcolato. |
+| Conto alla rovescia e calendario | Sezione `#quando`, subito sotto la testata. Il bottone «Aggiungi al calendario» punta a `download/matrimonio-ambrogio-francesca.ics` (evento di tutto il giorno). Su Android, `js/main.js` lo fa puntare a Google Calendar, usando l'indirizzo nell'attributo `data-android`. |
 | IBAN, intestatari, causale | `index.html`, sezione `#regalo`: il testo copiato è nell'attributo `data-copia` di ogni bottone. |
+| Negozi della lista nozze | `index.html`, sezione regalo: una `<div class="negozio">` per negozio. Sito e mappa sono `<a class="link-esterno">`, tutti con lo stesso stile. |
 | Foto grandi (apertura, chiesa, cascina, Islanda, casa) | `img/apertura/`, `img/luoghi/`, `img/regalo/` |
 
 ## L'RSVP

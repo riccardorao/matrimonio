@@ -45,13 +45,13 @@
   if (conto) {
     var giorni = Math.ceil((MATRIMONIO - new Date()) / 86400000);
     if (giorni > 1) {
-      conto.innerHTML = 'Mancano <strong>' + giorni.toLocaleString('it-IT') + '</strong> giorni';
+      conto.innerHTML = '<span>Mancano</span><strong>' + giorni.toLocaleString('it-IT') + ' giorni</strong>';
     } else if (giorni === 1) {
-      conto.innerHTML = 'Manca <strong>un</strong> giorno';
+      conto.innerHTML = '<span>Manca</span><strong>un giorno</strong>';
     } else if (giorni === 0) {
-      conto.innerHTML = '<strong>Oggi</strong> è il giorno';
+      conto.innerHTML = '<span>Oggi è</span><strong>il giorno</strong>';
     } else {
-      conto.innerHTML = 'Grazie per aver festeggiato con noi';
+      conto.innerHTML = '<span>Grazie</span><strong>di aver festeggiato</strong>';
     }
     conto.hidden = false;
   }
@@ -192,28 +192,34 @@
     }
   }
 
-  /* ---------- micromappa: fumetto sui parcheggi ----------
-     Ogni pallino è un link a Google Maps (senza JavaScript ci porta
-     dritto). Qui il tocco apre invece un fumetto con i minuti a piedi e il
-     pulsante «Mappa»; si chiude toccando fuori, lo stesso pallino o con Esc. */
+  /* ---------- micromappa: fumetto e percorso ----------
+     Ogni pallino è un link a Google Maps (senza JavaScript ci porta dritto).
+     Qui il tocco apre un fumetto con i minuti a piedi e il pulsante «Mappa»,
+     e tratteggia la strada da quel parcheggio alla chiesa: un solo percorso
+     alla volta. Si chiude toccando fuori, ritoccando lo stesso pallino o con Esc. */
   var fumetto = document.querySelector('[data-fumetto]');
   if (fumetto) {
     var cornice = fumetto.parentNode;
     var fTempo = fumetto.querySelector('[data-fumetto-tempo]');
-    var fNota = fumetto.querySelector('[data-fumetto-nota]');
     var fLink = fumetto.querySelector('[data-fumetto-link]');
     var pallini = cornice.querySelectorAll('.mm-p');
+    var percorsi = cornice.querySelectorAll('.mm-percorso');
     var aperto = null;
 
+    function mostraPercorso(n) {
+      percorsi.forEach(function (p) {
+        p.classList.toggle('visibile', p.getAttribute('data-percorso') === n);
+      });
+    }
     function chiudiFumetto() {
       fumetto.hidden = true;
+      mostraPercorso(null);
       if (aperto) { aperto.classList.remove('attivo'); aperto.setAttribute('aria-expanded', 'false'); }
       aperto = null;
     }
     function apriFumetto(p, daTastiera) {
       chiudiFumetto();
       fTempo.textContent = p.getAttribute('data-tempo');
-      fNota.textContent = p.getAttribute('data-nota');
       fLink.href = p.getAttribute('href');
       fumetto.hidden = false;
       var r = p.querySelector('.mm-p-pallino').getBoundingClientRect();
@@ -227,6 +233,7 @@
       fumetto.style.setProperty('--freccia', (cx - sinistra + w / 2) + 'px');
       p.classList.add('attivo');
       p.setAttribute('aria-expanded', 'true');
+      mostraPercorso(p.getAttribute('data-percorso'));
       aperto = p;
       if (daTastiera) fLink.focus();
     }

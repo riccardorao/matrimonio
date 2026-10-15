@@ -84,8 +84,21 @@
         <span class="data-giorno">Sabato</span>
         <span class="data-numero">24 aprile 2027</span>
       </time></p>
-      <p class="luoghi">Calcinate &middot; Martinengo &middot; Bergamo</p>
     </div>
+  </section>
+
+  <!-- ============ CONTO ALLA ROVESCIA E CALENDARIO ============
+       Subito sotto la testata: a sinistra quanto manca, a destra il bottone
+       per il calendario. Un solo bottone per tutti i dispositivi (vedi js). -->
+  <section id="quando" class="striscia" aria-labelledby="quando-titolo">
+    <h2 id="quando-titolo" class="sr-only">Conto alla rovescia e calendario</h2>
+    <p class="conto" data-conto hidden></p>
+    <a class="btn btn-pieno btn-piccolo" href="download/matrimonio-ambrogio-francesca.ics"
+       data-calendario
+       data-android="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Matrimonio%20Ambrogio%20e%20Francesca&amp;dates=20270424%2F20270425&amp;location=Piazza%20della%20Chiesa%2C%20Calcinate%20%28BG%29&amp;details=Ore%2014%3A30%20messa%20nella%20Chiesa%20di%20Santa%20Maria%20Assunta%2C%20Calcinate.%20Dalle%2016%3A30%20ricevimento%20alla%20Cascina%20Camporosso%2C%20Martinengo.%20Tutte%20le%20informazioni%3A%20https%3A%2F%2Fwww.ambrogioefrancesca.it%2F">
+      <svg class="icona" aria-hidden="true" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 10h17M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M12 13v5M9.5 15.5h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <span>Aggiungi al calendario</span>
+    </a>
   </section>
 
   <!-- ============ MOSAICO ============
@@ -143,28 +156,6 @@
     </div>
   </section>
 
-  <!-- ============ PROGRAMMA E CALENDARIO ============
-       La data è già nell'apertura: qui il conto alla rovescia, gli orari
-       (che portano alle due sezioni) e il bottone del calendario. -->
-  <section id="quando" class="quando" aria-labelledby="quando-titolo">
-    <h2 id="quando-titolo" class="sr-only">Programma della giornata</h2>
-    <p class="conto" data-conto hidden></p>
-    <p class="quando-frase">Saremmo molto felici di vivere questa giornata insieme a voi.</p>
-    <ul class="programma">
-      <li><a href="#cerimonia"><strong>14:30</strong> Messa</a></li>
-      <li><a href="#ricevimento"><strong>16:30</strong> Ricevimento</a></li>
-    </ul>
-    <!-- Un solo bottone per ogni dispositivo. Il file .ics apre il calendario
-         su iPhone, Mac, Outlook e Windows; su Android main.js lo fa puntare
-         a Google Calendar (l'indirizzo sta in data-android). -->
-    <a class="btn btn-pieno btn-largo" href="download/matrimonio-ambrogio-francesca.ics"
-       data-calendario
-       data-android="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Matrimonio%20Ambrogio%20e%20Francesca&amp;dates=20270424%2F20270425&amp;location=Piazza%20della%20Chiesa%2C%20Calcinate%20%28BG%29&amp;details=Ore%2014%3A30%20messa%20nella%20Chiesa%20di%20Santa%20Maria%20Assunta%2C%20Calcinate.%20Dalle%2016%3A30%20ricevimento%20alla%20Cascina%20Camporosso%2C%20Martinengo.%20Tutte%20le%20informazioni%3A%20https%3A%2F%2Fwww.ambrogioefrancesca.it%2F">
-      <svg class="icona" aria-hidden="true" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 10h17M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M12 13v5M9.5 15.5h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-      <span>Aggiungi al calendario</span>
-    </a>
-  </section>
-
   <!-- ============ CERIMONIA ============ -->
   <section id="cerimonia" class="sezione luogo">
     <figure class="luogo-foto rivela">
@@ -182,7 +173,7 @@
         Piazza della Chiesa, 24050 Calcinate (BG)
       </address>
       <p class="rivela">
-        <a class="link-mappa" target="_blank" rel="noopener"
+        <a class="link-esterno" target="_blank" rel="noopener"
            href="https://www.google.com/maps/search/?api=1&amp;query=Chiesa+di+Santa+Maria+Assunta%2C+Piazza+della+Chiesa%2C+Calcinate+BG">Mappa</a>
       </p>
     </div>
@@ -190,11 +181,12 @@
     <!-- Micromappa: sotto, le vie vere (img/luoghi/mappa-chiesa.svg, da
          OpenStreetMap); sopra, nello stesso sistema di coordinate, la chiesa
          e i pallini dei parcheggi. Ogni pallino è un link alla sua mappa:
-         con il JavaScript, al tocco apre prima un fumetto con i minuti a
-         piedi (data-tempo, data-nota) e il pulsante «Mappa». -->
+         con il JavaScript, al tocco apre un fumetto con i minuti a piedi
+         (data-tempo) e il pulsante «Mappa», e tratteggia il percorso dal
+         parcheggio alla chiesa (il tratto mm-percorso con lo stesso
+         data-percorso del pallino). -->
     <div class="parcheggi rivela">
-      <h3>Dove parcheggiare</h3>
-      <p class="nota">Toccate un pallino.</p>
+      <h3>Parcheggi</h3>
       <figure class="micromappa">
         <img src="img/luoghi/mappa-chiesa.svg" width="545" height="589" alt="" loading="lazy">
         <svg class="micromappa-segni" viewBox="0 0 545 589" role="group" aria-label="Mappa dei parcheggi intorno alla chiesa">
@@ -203,27 +195,32 @@
             <path d="M211 333v24M203 341h16"/>
             <text x="211" y="388">Chiesa</text>
           </g>
-          <a class="mm-p" href="https://maps.app.goo.gl/SagnneQ7xDmBn6Uk8" target="_blank" rel="noopener" data-tempo="1 minuto a piedi" data-nota="Il più vicino" aria-label="Parcheggio: il più vicino, 1 minuto a piedi">
+          <path class="mm-percorso" data-percorso="1" d="M230.5 261.2 L222.5 263.1 L228.7 282.3 L233.3 281.2 L237.2 282.3 L240.3 285.1 L242.0 289.2 L242.4 293.1 L241.3 297.0 L239.1 300.1 L235.4 301.4 L237.6 311.3 L213.6 309.7 L215.4 316.1 L221.3 330.9 L225.7 333.1 L233.6 331.6 L237.3 340.2 L238.0 348.9 L231.2 350.9 L228.3 355.0 L218.5 358.1 L212.9 355.7 L211.2 344.5"/>
+          <path class="mm-percorso" data-percorso="2" d="M239.1 511.3 L247.6 501.7 L241.0 487.3 L258.4 482.3 L256.3 475.4 L227.1 384.1 L218.3 386.8 L209.7 356.8 L212.9 355.7 L211.2 344.5"/>
+          <path class="mm-percorso" data-percorso="3" d="M362.8 385.5 L334.7 401.6 L317.6 359.2 L268.5 374.2 L260.0 373.3 L232.1 383.8 L232.0 389.9 L229.2 390.7 L227.1 384.1 L218.3 386.8 L209.7 356.8 L212.9 355.7 L211.2 344.5"/>
+          <path class="mm-percorso" data-percorso="4" d="M352.8 189.5 L334.3 201.9 L326.3 222.3 L317.1 230.3 L301.3 237.5 L302.4 241.9 L272.6 250.1 L283.5 280.3 L298.2 314.0 L267.7 325.2 L261.0 330.2 L257.2 331.7 L244.5 334.6 L251.2 356.4 L244.3 362.7 L214.0 371.4 L209.7 356.8 L212.9 355.7 L211.2 344.5"/>
+          <path class="mm-percorso" data-percorso="5" d="M270.2 72.9 L270.1 109.6 L228.0 38.8 L145.4 41.9 L145.9 65.6 L148.3 85.6 L153.0 101.8 L216.4 188.4 L239.8 222.3 L250.8 253.4 L222.5 263.1 L228.7 282.3 L233.3 281.2 L237.2 282.3 L240.3 285.1 L242.0 289.2 L242.4 293.1 L241.3 297.0 L239.1 300.1 L235.4 301.4 L237.6 311.3 L213.6 309.7 L215.4 316.1 L221.3 330.9 L225.7 333.1 L233.6 331.6 L237.3 340.2 L238.0 348.9 L231.2 350.9 L228.3 355.0 L218.5 358.1 L212.9 355.7 L211.2 344.5"/>
+          <a class="mm-p" href="https://maps.app.goo.gl/SagnneQ7xDmBn6Uk8" target="_blank" rel="noopener" data-tempo="1 min" data-percorso="1" aria-label="Parcheggio 1: 1 minuti a piedi">
             <circle class="mm-p-area" cx="231" cy="261" r="34"/>
             <circle class="mm-p-pallino" cx="231" cy="261" r="17"/>
             <text x="231" y="267">1</text>
           </a>
-          <a class="mm-p" href="https://maps.app.goo.gl/jc8AfWM6DBBHQ9kz9" target="_blank" rel="noopener" data-tempo="3 minuti a piedi" data-nota="A sud della chiesa" aria-label="Parcheggio: a sud della chiesa, 3 minuti a piedi">
+          <a class="mm-p" href="https://maps.app.goo.gl/jc8AfWM6DBBHQ9kz9" target="_blank" rel="noopener" data-tempo="3 min" data-percorso="2" aria-label="Parcheggio 2: 3 minuti a piedi">
             <circle class="mm-p-area" cx="239" cy="511" r="34"/>
             <circle class="mm-p-pallino" cx="239" cy="511" r="17"/>
             <text x="239" y="517">2</text>
           </a>
-          <a class="mm-p" href="https://maps.app.goo.gl/ZZ5Xcmp1xtrPjvf88" target="_blank" rel="noopener" data-tempo="3 minuti a piedi" data-nota="A est della chiesa" aria-label="Parcheggio: a est della chiesa, 3 minuti a piedi">
+          <a class="mm-p" href="https://maps.app.goo.gl/ZZ5Xcmp1xtrPjvf88" target="_blank" rel="noopener" data-tempo="3 min" data-percorso="3" aria-label="Parcheggio 3: 3 minuti a piedi">
             <circle class="mm-p-area" cx="363" cy="386" r="34"/>
             <circle class="mm-p-pallino" cx="363" cy="386" r="17"/>
             <text x="363" y="392">3</text>
           </a>
-          <a class="mm-p" href="https://maps.app.goo.gl/yGabG8D2ogLYt7rQ6" target="_blank" rel="noopener" data-tempo="5 minuti a piedi" data-nota="Il più grande" aria-label="Parcheggio: il più grande, 5 minuti a piedi">
+          <a class="mm-p" href="https://maps.app.goo.gl/yGabG8D2ogLYt7rQ6" target="_blank" rel="noopener" data-tempo="5 min" data-percorso="4" aria-label="Parcheggio 4: 5 minuti a piedi">
             <circle class="mm-p-area" cx="353" cy="189" r="34"/>
             <circle class="mm-p-pallino" cx="353" cy="189" r="17"/>
             <text x="353" y="195">4</text>
           </a>
-          <a class="mm-p" href="https://maps.app.goo.gl/RzDdhkcigYFG6U2s7" target="_blank" rel="noopener" data-tempo="8 minuti a piedi" data-nota="Se gli altri sono pieni" aria-label="Parcheggio: se gli altri sono pieni, 8 minuti a piedi">
+          <a class="mm-p" href="https://maps.app.goo.gl/RzDdhkcigYFG6U2s7" target="_blank" rel="noopener" data-tempo="8 min" data-percorso="5" aria-label="Parcheggio 5: 8 minuti a piedi">
             <circle class="mm-p-area" cx="270" cy="73" r="34"/>
             <circle class="mm-p-pallino" cx="270" cy="73" r="17"/>
             <text x="270" y="79">5</text>
@@ -238,9 +235,11 @@
           </g>
         </svg>
         <div class="mm-fumetto" data-fumetto hidden role="dialog" aria-label="Parcheggio">
-          <strong data-fumetto-tempo></strong>
-          <span data-fumetto-nota></span>
-          <a class="link-mappa" data-fumetto-link target="_blank" rel="noopener" href="https://www.google.com/maps">Mappa</a>
+          <p class="fumetto-tempo">
+            <svg class="omino" aria-hidden="true" viewBox="0 0 24 24"><circle class="omino-testa" cx="13.4" cy="4" r="2.3"/><path d="M12.4 8.2 11 14.2M12.3 9.6 16.1 11.9 17.4 10.1M12.2 9.6 8.5 11.3M11 14.2 14.4 17.7 14.8 21.5M11 14.2 7.9 17.8 6.4 21.5"/></svg>
+            <strong data-fumetto-tempo></strong>
+          </p>
+          <a class="link-esterno" data-fumetto-link target="_blank" rel="noopener" href="https://www.google.com/maps">Mappa</a>
         </div>
         <figcaption>Mappa © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></figcaption>
       </figure>
@@ -266,7 +265,7 @@
         Via Serioletto, 24057 Martinengo (BG)
       </address>
       <p class="rivela">
-        <a class="link-mappa" target="_blank" rel="noopener"
+        <a class="link-esterno" target="_blank" rel="noopener"
            href="https://www.google.com/maps/search/?api=1&amp;query=Agriturismo+Il+Camporosso%2C+Via+Serioletto%2C+24057+Martinengo+BG">Mappa</a>
       </p>
     </div>
@@ -320,8 +319,8 @@
             </div>
             <div>
               <dt>Causale</dt>
-              <dd>Regalo di nozze Ambrogio e Francesca</dd>
-              <button type="button" class="copia" data-copia="Regalo di nozze Ambrogio e Francesca" data-copia-avviso="Causale copiata" aria-label="Copia causale" hidden><svg class="icona" aria-hidden="true" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></button>
+              <dd>Viaggio di nozze</dd>
+              <button type="button" class="copia" data-copia="Viaggio di nozze" data-copia-avviso="Causale copiata" aria-label="Copia causale" hidden><svg class="icona" aria-hidden="true" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></button>
             </div>
           </dl>
         </div>
@@ -334,13 +333,22 @@
           <p class="occhiello">Lista nozze</p>
           <h3>La nostra casa</h3>
           <p>Se preferite aiutarci a costruire la nostra casa, abbiamo aperto una lista nozze da:</p>
-          <div class="negozio">
-            <strong>Bartolini</strong>
-            <span>Via dei Servi 72/R, 50122 Firenze</span>
-            <span class="link-negozio">
-              <a href="https://www.bartolinifirenze.it/" target="_blank" rel="noopener">Sito</a>
-              <a href="https://www.google.com/maps/search/?api=1&amp;query=Bartolini%2C+Via+dei+Servi+72R%2C+50122+Firenze" target="_blank" rel="noopener">Mappa</a>
-            </span>
+          <div class="negozi">
+            <div class="negozio">
+              <strong>Bartolini</strong>
+              <span>Via dei Servi 72/R, 50122 Firenze</span>
+              <span class="link-esterni">
+                <a class="link-esterno" href="https://www.bartolinifirenze.it/" target="_blank" rel="noopener">Sito</a>
+                <a class="link-esterno" href="https://www.google.com/maps/search/?api=1&amp;query=Bartolini%2C+Via+dei+Servi+72R%2C+50122+Firenze" target="_blank" rel="noopener">Mappa</a>
+              </span>
+            </div>
+            <div class="negozio">
+              <strong>Rodeschini</strong>
+              <span>Via Angelo Maj 4, 24121 Bergamo</span>
+              <span class="link-esterni">
+                <a class="link-esterno" href="https://maps.app.goo.gl/MH3ZzJnpVcqBuZWR9" target="_blank" rel="noopener">Mappa</a>
+              </span>
+            </div>
           </div>
         </div>
       </article>
