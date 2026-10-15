@@ -150,6 +150,55 @@
     }
   }
 
+  /* ---------- foto: ingrandimento ----------
+     Le foto sono tutte in vista nel mosaico; con JavaScript ognuna si apre
+     in un <dialog> che si sfoglia con le frecce, la tastiera o il dito. */
+  var galleria = document.querySelector('[data-galleria]');
+  if (galleria) {
+    var bottoni = Array.prototype.slice.call(galleria.querySelectorAll('button[data-foto]'));
+
+    var lb = document.querySelector('[data-lightbox]');
+    if (lb && typeof lb.showModal === 'function') {
+      var lbImg = lb.querySelector('[data-lb-img]');
+      var lbConta = lb.querySelector('[data-lb-conta]');
+      var corrente = 0, xTocco = null;
+
+      function vai(i) {
+        corrente = (i + bottoni.length) % bottoni.length;
+        var b = bottoni[corrente], mini = b.querySelector('img');
+        lbImg.src = b.getAttribute('data-foto');
+        lbImg.width = b.getAttribute('data-w');
+        lbImg.height = b.getAttribute('data-h');
+        lbImg.alt = mini ? mini.alt : '';
+        lbConta.textContent = (corrente + 1) + ' / ' + bottoni.length;
+        // la foto dopo, già pronta
+        var prox = new Image();
+        prox.src = bottoni[(corrente + 1) % bottoni.length].getAttribute('data-foto');
+      }
+      bottoni.forEach(function (b, i) {
+        b.addEventListener('click', function () { vai(i); lb.showModal(); });
+      });
+      lb.querySelector('[data-lb-chiudi]').addEventListener('click', function () { lb.close(); });
+      lb.querySelector('[data-lb-prec]').addEventListener('click', function () { vai(corrente - 1); });
+      lb.querySelector('[data-lb-succ]').addEventListener('click', function () { vai(corrente + 1); });
+      lb.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowLeft') vai(corrente - 1);
+        else if (e.key === 'ArrowRight') vai(corrente + 1);
+      });
+      // un tocco fuori dalla foto chiude
+      lb.addEventListener('click', function (e) { if (e.target === lb) lb.close(); });
+      lb.addEventListener('touchstart', function (e) { xTocco = e.changedTouches[0].clientX; }, { passive: true });
+      lb.addEventListener('touchend', function (e) {
+        if (xTocco === null) return;
+        var dx = e.changedTouches[0].clientX - xTocco;
+        xTocco = null;
+        if (Math.abs(dx) > 50) vai(corrente + (dx < 0 ? 1 : -1));
+      }, { passive: true });
+      // chiudendo, il focus torna sulla miniatura: e la si porta in vista
+      lb.addEventListener('close', function () { bottoni[corrente].focus({ preventScroll: false }); });
+    }
+  }
+
   /* ---------- RSVP ----------
      Il modulo è un normale form che invia al modulo Google della coppia:
      senza JavaScript funziona così com'è. Qui lo si invia restando nella
