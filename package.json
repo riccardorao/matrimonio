@@ -1,0 +1,15 @@
+{
+  "name": "matrimonio-ambrogio-francesca",
+  "private": true,
+  "description": "Sito del matrimonio. Le pagine sono statiche; api/ e lib/ sono la funzione dell'RSVP.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.2.0"
+  },
+  "scripts": {
+    "test": "node test/rsvp.test.mjs"
+  }
+}

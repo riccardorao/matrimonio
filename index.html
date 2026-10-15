@@ -234,15 +234,15 @@
             <text x="70" y="556">100 m</text>
           </g>
         </svg>
-        <div class="mm-fumetto" data-fumetto hidden role="dialog" aria-label="Parcheggio">
-          <p class="fumetto-tempo">
-            <svg class="omino" aria-hidden="true" viewBox="0 0 24 24"><circle class="omino-testa" cx="13.4" cy="4" r="2.3"/><path d="M12.4 8.2 11 14.2M12.3 9.6 16.1 11.9 17.4 10.1M12.2 9.6 8.5 11.3M11 14.2 14.4 17.7 14.8 21.5M11 14.2 7.9 17.8 6.4 21.5"/></svg>
-            <strong data-fumetto-tempo></strong>
-          </p>
-          <a class="link-esterno" data-fumetto-link target="_blank" rel="noopener" href="https://www.google.com/maps">Mappa</a>
-        </div>
         <figcaption>Mappa © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></figcaption>
       </figure>
+      <div class="mm-fumetto" data-fumetto hidden role="dialog" aria-label="Parcheggio">
+        <p class="fumetto-tempo">
+          <svg class="omino" aria-hidden="true" viewBox="0 0 24 24"><circle class="omino-testa" cx="13.4" cy="4" r="2.3"/><path d="M12.4 8.2 11 14.2M12.3 9.6 16.1 11.9 17.4 10.1M12.2 9.6 8.5 11.3M11 14.2 14.4 17.7 14.8 21.5M11 14.2 7.9 17.8 6.4 21.5"/></svg>
+          <strong data-fumetto-tempo></strong>
+        </p>
+        <a class="link-esterno" data-fumetto-link target="_blank" rel="noopener" href="https://www.google.com/maps">Mappa</a>
+      </div>
     </div>
   </section>
 
@@ -356,61 +356,97 @@
   </section>
 
   <!-- ============ RSVP ============
-       Le risposte vanno dritte nel modulo Google che Ambrogio e Francesca
-       usavano già: stesse domande, stesso foglio delle risposte. Con il
-       JavaScript l'invio resta nella pagina; senza, il modulo si invia
-       comunque e si apre la conferma di Google. I nomi dei campi (entry.*)
-       e i valori delle due scelte devono restare identici a quelli del modulo. -->
+       Prima si chiede se si viene. Sì: quante persone (1–10) e per ognuna
+       nome, fascia d'età e allergie. No: solo il nome. L'invio va a
+       /api/rsvp, che salva nel database e manda il report via mail (vedi
+       api/rsvp.js e lib/rsvp.js). Il campo "web" è una trappola per i robot:
+       deve restare vuoto. -->
   <section id="rsvp" class="rsvp">
     <div class="rsvp-carta rivela">
       <p class="occhiello">RSVP</p>
       <h2>Ci sarete?</h2>
       <p class="rsvp-intro">Fatecelo sapere il prima possibile: ci aiuta tanto a organizzare.</p>
 
-      <form class="modulo" method="post" data-rsvp
-            action="https://docs.google.com/forms/d/e/1FAIpQLSdAo9dpCc1vCxBs_UNWGRK0Qs3uGHxhH39Fxw54y7LeLvClqQ/formResponse">
-        <fieldset class="scelta">
-          <legend class="sr-only">Parteciperete?</legend>
-          <label class="opzione">
-            <input type="radio" name="entry.877086558" value="Sì, parteciperò" required>
-            <span>Sì, ci saremo</span>
-          </label>
-          <label class="opzione">
-            <input type="radio" name="entry.877086558" value="No, non posso partecipare">
-            <span>Purtroppo no</span>
-          </label>
+      <form class="modulo" data-rsvp>
+        <div class="trappola" aria-hidden="true">
+          <label>Sito web <input type="text" name="web" tabindex="-1" autocomplete="off"></label>
+        </div>
+
+        <fieldset class="scelta-grande">
+          <legend>Parteciperete?</legend>
+          <div class="tessere-scelta">
+            <label class="tessera-scelta"><input type="radio" name="presenza" value="si" required><span>Sì</span></label>
+            <label class="tessera-scelta"><input type="radio" name="presenza" value="no"><span>No</span></label>
+          </div>
         </fieldset>
 
-        <div class="campo">
-          <label for="rsvp-nomi" data-etichetta-nomi>Nome e cognome di chi verrà</label>
-          <textarea id="rsvp-nomi" name="entry.1498135098" rows="2" required
-                    placeholder="Per esempio: Mario Rossi, Anna Bianchi"></textarea>
+        <div class="passo" data-passo="no" hidden>
+          <label class="campo">
+            <span>Nome e cognome</span>
+            <input type="text" name="rispondente" autocomplete="name" placeholder="Per esempio: Mario Rossi" maxlength="120" required>
+          </label>
         </div>
 
-        <div class="se-presenti" data-se-presenti>
-          <div class="campo">
-            <label for="rsvp-bambini">Bambini <span class="facoltativo">facoltativo</span></label>
-            <p class="aiuto" id="aiuto-bambini">Quanti sono e quanti anni hanno? Vi serve un seggiolone?</p>
-            <textarea id="rsvp-bambini" name="entry.1525822404" rows="2" aria-describedby="aiuto-bambini"></textarea>
-          </div>
-          <div class="campo">
-            <label for="rsvp-allergie">Allergie o intolleranze <span class="facoltativo">facoltativo</span></label>
-            <p class="aiuto" id="aiuto-allergie">Anche altre esigenze alimentari, se ne avete.</p>
-            <textarea id="rsvp-allergie" name="entry.636293364" rows="2" aria-describedby="aiuto-allergie"></textarea>
-          </div>
+        <div class="passo" data-passo="si" hidden>
+          <fieldset class="scelta-numero">
+            <legend>Quanti sarete?</legend>
+            <div class="numeri">
+              <label class="numero"><input type="radio" name="numero" value="1"><span>1</span></label>
+              <label class="numero"><input type="radio" name="numero" value="2"><span>2</span></label>
+              <label class="numero"><input type="radio" name="numero" value="3"><span>3</span></label>
+              <label class="numero"><input type="radio" name="numero" value="4"><span>4</span></label>
+              <label class="numero"><input type="radio" name="numero" value="5"><span>5</span></label>
+              <label class="numero"><input type="radio" name="numero" value="6"><span>6</span></label>
+              <label class="numero"><input type="radio" name="numero" value="7"><span>7</span></label>
+              <label class="numero"><input type="radio" name="numero" value="8"><span>8</span></label>
+              <label class="numero"><input type="radio" name="numero" value="9"><span>9</span></label>
+              <label class="numero"><input type="radio" name="numero" value="10"><span>10</span></label>
+            </div>
+          </fieldset>
+          <div data-ospiti></div>
         </div>
 
-        <button type="submit" class="btn btn-pieno btn-grande" data-invia>Invia la risposta</button>
+        <button type="submit" class="btn btn-pieno btn-grande btn-invia" data-invia hidden>Invia la risposta</button>
         <p class="modulo-stato" role="status" aria-live="polite" data-stato></p>
       </form>
+
+      <noscript>
+        <p class="senza-script">Per rispondere serve JavaScript. Oppure scriveteci: <a href="mailto:ambrogiosilecchia@gmail.com">Ambrogio</a> · <a href="mailto:m.francesca18@gmail.com">Francesca</a>.</p>
+      </noscript>
 
       <div class="grazie" data-grazie hidden tabindex="-1">
         <svg class="rametto" aria-hidden="true"><use href="#rametto"/></svg>
         <h3 data-grazie-titolo>Grazie!</h3>
         <p data-grazie-testo></p>
-        <button type="button" class="btn btn-filo btn-piccolo" data-di-nuovo>Rispondi per un'altra persona</button>
+        <div class="grazie-azioni">
+          <button type="button" class="btn btn-filo" data-modifica>Modifica la risposta</button>
+          <button type="button" class="btn btn-filo" data-di-nuovo>Rispondi per un'altra persona</button>
+        </div>
       </div>
     </div>
+
+    <!-- Modello di un ospite: js/main.js ne crea dieci, mostrandone solo quante servono. -->
+    <template id="ospite-modello">
+      <section class="ospite" data-ospite hidden>
+        <h3 class="ospite-titolo" data-titolo></h3>
+        <label class="campo">
+          <span>Nome e cognome</span>
+          <input type="text" name="nome" autocomplete="off" maxlength="120" required>
+        </label>
+        <fieldset class="scelta-eta">
+          <legend>Età</legend>
+          <div class="tessere-eta">
+            <label class="tessera-eta"><input type="radio" value="0-3" required><span>0–3 anni</span></label>
+            <label class="tessera-eta"><input type="radio" value="4-11"><span>4–11 anni</span></label>
+            <label class="tessera-eta"><input type="radio" value="12+"><span>12 anni o più</span></label>
+          </div>
+        </fieldset>
+        <label class="campo">
+          <span>Allergie o intolleranze <em class="facoltativo">facoltativo</em></span>
+          <textarea name="allergie" rows="2" maxlength="500"></textarea>
+        </label>
+      </section>
+    </template>
   </section>
 
 </main>
