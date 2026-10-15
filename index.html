@@ -48,23 +48,20 @@
   </symbol>
 </svg>
 
-<!-- Barra in alto: monogramma, scorciatoia all'RSVP e menu a comparsa.
+<!-- Barra in alto: monogramma, RSVP sempre in vista e menu a comparsa.
      Il menu è un <details>: si apre e si chiude anche senza JavaScript. -->
 <header class="barra">
   <a class="monogramma" href="#inizio" aria-label="Torna all'inizio">A<span>&amp;</span>F</a>
-  <a class="barra-rsvp" href="#rsvp">Conferma</a>
+  <a class="barra-rsvp" href="#rsvp">RSVP</a>
   <details class="menu" data-menu>
     <summary class="menu-bottone" aria-label="Menu">
       <span class="menu-icona" aria-hidden="true"><i></i><i></i><i></i></span>
     </summary>
     <nav class="menu-pannello" aria-label="Sezioni">
       <ol>
-        <li><a href="#quando"><span>Data</span><small>24 aprile 2027</small></a></li>
-        <li><a href="#dove"><span>Luoghi</span><small>Calcinate · Martinengo</small></a></li>
-        <li><a href="#cerimonia"><span>Messa e parcheggi</span><small>ore 14:30</small></a></li>
-        <li><a href="#ricevimento"><span>Ricevimento</span><small>dalle 16:30</small></a></li>
-        <li><a href="#regalo"><span>Regalo</span><small>IBAN e lista nozze</small></a></li>
-        <li><a href="#rsvp" class="menu-rsvp"><span>Conferma la presenza</span><small>RSVP</small></a></li>
+        <li><a href="#cerimonia">Cerimonia</a></li>
+        <li><a href="#ricevimento">Ricevimento</a></li>
+        <li><a href="#regalo">Regalo</a></li>
       </ol>
     </nav>
   </details>
@@ -92,9 +89,10 @@
   </section>
 
   <!-- ============ MOSAICO ============
-       Tutte le foto, piccole, che scorrono da sole. Solo da guardare: niente
-       clic né ingrandimento. La copia che rende il giro continuo la crea
-       js/main.js. Le miniature sono già ritagliate nel formato della tessera:
+       Tutte le foto, piccole, che scorrono da sole. Si possono trascinare col
+       dito o col mouse: un colpo veloce le accelera (anche all'indietro), poi
+       tornano piano alla loro andatura. Niente clic né ingrandimento. La
+       copia che rende il giro continuo la crea js/main.js. Le miniature sono già ritagliate nel formato della tessera:
        v = verticale (280×400), o = orizzontale (280×200), g = grande (560×400). -->
   <section class="mosaico" aria-label="Alcune nostre fotografie">
     <div class="mosaico-binario" data-mosaico>
@@ -145,20 +143,16 @@
     </div>
   </section>
 
-  <!-- ============ 1. QUANDO ============ -->
-  <section id="quando" class="quando">
-    <p class="occhiello">Quando</p>
-    <div class="foglio rivela" aria-hidden="true">
-      <span class="foglio-mese">Aprile 2027</span>
-      <span class="foglio-numero">24</span>
-      <span class="foglio-giorno">Sabato</span>
-    </div>
-    <h2 class="sr-only">Sabato 24 aprile 2027</h2>
+  <!-- ============ PROGRAMMA E CALENDARIO ============
+       La data è già nell'apertura: qui il conto alla rovescia, gli orari
+       (che portano alle due sezioni) e il bottone del calendario. -->
+  <section id="quando" class="quando" aria-labelledby="quando-titolo">
+    <h2 id="quando-titolo" class="sr-only">Programma della giornata</h2>
     <p class="conto" data-conto hidden></p>
     <p class="quando-frase">Saremmo molto felici di vivere questa giornata insieme a voi.</p>
     <ul class="programma">
-      <li><strong>14:30</strong> Messa a Calcinate</li>
-      <li><strong>16:30</strong> Ricevimento a Martinengo</li>
+      <li><a href="#cerimonia"><strong>14:30</strong> Messa</a></li>
+      <li><a href="#ricevimento"><strong>16:30</strong> Ricevimento</a></li>
     </ul>
     <!-- Il bottone principale porta al file .ics (su iPhone apre subito
          Calendario); su Android main.js lo fa puntare a Google Calendar. -->
@@ -174,43 +168,7 @@
     </p>
   </section>
 
-  <!-- ============ 2. DOVE ============ -->
-  <section id="dove" class="dove">
-    <header class="titolo rivela">
-      <p class="occhiello">Dove</p>
-      <h2>Due luoghi, una giornata</h2>
-    </header>
-    <ol class="tappe">
-      <li class="tappa rivela">
-        <span class="tappa-ora">14:30</span>
-        <div class="tappa-corpo">
-          <h3>Messa</h3>
-          <p class="tappa-luogo">Chiesa di Santa Maria Assunta</p>
-          <p class="tappa-indirizzo">Piazza della Chiesa, Calcinate (BG)</p>
-          <p class="tappa-link">
-            <a class="btn btn-filo btn-piccolo" target="_blank" rel="noopener"
-               href="https://www.google.com/maps/search/?api=1&amp;query=Chiesa+di+Santa+Maria+Assunta%2C+Piazza+della+Chiesa%2C+Calcinate+BG">Portami lì</a>
-            <a class="link-freccia" href="#cerimonia">Parcheggi</a>
-          </p>
-        </div>
-      </li>
-      <li class="tappa rivela">
-        <span class="tappa-ora">16:30</span>
-        <div class="tappa-corpo">
-          <h3>Ricevimento</h3>
-          <p class="tappa-luogo">Cascina Camporosso</p>
-          <p class="tappa-indirizzo">Via Serioletto, Martinengo (BG)</p>
-          <p class="tappa-link">
-            <a class="btn btn-filo btn-piccolo" target="_blank" rel="noopener"
-               href="https://www.google.com/maps/search/?api=1&amp;query=Agriturismo+Il+Camporosso%2C+Via+Serioletto%2C+24057+Martinengo+BG">Portami lì</a>
-            <a class="link-freccia" href="#ricevimento">Come arrivare</a>
-          </p>
-        </div>
-      </li>
-    </ol>
-  </section>
-
-  <!-- ============ 3a. CERIMONIA ============ -->
+  <!-- ============ CERIMONIA ============ -->
   <section id="cerimonia" class="sezione luogo">
     <figure class="luogo-foto rivela">
       <img src="img/luoghi/chiesa.webp" width="640" height="479" loading="lazy"
@@ -219,22 +177,27 @@
 
     <div class="luogo-testo">
       <header class="titolo rivela">
-        <p class="occhiello">Cerimonia &middot; ore 14:30</p>
-        <h2>La messa</h2>
+        <p class="occhiello">Ore 14:30</p>
+        <h2>Messa</h2>
       </header>
-      <p class="rivela">Ci sposiamo nella <strong>Chiesa di Santa Maria Assunta</strong> di Calcinate.</p>
       <address class="indirizzo rivela">
-        Piazza della Chiesa<br>
-        24050 Calcinate (BG)
+        <strong>Chiesa di Santa Maria Assunta</strong>
+        Piazza della Chiesa, 24050 Calcinate (BG)
       </address>
+      <p class="rivela">
+        <a class="link-mappa" target="_blank" rel="noopener"
+           href="https://www.google.com/maps/search/?api=1&amp;query=Chiesa+di+Santa+Maria+Assunta%2C+Piazza+della+Chiesa%2C+Calcinate+BG">Mappa</a>
+      </p>
     </div>
 
     <!-- Micromappa: sotto, le vie vere (img/luoghi/mappa-chiesa.svg, da
          OpenStreetMap); sopra, nello stesso sistema di coordinate, la chiesa
-         e i pallini dei parcheggi, ognuno un link alla sua mappa. -->
+         e i pallini dei parcheggi. Ogni pallino è un link alla sua mappa:
+         con il JavaScript, al tocco apre prima un fumetto con i minuti a
+         piedi (data-tempo, data-nota) e il pulsante «Mappa». -->
     <div class="parcheggi rivela">
       <h3>Dove parcheggiare</h3>
-      <p class="nota">Toccate un pallino per aprire il parcheggio in Google Maps. I minuti sono a piedi fino alla chiesa.</p>
+      <p class="nota">Toccate un pallino.</p>
       <figure class="micromappa">
         <img src="img/luoghi/mappa-chiesa.svg" width="545" height="589" alt="" loading="lazy">
         <svg class="micromappa-segni" viewBox="0 0 545 589" role="group" aria-label="Mappa dei parcheggi intorno alla chiesa">
@@ -243,27 +206,27 @@
             <path d="M211 333v24M203 341h16"/>
             <text x="211" y="388">Chiesa</text>
           </g>
-          <a class="mm-p" href="https://maps.app.goo.gl/SagnneQ7xDmBn6Uk8" target="_blank" rel="noopener" aria-label="Parcheggio 1: il più vicino, 1 minuto a piedi. Apri in Google Maps">
+          <a class="mm-p" href="https://maps.app.goo.gl/SagnneQ7xDmBn6Uk8" target="_blank" rel="noopener" data-tempo="1 minuto a piedi" data-nota="Il più vicino" aria-label="Parcheggio: il più vicino, 1 minuto a piedi">
             <circle class="mm-p-area" cx="231" cy="261" r="34"/>
             <circle class="mm-p-pallino" cx="231" cy="261" r="17"/>
             <text x="231" y="267">1</text>
           </a>
-          <a class="mm-p" href="https://maps.app.goo.gl/jc8AfWM6DBBHQ9kz9" target="_blank" rel="noopener" aria-label="Parcheggio 2: a sud della chiesa, 3 minuti a piedi. Apri in Google Maps">
+          <a class="mm-p" href="https://maps.app.goo.gl/jc8AfWM6DBBHQ9kz9" target="_blank" rel="noopener" data-tempo="3 minuti a piedi" data-nota="A sud della chiesa" aria-label="Parcheggio: a sud della chiesa, 3 minuti a piedi">
             <circle class="mm-p-area" cx="239" cy="511" r="34"/>
             <circle class="mm-p-pallino" cx="239" cy="511" r="17"/>
             <text x="239" y="517">2</text>
           </a>
-          <a class="mm-p" href="https://maps.app.goo.gl/ZZ5Xcmp1xtrPjvf88" target="_blank" rel="noopener" aria-label="Parcheggio 3: a est della chiesa, 3 minuti a piedi. Apri in Google Maps">
+          <a class="mm-p" href="https://maps.app.goo.gl/ZZ5Xcmp1xtrPjvf88" target="_blank" rel="noopener" data-tempo="3 minuti a piedi" data-nota="A est della chiesa" aria-label="Parcheggio: a est della chiesa, 3 minuti a piedi">
             <circle class="mm-p-area" cx="363" cy="386" r="34"/>
             <circle class="mm-p-pallino" cx="363" cy="386" r="17"/>
             <text x="363" y="392">3</text>
           </a>
-          <a class="mm-p" href="https://maps.app.goo.gl/yGabG8D2ogLYt7rQ6" target="_blank" rel="noopener" aria-label="Parcheggio 4: il più grande, 5 minuti a piedi. Apri in Google Maps">
+          <a class="mm-p" href="https://maps.app.goo.gl/yGabG8D2ogLYt7rQ6" target="_blank" rel="noopener" data-tempo="5 minuti a piedi" data-nota="Il più grande" aria-label="Parcheggio: il più grande, 5 minuti a piedi">
             <circle class="mm-p-area" cx="353" cy="189" r="34"/>
             <circle class="mm-p-pallino" cx="353" cy="189" r="17"/>
             <text x="353" y="195">4</text>
           </a>
-          <a class="mm-p" href="https://maps.app.goo.gl/RzDdhkcigYFG6U2s7" target="_blank" rel="noopener" aria-label="Parcheggio 5: se gli altri sono pieni, 8 minuti a piedi. Apri in Google Maps">
+          <a class="mm-p" href="https://maps.app.goo.gl/RzDdhkcigYFG6U2s7" target="_blank" rel="noopener" data-tempo="8 minuti a piedi" data-nota="Se gli altri sono pieni" aria-label="Parcheggio: se gli altri sono pieni, 8 minuti a piedi">
             <circle class="mm-p-area" cx="270" cy="73" r="34"/>
             <circle class="mm-p-pallino" cx="270" cy="73" r="17"/>
             <text x="270" y="79">5</text>
@@ -277,41 +240,19 @@
             <text x="70" y="556">100 m</text>
           </g>
         </svg>
+        <div class="mm-fumetto" data-fumetto hidden role="dialog" aria-label="Parcheggio">
+          <strong data-fumetto-tempo></strong>
+          <span data-fumetto-nota></span>
+          <a class="link-mappa" data-fumetto-link target="_blank" rel="noopener" href="#">Mappa</a>
+        </div>
         <figcaption>Mappa © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></figcaption>
       </figure>
-      <ol class="parcheggi-lista">
-        <li><a href="https://maps.app.goo.gl/SagnneQ7xDmBn6Uk8" target="_blank" rel="noopener">
-          <span class="pl-num" aria-hidden="true">1</span>
-          <span class="pl-testo"><strong>1 min</strong> Il più vicino</span>
-          <span class="vai">Mappa</span>
-        </a></li>
-        <li><a href="https://maps.app.goo.gl/jc8AfWM6DBBHQ9kz9" target="_blank" rel="noopener">
-          <span class="pl-num" aria-hidden="true">2</span>
-          <span class="pl-testo"><strong>3 min</strong> A sud della chiesa</span>
-          <span class="vai">Mappa</span>
-        </a></li>
-        <li><a href="https://maps.app.goo.gl/ZZ5Xcmp1xtrPjvf88" target="_blank" rel="noopener">
-          <span class="pl-num" aria-hidden="true">3</span>
-          <span class="pl-testo"><strong>3 min</strong> A est della chiesa</span>
-          <span class="vai">Mappa</span>
-        </a></li>
-        <li><a href="https://maps.app.goo.gl/yGabG8D2ogLYt7rQ6" target="_blank" rel="noopener">
-          <span class="pl-num" aria-hidden="true">4</span>
-          <span class="pl-testo"><strong>5 min</strong> Il più grande</span>
-          <span class="vai">Mappa</span>
-        </a></li>
-        <li><a href="https://maps.app.goo.gl/RzDdhkcigYFG6U2s7" target="_blank" rel="noopener">
-          <span class="pl-num" aria-hidden="true">5</span>
-          <span class="pl-testo"><strong>8 min</strong> Se gli altri sono pieni</span>
-          <span class="vai">Mappa</span>
-        </a></li>
-      </ol>
     </div>
   </section>
 
   <div class="divisore" aria-hidden="true"><svg><use href="#rametto"/></svg></div>
 
-  <!-- ============ 3b. RICEVIMENTO ============ -->
+  <!-- ============ RICEVIMENTO ============ -->
   <section id="ricevimento" class="sezione luogo luogo-inverso">
     <figure class="luogo-foto rivela">
       <img src="img/luoghi/cascina.webp" width="1024" height="682" loading="lazy"
@@ -320,22 +261,20 @@
 
     <div class="luogo-testo">
       <header class="titolo rivela">
-        <p class="occhiello">Ricevimento &middot; dalle 16:30</p>
-        <h2>Cascina Camporosso</h2>
+        <p class="occhiello">Dalle 16:30</p>
+        <h2>Ricevimento</h2>
       </header>
-      <p class="rivela">Dopo la messa ci spostiamo all'<strong>Agriturismo Il Camporosso</strong> per festeggiare tutti insieme.</p>
       <address class="indirizzo rivela">
-        Cascina Camporosso, Via Serioletto<br>
-        24057 Martinengo (BG)
+        <strong>Cascina Camporosso</strong>
+        Via Serioletto, 24057 Martinengo (BG)
       </address>
       <p class="rivela">
-        <a class="btn btn-filo btn-piccolo" target="_blank" rel="noopener"
-           href="https://www.google.com/maps/search/?api=1&amp;query=Agriturismo+Il+Camporosso%2C+Via+Serioletto%2C+24057+Martinengo+BG">Portami lì</a>
+        <a class="link-mappa" target="_blank" rel="noopener"
+           href="https://www.google.com/maps/search/?api=1&amp;query=Agriturismo+Il+Camporosso%2C+Via+Serioletto%2C+24057+Martinengo+BG">Mappa</a>
       </p>
     </div>
 
-    <aside class="strada rivela" aria-labelledby="strada-titolo">
-      <h3 id="strada-titolo">Come arrivare</h3>
+    <aside class="strada rivela" aria-label="Come arrivare alla cascina">
       <div class="strada-scelte">
         <div class="si">
           <span class="segno" aria-hidden="true">&#10003;</span>
@@ -349,7 +288,7 @@
     </aside>
   </section>
 
-  <!-- ============ 4. REGALO ============ -->
+  <!-- ============ REGALO ============ -->
   <section id="regalo" class="regalo">
     <header class="titolo rivela">
       <p class="occhiello">Regalo di nozze</p>
@@ -366,28 +305,26 @@
         <div class="regalo-corpo">
           <p class="occhiello">Viaggio di nozze</p>
           <h3>Islanda</h3>
-          <p>Se volete contribuire al nostro viaggio di nozze, potete farlo con un bonifico. Toccate «Copia» e incollate nell'app della banca.</p>
+          <p>Se volete contribuire al nostro viaggio di nozze, potete farlo con un bonifico.</p>
 
-          <!-- Ogni dato ha il suo «Copia»: si incolla nell'app della banca
-               senza errori di battitura. data-copia è il testo copiato. -->
+          <!-- Ogni dato ha il suo bottone «copia» (l'icona a destra):
+               data-copia è il testo copiato. Senza JavaScript i bottoni
+               restano nascosti e il testo si seleziona a mano. -->
           <dl class="bonifico">
             <div class="bonifico-iban">
               <dt>IBAN</dt>
-              <dd><code>IT94 Z032 9601 6010 0006 7841 707</code></dd>
-              <button type="button" class="copia copia-grande" data-copia="IT94Z0329601601000067841707" data-copia-avviso="IBAN copiato" hidden>
-                <svg class="icona" aria-hidden="true" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>
-                <span>Copia IBAN</span>
-              </button>
+              <dd><code>IT94Z0329601601000067841707</code></dd>
+              <button type="button" class="copia" data-copia="IT94Z0329601601000067841707" data-copia-avviso="IBAN copiato" aria-label="Copia IBAN" hidden><svg class="icona" aria-hidden="true" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></button>
             </div>
             <div>
               <dt>Intestato a</dt>
               <dd>Ambrogio Silecchia e Francesca Micheletti</dd>
-              <button type="button" class="copia" data-copia="Ambrogio Silecchia e Francesca Micheletti" data-copia-avviso="Intestatari copiati" hidden><span>Copia</span></button>
+              <button type="button" class="copia" data-copia="Ambrogio Silecchia e Francesca Micheletti" data-copia-avviso="Intestatari copiati" aria-label="Copia intestato a" hidden><svg class="icona" aria-hidden="true" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></button>
             </div>
             <div>
               <dt>Causale</dt>
               <dd>Regalo di nozze Ambrogio e Francesca</dd>
-              <button type="button" class="copia" data-copia="Regalo di nozze Ambrogio e Francesca" data-copia-avviso="Causale copiata" hidden><span>Copia</span></button>
+              <button type="button" class="copia" data-copia="Regalo di nozze Ambrogio e Francesca" data-copia-avviso="Causale copiata" aria-label="Copia causale" hidden><svg class="icona" aria-hidden="true" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></button>
             </div>
           </dl>
         </div>
@@ -413,7 +350,7 @@
     </div>
   </section>
 
-  <!-- ============ 5. RSVP ============
+  <!-- ============ RSVP ============
        Le risposte vanno dritte nel modulo Google che Ambrogio e Francesca
        usavano già: stesse domande, stesso foglio delle risposte. Con il
        JavaScript l'invio resta nella pagina; senza, il modulo si invia
@@ -476,7 +413,6 @@
 <footer class="piede">
   <svg class="rametto" aria-hidden="true"><use href="#rametto"/></svg>
   <p class="piede-nomi">Ambrogio <span>&amp;</span> Francesca</p>
-  <p class="piede-data">24 aprile 2027</p>
   <p class="piede-contatti">Per qualsiasi domanda, scriveteci:</p>
   <p class="piede-link">
     <a class="btn btn-filo btn-piccolo" href="mailto:ambrogiosilecchia@gmail.com">Scrivi ad Ambrogio</a>

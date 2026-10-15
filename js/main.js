@@ -97,46 +97,159 @@
     });
   }
   document.querySelectorAll('[data-copia]').forEach(function (b) {
-    var etichetta = b.querySelector('span');
-    var testoOriginale = etichetta ? etichetta.textContent : '';
     var timer;
     b.hidden = false;
     b.addEventListener('click', function () {
       copiaTesto(b.getAttribute('data-copia')).then(function () {
         b.classList.add('fatto');
-        if (etichetta) etichetta.textContent = 'Copiato ✓';
         mostraAvviso(b.getAttribute('data-copia-avviso') || 'Copiato');
         if (navigator.vibrate) navigator.vibrate(15);
         clearTimeout(timer);
-        timer = setTimeout(function () {
-          b.classList.remove('fatto');
-          if (etichetta) etichetta.textContent = testoOriginale;
-        }, 2400);
+        timer = setTimeout(function () { b.classList.remove('fatto'); }, 2400);
       }, function () {
         mostraAvviso('Non è stato possibile copiare: tenete premuto il testo');
       });
     });
   });
 
-  /* ---------- mosaico che scorre ----------
+  /* ---------- mosaico che scorre (e si trascina) ----------
      Si raddoppia la serie (la copia è nascosta agli screen reader) e la si
-     fa scorrere di metà: il giro non ha cuciture. La durata dipende dalla
-     lunghezza, così la velocità resta la stessa su ogni schermo. Chi ha
-     chiesto meno movimento lo scorre col dito. */
+     sposta con un transform, tenendo la posizione nel giro di una serie:
+     così il nastro non finisce mai, in nessuna delle due direzioni.
+     Va da solo a VELOCITA px/s. Col dito o col mouse lo si trascina; al
+     rilascio parte con la velocità del gesto (un colpo veloce lo accelera,
+     uno all'indietro lo fa tornare indietro) e poi torna piano alla sua
+     andatura. Chi ha chiesto meno movimento lo vede fermo, ma può trascinarlo. */
   var mosaico = document.querySelector('[data-mosaico]');
-  if (mosaico && !pocoMovimento) {
+  if (mosaico && window.requestAnimationFrame) {
+    var nastro = mosaico.parentNode;
     var serie = mosaico.querySelector('.mosaico-serie');
-    var copia = serie.cloneNode(true);
-    copia.setAttribute('aria-hidden', 'true');
-    mosaico.appendChild(copia);
-    var VELOCITA = 22; // pixel al secondo
-    function regolaDurata() {
-      var larghezza = serie.getBoundingClientRect().width;
-      if (larghezza) mosaico.style.setProperty('--durata', Math.round(larghezza / VELOCITA) + 's');
+    var copiaSerie = serie.cloneNode(true);
+    copiaSerie.setAttribute('aria-hidden', 'true');
+    mosaico.appendChild(copiaSerie);
+    nastro.classList.add('in-moto');
+
+    var VELOCITA = pocoMovimento ? 0 : 24; // px al secondo, verso sinistra
+    var MASSIMA = 3500;                    // tetto alla velocità di un lancio
+    var RITORNO = 1.3;                     // secondi per tornare all'andatura
+    var x = 0, v = VELOCITA, larghezza = 0, ultimo = 0, inVista = true;
+    var trascinando = false, idPuntatore = null, xPrec = 0, tPrec = 0, vGesto = 0;
+
+    function misura() { larghezza = serie.getBoundingClientRect().width; }
+    function disegna() {
+      if (!larghezza) return;
+      x = ((x % larghezza) + larghezza) % larghezza;
+      mosaico.style.transform = 'translate3d(' + (-x).toFixed(1) + 'px, 0, 0)';
     }
-    regolaDurata();
-    window.addEventListener('resize', regolaDurata);
-    mosaico.parentNode.classList.add('in-moto');
+    function passo(t) {
+      var dt = ultimo ? Math.min(t - ultimo, 64) / 1000 : 0;
+      ultimo = t;
+      if (!trascinando && inVista && !document.hidden && dt) {
+        v += (VELOCITA - v) * (1 - Math.exp(-dt / RITORNO));
+        x += v * dt;
+        disegna();
+      }
+      requestAnimationFrame(passo);
+    }
+    misura();
+    window.addEventListener('resize', function () { misura(); disegna(); });
+    window.addEventListener('load', misura);
+    requestAnimationFrame(passo);
+
+    nastro.addEventListener('pointerdown', function (e) {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      trascinando = true; idPuntatore = e.pointerId;
+      xPrec = e.clientX; tPrec = e.timeStamp; vGesto = 0;
+      try { nastro.setPointerCapture(e.pointerId); } catch (err) {}
+      nastro.classList.add('trascina');
+    });
+    nastro.addEventListener('pointermove', function (e) {
+      if (!trascinando || e.pointerId !== idPuntatore) return;
+      var dx = e.clientX - xPrec, dt = (e.timeStamp - tPrec) / 1000;
+      x -= dx;
+      disegna();
+      if (dt > 0) vGesto = vGesto * 0.5 + (-dx / dt) * 0.5;
+      xPrec = e.clientX; tPrec = e.timeStamp;
+    });
+    function fineGesto(e, lancia) {
+      if (!trascinando || e.pointerId !== idPuntatore) return;
+      trascinando = false;
+      nastro.classList.remove('trascina');
+      // dito fermo prima di alzarlo: nessun lancio
+      if (!lancia || e.timeStamp - tPrec > 90) vGesto = 0;
+      v = Math.max(-MASSIMA, Math.min(MASSIMA, vGesto || v));
+    }
+    nastro.addEventListener('pointerup', function (e) { fineGesto(e, true); });
+    // il browser si prende il gesto (scorrimento verticale): si riparte da dov'era
+    nastro.addEventListener('pointercancel', function (e) { fineGesto(e, false); });
+
+    // trackpad e rotella orizzontale
+    nastro.addEventListener('wheel', function (e) {
+      if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+      e.preventDefault();
+      x += e.deltaX;
+      disegna();
+      v = Math.max(-MASSIMA, Math.min(MASSIMA, e.deltaX * 6));
+    }, { passive: false });
+
+    // fuori dallo schermo non serve farlo girare
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (voci) { inVista = voci[0].isIntersecting; }).observe(nastro);
+    }
+  }
+
+  /* ---------- micromappa: fumetto sui parcheggi ----------
+     Ogni pallino è un link a Google Maps (senza JavaScript ci porta
+     dritto). Qui il tocco apre invece un fumetto con i minuti a piedi e il
+     pulsante «Mappa»; si chiude toccando fuori, lo stesso pallino o con Esc. */
+  var fumetto = document.querySelector('[data-fumetto]');
+  if (fumetto) {
+    var cornice = fumetto.parentNode;
+    var fTempo = fumetto.querySelector('[data-fumetto-tempo]');
+    var fNota = fumetto.querySelector('[data-fumetto-nota]');
+    var fLink = fumetto.querySelector('[data-fumetto-link]');
+    var pallini = cornice.querySelectorAll('.mm-p');
+    var aperto = null;
+
+    function chiudiFumetto() {
+      fumetto.hidden = true;
+      if (aperto) { aperto.classList.remove('attivo'); aperto.setAttribute('aria-expanded', 'false'); }
+      aperto = null;
+    }
+    function apriFumetto(p, daTastiera) {
+      chiudiFumetto();
+      fTempo.textContent = p.getAttribute('data-tempo');
+      fNota.textContent = p.getAttribute('data-nota');
+      fLink.href = p.getAttribute('href');
+      fumetto.hidden = false;
+      var r = p.querySelector('.mm-p-pallino').getBoundingClientRect();
+      var m = cornice.getBoundingClientRect();
+      var cx = r.left + r.width / 2 - m.left, cy = r.top + r.height / 2 - m.top;
+      var w = fumetto.offsetWidth, h = fumetto.offsetHeight;
+      var sinistra = Math.max(w / 2 + 8, Math.min(m.width - w / 2 - 8, cx));
+      fumetto.classList.toggle('sotto', cy - h - 30 < 0);
+      fumetto.style.left = sinistra + 'px';
+      fumetto.style.top = cy + 'px';
+      fumetto.style.setProperty('--freccia', (cx - sinistra + w / 2) + 'px');
+      p.classList.add('attivo');
+      p.setAttribute('aria-expanded', 'true');
+      aperto = p;
+      if (daTastiera) fLink.focus();
+    }
+    pallini.forEach(function (p) {
+      p.setAttribute('aria-expanded', 'false');
+      p.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (aperto === p) chiudiFumetto(); else apriFumetto(p, e.detail === 0);
+      });
+    });
+    document.addEventListener('click', function (e) {
+      if (aperto && !fumetto.contains(e.target) && !e.target.closest('.mm-p')) chiudiFumetto();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && aperto) { var p = aperto; chiudiFumetto(); p.focus(); }
+    });
+    window.addEventListener('resize', chiudiFumetto);
   }
 
   /* ---------- RSVP ----------
