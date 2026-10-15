@@ -57,18 +57,12 @@
   }
 
   /* ---------- aggiungi al calendario ----------
-     Il file .ics è la via migliore su iPhone e Mac (si apre Calendario con
-     l'evento pronto) e su Outlook. Su Android il file finisce spesso nei
-     download senza aprirsi: lì il bottone principale va a Google Calendar,
-     che apre l'app con l'evento già compilato. */
+     Un solo bottone per tutti: il file .ics va bene su iPhone, Mac, Outlook
+     e Windows. Su Android il file spesso non si apre da solo: lì il bottone
+     punta a Google Calendar, che apre l'app con l'evento già compilato. */
   var bottoneCal = document.querySelector('[data-calendario]');
-  var linkGoogle = document.querySelector('[data-cal-google]');
-  if (bottoneCal && linkGoogle && /Android/i.test(navigator.userAgent)) {
-    bottoneCal.href = linkGoogle.href;
-    bottoneCal.target = '_blank';
-    bottoneCal.rel = 'noopener';
-    var testoCal = bottoneCal.querySelector('[data-calendario-testo]');
-    if (testoCal) testoCal.textContent = 'Aggiungi a Google Calendar';
+  if (bottoneCal && /Android/i.test(navigator.userAgent)) {
+    bottoneCal.href = bottoneCal.getAttribute('data-android');
   }
 
   /* ---------- copia (IBAN, intestatari, causale) ----------
