@@ -5,16 +5,23 @@ CALSCALE:GREGORIAN
 METHOD:PUBLISH
 BEGIN:VEVENT
 UID:matrimonio-ambrogio-francesca-20270424@ambrogioefrancesca.it
-DTSTAMP:20261004T120000Z
-DTSTART:20270424T123000Z
-SUMMARY:Matrimonio di Ambrogio e Francesca
-LOCATION:Chiesa di Santa Maria Assunta\, Piazza della Chiesa\, Calcinate (BG)
-DESCRIPTION:Ore 14:30 Messa - Chiesa di Santa Maria Assunta\, Calcinate.\nDalle 16:30 ricevimento all'Agriturismo Il Camporosso\, Via Serioletto\, Martinengo (BG).\nTutte le informazioni: https://www.ambrogioefrancesca.it/
+SEQUENCE:1
+DTSTAMP:20261015T090000Z
+DTSTART;VALUE=DATE:20270424
+DTEND;VALUE=DATE:20270425
+SUMMARY:Matrimonio Ambrogio e Francesca
+LOCATION:Piazza della Chiesa\, Calcinate (BG)
+DESCRIPTION:Ore 14:30 messa nella Chiesa di Santa Maria Assunta\, Piazza de
+ lla Chiesa\, Calcinate (BG).\nDalle 16:30 ricevimento alla Cascina Camporo
+ sso\, Via Serioletto\, Martinengo (BG).\nTutte le informazioni: https://ww
+ w.ambrogioefrancesca.it/
 URL:https://www.ambrogioefrancesca.it/
+TRANSP:OPAQUE
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Domani il matrimonio di Ambrogio e Francesca
-TRIGGER:-P1D
+DESCRIPTION:Domani il matrimonio di Ambrogio e Francesca: messa alle 14:30 
+ a Calcinate
+TRIGGER:-PT15H
 END:VALARM
 END:VEVENT
 END:VCALENDAR

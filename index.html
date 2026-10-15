@@ -3,16 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Ambrogio &amp; Francesca · 24.04.2027</title>
-<meta name="description" content="Ambrogio e Francesca si sposano il 24 aprile 2027: la messa a Calcinate e il ricevimento alla Cascina Camporosso di Martinengo. Indicazioni, parcheggi e conferma della presenza.">
+<title>Ambrogio &amp; Francesca · 24 aprile 2027</title>
+<meta name="description" content="Ambrogio e Francesca si sposano sabato 24 aprile 2027: la messa a Calcinate e il ricevimento alla Cascina Camporosso di Martinengo. Indicazioni, parcheggi, regalo e conferma della presenza.">
 <!-- Una pagina per gli invitati, non per i motori di ricerca: contiene un IBAN. -->
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#F4EEE3">
 <meta name="color-scheme" content="light">
+<meta name="format-detection" content="telephone=no">
 
 <meta property="og:type" content="website">
 <meta property="og:locale" content="it_IT">
-<meta property="og:title" content="Ambrogio &amp; Francesca · 24.04.2027">
+<meta property="og:title" content="Ambrogio &amp; Francesca · 24 aprile 2027">
 <meta property="og:description" content="Il 24 aprile ci sposiamo: qui trovate tutto quello che serve per festeggiare con noi.">
 <meta property="og:image" content="https://www.ambrogioefrancesca.it/img/og.jpg">
 <meta property="og:image:width" content="1200">
@@ -22,8 +23,8 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preload" as="image" type="image/webp"
       imagesrcset="img/apertura/anello-800.webp 800w, img/apertura/anello-1600.webp 1442w" imagesizes="100vw">
-<link rel="preload" href="fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="fonts/fraunces-italic-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/cormorant-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/cormorant-italic-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/style.css">
 <script src="js/main.js" defer></script>
 </head>
@@ -47,23 +48,32 @@
   </symbol>
 </svg>
 
+<!-- Barra in alto: monogramma, scorciatoia all'RSVP e menu a comparsa.
+     Il menu è un <details>: si apre e si chiude anche senza JavaScript. -->
 <header class="barra">
   <a class="monogramma" href="#inizio" aria-label="Torna all'inizio">A<span>&amp;</span>F</a>
-  <nav aria-label="Sezioni">
-    <ul>
-      <li><a href="#foto">Foto</a></li>
-      <li><a href="#cerimonia">Cerimonia</a></li>
-      <li><a href="#ricevimento">Ricevimento</a></li>
-      <li><a href="#regalo">Regalo</a></li>
-      <li><a class="nav-rsvp" href="#rsvp">RSVP</a></li>
-    </ul>
-  </nav>
+  <a class="barra-rsvp" href="#rsvp">Conferma</a>
+  <details class="menu" data-menu>
+    <summary class="menu-bottone" aria-label="Menu">
+      <span class="menu-icona" aria-hidden="true"><i></i><i></i><i></i></span>
+    </summary>
+    <nav class="menu-pannello" aria-label="Sezioni">
+      <ol>
+        <li><a href="#quando"><span>Data</span><small>24 aprile 2027</small></a></li>
+        <li><a href="#dove"><span>Luoghi</span><small>Calcinate · Martinengo</small></a></li>
+        <li><a href="#cerimonia"><span>Messa e parcheggi</span><small>ore 14:30</small></a></li>
+        <li><a href="#ricevimento"><span>Ricevimento</span><small>dalle 16:30</small></a></li>
+        <li><a href="#regalo"><span>Regalo</span><small>IBAN e lista nozze</small></a></li>
+        <li><a href="#rsvp" class="menu-rsvp"><span>Conferma la presenza</span><small>RSVP</small></a></li>
+      </ol>
+    </nav>
+  </details>
 </header>
 
-<main id="inizio">
+<main>
 
-  <!-- ============ APERTURA: la mano con l'anello, a tutto schermo ============ -->
-  <section class="apertura">
+  <!-- ============ APERTURA: la mano con l'anello ============ -->
+  <section class="apertura" id="inizio">
     <img class="apertura-foto"
          src="img/apertura/anello-1600.webp"
          srcset="img/apertura/anello-800.webp 800w, img/apertura/anello-1600.webp 1442w"
@@ -71,109 +81,136 @@
          alt="La mano di Francesca con l'anello di fidanzamento, stretta da quella di Ambrogio, sulle colline al tramonto"
          fetchpriority="high">
     <div class="apertura-testo">
-      <h1 class="nomi">
-        Ambrogio <span class="e">&amp;</span> Francesca
-      </h1>
-      <p class="data"><time datetime="2027-04-24">24.04.2027</time></p>
-      <p class="luoghi">Calcinate, Bergamo</p>
+      <p class="apertura-occhiello">Ci sposiamo</p>
+      <h1 class="nomi">Ambrogio <span class="e">&amp;</span> Francesca</h1>
+      <p class="data"><time datetime="2027-04-24">
+        <span class="data-giorno">Sabato</span>
+        <span class="data-numero">24 aprile 2027</span>
+      </time></p>
+      <p class="luoghi">Calcinate &middot; Martinengo &middot; Bergamo</p>
     </div>
   </section>
 
-  <!-- ============ FOTOGRAFIE ============
-       Scorrono da sole; si possono anche trascinare col mouse, scorrere col
-       trackpad o con il dito. Per cambiare le foto basta cambiare la prima
-       serie: le copie (aria-hidden) che rendono il giro continuo le crea
-       main.js. -->
-  <section class="nastro" aria-label="Fotografie">
-    <div class="nastro-binario" data-nastro tabindex="0">
-      <ul class="nastro-serie">
-        <li><img src="img/nastro/nastro-coppia.webp" width="846" height="560" alt="Ambrogio e Francesca abbracciati, lei con la corona d'alloro" draggable="false"></li>
-        <li><img src="img/nastro/nastro-cascina.webp" width="841" height="560" alt="La Cascina Camporosso" draggable="false"></li>
-        <li><img src="img/nastro/nastro-anello.webp" width="560" height="560" alt="L'anello di fidanzamento, al tramonto in collina" draggable="false"></li>
-        <li><img src="img/nastro/nastro-chiesa.webp" width="748" height="560" alt="La Chiesa di Santa Maria Assunta a Calcinate" draggable="false"></li>
-        <li><img src="img/nastro/nastro-islanda.webp" width="840" height="560" alt="Una strada in Islanda al tramonto" draggable="false"></li>
+  <!-- ============ MOSAICO ============
+       Tutte le foto, piccole, che scorrono da sole. Solo da guardare: niente
+       clic né ingrandimento. La copia che rende il giro continuo la crea
+       js/main.js. Le miniature sono già ritagliate nel formato della tessera:
+       v = verticale (280×400), o = orizzontale (280×200), g = grande (560×400). -->
+  <section class="mosaico" aria-label="Alcune nostre fotografie">
+    <div class="mosaico-binario" data-mosaico>
+      <ul class="mosaico-serie">
+        <li class="v"><img src="img/mosaico/01.webp" width="280" height="400" alt="" loading="lazy" decoding="async"></li>
+        <li class="v"><img src="img/mosaico/04.webp" width="280" height="400" alt="" loading="lazy" decoding="async"></li>
+        <li class="o"><img src="img/mosaico/09.webp" width="280" height="200" alt="" loading="lazy" decoding="async"></li>
+        <li class="o"><img src="img/mosaico/10.webp" width="280" height="200" alt="" loading="lazy" decoding="async"></li>
+        <li class="v"><img src="img/mosaico/05.webp" width="280" height="400" alt="" loading="lazy" decoding="async"></li>
+        <li class="g"><img src="img/mosaico/02.webp" width="560" height="400" alt="" loading="lazy" decoding="async"></li>
+        <li class="v"><img src="img/mosaico/06.webp" width="280" height="400" alt="" loading="lazy" decoding="async"></li>
+        <li class="v"><img src="img/mosaico/07.webp" width="280" height="400" alt="" loading="lazy" decoding="async"></li>
+        <li class="o"><img src="img/mosaico/15.webp" width="280" height="200" alt="" loading="lazy" decoding="async"></li>
+        <li class="o"><img src="img/mosaico/16.webp" width="280" height="200" alt="" loading="lazy" decoding="async"></li>
+        <li class="v"><img src="img/mosaico/11.webp" width="280" height="400" alt="" loading="lazy" decoding="async"></li>
+        <li class="v"><img src="img/mosaico/12.webp" width="280" height="400" alt="" loading="lazy" decoding="async"></li>
+        <li class="v"><img src="img/mosaico/14.webp" width="280" height="400" alt="" loading="lazy" decoding="async"></li>
+        <li class="v"><img src="img/mosaico/17.webp" width="280" height="400" alt="" loading="lazy" decoding="async"></li>
+        <li class="o"><img src="img/mosaico/18.webp" width="280" height="200" alt="" loading="lazy" decoding="async"></li>
+        <li class="o"><img src="img/mosaico/19.webp" width="280" height="200" alt="" loading="lazy" decoding="async"></li>
+        <li class="g"><img src="img/mosaico/03.webp" width="560" height="400" alt="" loading="lazy" decoding="async"></li>
+        <li class="v"><img src="img/mosaico/20.webp" width="280" height="400" alt="" loading="lazy" decoding="async"></li>
+        <li class="v"><img src="img/mosaico/21.webp" width="280" height="400" alt="" loading="lazy" decoding="async"></li>
+        <li class="v"><img src="img/mosaico/24.webp" width="280" height="400" alt="" loading="lazy" decoding="async"></li>
+        <li class="o"><img src="img/mosaico/22.webp" width="280" height="200" alt="" loading="lazy" decoding="async"></li>
+        <li class="o"><img src="img/mosaico/23.webp" width="280" height="200" alt="" loading="lazy" decoding="async"></li>
+        <li class="v"><img src="img/mosaico/25.webp" width="280" height="400" alt="" loading="lazy" decoding="async"></li>
+        <li class="v"><img src="img/mosaico/26.webp" width="280" height="400" alt="" loading="lazy" decoding="async"></li>
+        <li class="v"><img src="img/mosaico/27.webp" width="280" height="400" alt="" loading="lazy" decoding="async"></li>
+        <li class="g"><img src="img/mosaico/08.webp" width="560" height="400" alt="" loading="lazy" decoding="async"></li>
+        <li class="o"><img src="img/mosaico/29.webp" width="280" height="200" alt="" loading="lazy" decoding="async"></li>
+        <li class="o"><img src="img/mosaico/32.webp" width="280" height="200" alt="" loading="lazy" decoding="async"></li>
+        <li class="v"><img src="img/mosaico/28.webp" width="280" height="400" alt="" loading="lazy" decoding="async"></li>
+        <li class="v"><img src="img/mosaico/30.webp" width="280" height="400" alt="" loading="lazy" decoding="async"></li>
+        <li class="v"><img src="img/mosaico/31.webp" width="280" height="400" alt="" loading="lazy" decoding="async"></li>
+        <li class="v"><img src="img/mosaico/34.webp" width="280" height="400" alt="" loading="lazy" decoding="async"></li>
+        <li class="o"><img src="img/mosaico/33.webp" width="280" height="200" alt="" loading="lazy" decoding="async"></li>
+        <li class="o"><img src="img/mosaico/36.webp" width="280" height="200" alt="" loading="lazy" decoding="async"></li>
+        <li class="v"><img src="img/mosaico/35.webp" width="280" height="400" alt="" loading="lazy" decoding="async"></li>
+        <li class="v"><img src="img/mosaico/37.webp" width="280" height="400" alt="" loading="lazy" decoding="async"></li>
+        <li class="g"><img src="img/mosaico/13.webp" width="560" height="400" alt="" loading="lazy" decoding="async"></li>
+        <li class="v"><img src="img/mosaico/38.webp" width="280" height="400" alt="" loading="lazy" decoding="async"></li>
+        <li class="o"><img src="img/mosaico/40.webp" width="280" height="200" alt="" loading="lazy" decoding="async"></li>
+        <li class="o"><img src="img/mosaico/42.webp" width="280" height="200" alt="" loading="lazy" decoding="async"></li>
+        <li class="v"><img src="img/mosaico/39.webp" width="280" height="400" alt="" loading="lazy" decoding="async"></li>
+        <li class="v"><img src="img/mosaico/41.webp" width="280" height="400" alt="" loading="lazy" decoding="async"></li>
       </ul>
     </div>
   </section>
 
-  <!-- ============ INVITO ============ -->
-  <section id="invito" class="invito rivela">
-    <svg class="rametto" aria-hidden="true"><use href="#rametto"/></svg>
-    <p class="invito-frase">
-      Il 24 aprile ci sposiamo e saremmo molto felici di vivere questa giornata insieme a voi.
-    </p>
-    <p class="conto" data-conto hidden></p>
-    <div class="azioni">
-      <a class="btn btn-pieno" href="#rsvp">Conferma la presenza</a>
-      <a class="btn btn-filo" href="download/matrimonio-ambrogio-francesca.ics" download>Aggiungi al calendario</a>
+  <!-- ============ 1. QUANDO ============ -->
+  <section id="quando" class="quando">
+    <p class="occhiello">Quando</p>
+    <div class="foglio rivela" aria-hidden="true">
+      <span class="foglio-mese">Aprile 2027</span>
+      <span class="foglio-numero">24</span>
+      <span class="foglio-giorno">Sabato</span>
     </div>
-  </section>
-
-  <!-- ============ FOTO ============
-       Tutte le foto sono sempre in vista, in un mosaico compatto. Ogni foto
-       si ingrandisce e si sfoglia con le frecce. Per aggiungerne una: due file WebP in img/foto/
-       (anteprima larga 720 px e versione grande, lato lungo 1600 px) e una riga <li>. -->
-  <section id="foto" class="foto sezione">
-    <header class="titolo rivela">
-      <p class="occhiello">Noi due</p>
-      <h2>Un po' della nostra storia</h2>
-      <p class="sottotitolo">Gli anni passati insieme, in qualche foto. Toccatene una per ingrandirla e sfogliare.</p>
-    </header>
-    <ul class="galleria" data-galleria>
-      <li><button type="button" data-foto="img/foto/01-grande.webp" data-w="1202" data-h="1600" aria-label="Ingrandisci: Un bacio con l'anello al dito, in collina"><img src="img/foto/01.webp" width="560" height="745" loading="lazy" alt="Un bacio con l'anello al dito, in collina"></button></li>
-      <li><button type="button" data-foto="img/foto/02-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Un bacio sul Lago di Braies"><img src="img/foto/02.webp" width="560" height="420" loading="lazy" alt="Un bacio sul Lago di Braies"></button></li>
-      <li><button type="button" data-foto="img/foto/03-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Ambrogio e Francesca davanti al Duomo di Firenze, lui con la corona d'alloro"><img src="img/foto/03.webp" width="560" height="420" loading="lazy" alt="Ambrogio e Francesca davanti al Duomo di Firenze, lui con la corona d'alloro"></button></li>
-      <li><button type="button" data-foto="img/foto/04-grande.webp" data-w="900" data-h="1600" aria-label="Ingrandisci: Francesca in abito verde e Ambrogio in camicia e cravatta rossa, abbracciati sulle colline"><img src="img/foto/04.webp" width="560" height="996" loading="lazy" alt="Francesca in abito verde e Ambrogio in camicia e cravatta rossa, abbracciati sulle colline"></button></li>
-      <li><button type="button" data-foto="img/foto/05-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Un bacio davanti alle pareti rocciose delle Dolomiti"><img src="img/foto/05.webp" width="560" height="747" loading="lazy" alt="Un bacio davanti alle pareti rocciose delle Dolomiti"></button></li>
-      <li><button type="button" data-foto="img/foto/06-grande.webp" data-w="1202" data-h="1600" aria-label="Ingrandisci: Ambrogio e Francesca davanti alla Torre Eiffel illuminata di notte"><img src="img/foto/06.webp" width="560" height="745" loading="lazy" alt="Ambrogio e Francesca davanti alla Torre Eiffel illuminata di notte"></button></li>
-      <li><button type="button" data-foto="img/foto/07-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Un bacio al tramonto, con la corona d'alloro e un mazzo di girasoli; sullo sfondo la cupola di Firenze"><img src="img/foto/07.webp" width="560" height="747" loading="lazy" alt="Un bacio al tramonto, con la corona d'alloro e un mazzo di girasoli; sullo sfondo la cupola di Firenze"></button></li>
-      <li><button type="button" data-foto="img/foto/08-grande.webp" data-w="1600" data-h="1202" aria-label="Ingrandisci: Ambrogio e Francesca abbracciati nella luce dorata del tramonto"><img src="img/foto/08.webp" width="560" height="421" loading="lazy" alt="Ambrogio e Francesca abbracciati nella luce dorata del tramonto"></button></li>
-      <li><button type="button" data-foto="img/foto/09-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Ambrogio e Francesca sorridono tra gli ulivi"><img src="img/foto/09.webp" width="560" height="420" loading="lazy" alt="Ambrogio e Francesca sorridono tra gli ulivi"></button></li>
-      <li><button type="button" data-foto="img/foto/10-grande.webp" data-w="1600" data-h="1067" aria-label="Ingrandisci: Ambrogio e Francesca seduti per terra, abbracciati, a una serata tra amici"><img src="img/foto/10.webp" width="560" height="373" loading="lazy" alt="Ambrogio e Francesca seduti per terra, abbracciati, a una serata tra amici"></button></li>
-      <li><button type="button" data-foto="img/foto/11-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Francesca con il naso da clown e Ambrogio con il grembiule, ridono con una birra in mano"><img src="img/foto/11.webp" width="560" height="747" loading="lazy" alt="Francesca con il naso da clown e Ambrogio con il grembiule, ridono con una birra in mano"></button></li>
-      <li><button type="button" data-foto="img/foto/12-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Un selfie ravvicinato: Ambrogio con gli occhi chiusi, Francesca che sorride"><img src="img/foto/12.webp" width="560" height="747" loading="lazy" alt="Un selfie ravvicinato: Ambrogio con gli occhi chiusi, Francesca che sorride"></button></li>
-      <li><button type="button" data-foto="img/foto/13-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Ambrogio e Francesca camminano sotto un porticato"><img src="img/foto/13.webp" width="560" height="420" loading="lazy" alt="Ambrogio e Francesca camminano sotto un porticato"></button></li>
-      <li><button type="button" data-foto="img/foto/14-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Un bacio sulla guancia davanti a un negozio in centro"><img src="img/foto/14.webp" width="560" height="747" loading="lazy" alt="Un bacio sulla guancia davanti a un negozio in centro"></button></li>
-      <li><button type="button" data-foto="img/foto/15-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Un selfie tra antiche rovine in pietra"><img src="img/foto/15.webp" width="560" height="420" loading="lazy" alt="Un selfie tra antiche rovine in pietra"></button></li>
-      <li><button type="button" data-foto="img/foto/16-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Francesca con la bandana rossa ride in montagna, Ambrogio le dà un bacio"><img src="img/foto/16.webp" width="560" height="420" loading="lazy" alt="Francesca con la bandana rossa ride in montagna, Ambrogio le dà un bacio"></button></li>
-      <li><button type="button" data-foto="img/foto/17-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Un selfie buffo a un matrimonio: urlano entrambi"><img src="img/foto/17.webp" width="560" height="747" loading="lazy" alt="Un selfie buffo a un matrimonio: urlano entrambi"></button></li>
-      <li><button type="button" data-foto="img/foto/18-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Francesca con il casco sorride su una parete di roccia"><img src="img/foto/18.webp" width="560" height="420" loading="lazy" alt="Francesca con il casco sorride su una parete di roccia"></button></li>
-      <li><button type="button" data-foto="img/foto/19-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Un selfie davanti alla tenda, con Ambrogio in cappuccio sullo sfondo"><img src="img/foto/19.webp" width="560" height="420" loading="lazy" alt="Un selfie davanti alla tenda, con Ambrogio in cappuccio sullo sfondo"></button></li>
-      <li><button type="button" data-foto="img/foto/20-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Ambrogio e Francesca abbracciati in una sala"><img src="img/foto/20.webp" width="560" height="747" loading="lazy" alt="Ambrogio e Francesca abbracciati in una sala"></button></li>
-      <li><button type="button" data-foto="img/foto/21-grande.webp" data-w="912" data-h="1600" aria-label="Ingrandisci: Ambrogio e Francesca stretti, a occhi chiusi"><img src="img/foto/21.webp" width="560" height="982" loading="lazy" alt="Ambrogio e Francesca stretti, a occhi chiusi"></button></li>
-      <li><button type="button" data-foto="img/foto/22-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Un bacio sulla guancia davanti a un muro di ciottoli"><img src="img/foto/22.webp" width="560" height="420" loading="lazy" alt="Un bacio sulla guancia davanti a un muro di ciottoli"></button></li>
-      <li><button type="button" data-foto="img/foto/23-grande.webp" data-w="1600" data-h="1059" aria-label="Ingrandisci: Ambrogio abbraccia Francesca, che porta la corona d'alloro"><img src="img/foto/23.webp" width="560" height="371" loading="lazy" alt="Ambrogio abbraccia Francesca, che porta la corona d'alloro"></button></li>
-      <li><button type="button" data-foto="img/foto/24-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Ambrogio e Francesca camminano nel verde, lei in abito chiaro"><img src="img/foto/24.webp" width="560" height="747" loading="lazy" alt="Ambrogio e Francesca camminano nel verde, lei in abito chiaro"></button></li>
-      <li><button type="button" data-foto="img/foto/25-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Quattro amici sul Ponte Vecchio"><img src="img/foto/25.webp" width="560" height="747" loading="lazy" alt="Quattro amici sul Ponte Vecchio"></button></li>
-      <li><button type="button" data-foto="img/foto/26-grande.webp" data-w="912" data-h="1600" aria-label="Ingrandisci: Ambrogio e Francesca seduti a un tavolo da picnic in montagna, con un cane"><img src="img/foto/26.webp" width="560" height="982" loading="lazy" alt="Ambrogio e Francesca seduti a un tavolo da picnic in montagna, con un cane"></button></li>
-      <li><button type="button" data-foto="img/foto/27-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Un selfie in escursione, con lo zaino e il bastone"><img src="img/foto/27.webp" width="560" height="747" loading="lazy" alt="Un selfie in escursione, con lo zaino e il bastone"></button></li>
-      <li><button type="button" data-foto="img/foto/28-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Un selfie con Ambrogio che mostra il bicipite"><img src="img/foto/28.webp" width="560" height="747" loading="lazy" alt="Un selfie con Ambrogio che mostra il bicipite"></button></li>
-      <li><button type="button" data-foto="img/foto/29-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Selfie sorridenti durante un'escursione, con le bandane"><img src="img/foto/29.webp" width="560" height="420" loading="lazy" alt="Selfie sorridenti durante un'escursione, con le bandane"></button></li>
-      <li><button type="button" data-foto="img/foto/30-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Ambrogio e Francesca seduti su un muretto dopo una camminata"><img src="img/foto/30.webp" width="560" height="747" loading="lazy" alt="Ambrogio e Francesca seduti su un muretto dopo una camminata"></button></li>
-      <li><button type="button" data-foto="img/foto/31-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Un selfie nella neve, con Ambrogio che salta sullo sfondo"><img src="img/foto/31.webp" width="560" height="747" loading="lazy" alt="Un selfie nella neve, con Ambrogio che salta sullo sfondo"></button></li>
-      <li><button type="button" data-foto="img/foto/32-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Un selfie con smorfie in montagna"><img src="img/foto/32.webp" width="560" height="420" loading="lazy" alt="Un selfie con smorfie in montagna"></button></li>
-      <li><button type="button" data-foto="img/foto/33-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Un selfie dorato dal balcone, con un bacio sulla guancia"><img src="img/foto/33.webp" width="560" height="420" loading="lazy" alt="Un selfie dorato dal balcone, con un bacio sulla guancia"></button></li>
-      <li><button type="button" data-foto="img/foto/34-grande.webp" data-w="911" data-h="1600" aria-label="Ingrandisci: Ambrogio fotografa il tramonto sopra la neve, in silhouette"><img src="img/foto/34.webp" width="560" height="984" loading="lazy" alt="Ambrogio fotografa il tramonto sopra la neve, in silhouette"></button></li>
-      <li><button type="button" data-foto="img/foto/35-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Amici e familiari davanti al portale di una chiesa"><img src="img/foto/35.webp" width="560" height="747" loading="lazy" alt="Amici e familiari davanti al portale di una chiesa"></button></li>
-      <li><button type="button" data-foto="img/foto/36-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Un selfie in mezzo alla folla, a un evento sportivo"><img src="img/foto/36.webp" width="560" height="420" loading="lazy" alt="Un selfie in mezzo alla folla, a un evento sportivo"></button></li>
-      <li><button type="button" data-foto="img/foto/37-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Un selfie allo specchio, con gli occhiali da sole, in un negozio"><img src="img/foto/37.webp" width="560" height="747" loading="lazy" alt="Un selfie allo specchio, con gli occhiali da sole, in un negozio"></button></li>
-      <li><button type="button" data-foto="img/foto/38-grande.webp" data-w="903" data-h="1600" aria-label="Ingrandisci: Ambrogio e Francesca passeggiano in un viale alberato, visti di spalle"><img src="img/foto/38.webp" width="560" height="992" loading="lazy" alt="Ambrogio e Francesca passeggiano in un viale alberato, visti di spalle"></button></li>
-      <li><button type="button" data-foto="img/foto/39-grande.webp" data-w="1202" data-h="1600" aria-label="Ingrandisci: Un bacio con l'anello al dito, sul prato"><img src="img/foto/39.webp" width="560" height="745" loading="lazy" alt="Un bacio con l'anello al dito, sul prato"></button></li>
-      <li><button type="button" data-foto="img/foto/40-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Un selfie al tramonto, con un bacio sulla guancia"><img src="img/foto/40.webp" width="560" height="420" loading="lazy" alt="Un selfie al tramonto, con un bacio sulla guancia"></button></li>
-      <li><button type="button" data-foto="img/foto/41-grande.webp" data-w="1200" data-h="1600" aria-label="Ingrandisci: Ambrogio e Francesca guancia contro guancia, tra le rocce"><img src="img/foto/41.webp" width="560" height="747" loading="lazy" alt="Ambrogio e Francesca guancia contro guancia, tra le rocce"></button></li>
-      <li><button type="button" data-foto="img/foto/42-grande.webp" data-w="1600" data-h="1200" aria-label="Ingrandisci: Ambrogio e Francesca sorridono durante un'escursione"><img src="img/foto/42.webp" width="560" height="420" loading="lazy" alt="Ambrogio e Francesca sorridono durante un'escursione"></button></li>
+    <h2 class="sr-only">Sabato 24 aprile 2027</h2>
+    <p class="conto" data-conto hidden></p>
+    <p class="quando-frase">Saremmo molto felici di vivere questa giornata insieme a voi.</p>
+    <ul class="programma">
+      <li><strong>14:30</strong> Messa a Calcinate</li>
+      <li><strong>16:30</strong> Ricevimento a Martinengo</li>
     </ul>
+    <!-- Il bottone principale porta al file .ics (su iPhone apre subito
+         Calendario); su Android main.js lo fa puntare a Google Calendar. -->
+    <a class="btn btn-pieno btn-largo" href="download/matrimonio-ambrogio-francesca.ics" data-calendario>
+      <svg class="icona" aria-hidden="true" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 10h17M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M12 13v5M9.5 15.5h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <span data-calendario-testo>Aggiungi al calendario</span>
+    </a>
+    <p class="cal-alt">
+      Oppure:
+      <a data-cal-google href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Matrimonio%20Ambrogio%20e%20Francesca&amp;dates=20270424%2F20270425&amp;location=Piazza%20della%20Chiesa%2C%20Calcinate%20%28BG%29&amp;details=Ore%2014%3A30%20messa%20nella%20Chiesa%20di%20Santa%20Maria%20Assunta%2C%20Calcinate.%20Dalle%2016%3A30%20ricevimento%20alla%20Cascina%20Camporosso%2C%20Martinengo.%20Tutte%20le%20informazioni%3A%20https%3A%2F%2Fwww.ambrogioefrancesca.it%2F" target="_blank" rel="noopener">Google Calendar</a>
+      &middot;
+      <a href="download/matrimonio-ambrogio-francesca.ics">Apple / Outlook</a>
+    </p>
   </section>
 
-  <dialog class="lightbox" data-lightbox aria-label="Fotografia ingrandita">
-    <button type="button" class="lb-chiudi" data-lb-chiudi aria-label="Chiudi">&times;</button>
-    <button type="button" class="lb-freccia lb-prec" data-lb-prec aria-label="Foto precedente">&#8249;</button>
-    <img class="lb-img" data-lb-img alt="">
-    <button type="button" class="lb-freccia lb-succ" data-lb-succ aria-label="Foto successiva">&#8250;</button>
-    <p class="lb-conta" data-lb-conta aria-live="polite"></p>
-  </dialog>
+  <!-- ============ 2. DOVE ============ -->
+  <section id="dove" class="dove">
+    <header class="titolo rivela">
+      <p class="occhiello">Dove</p>
+      <h2>Due luoghi, una giornata</h2>
+    </header>
+    <ol class="tappe">
+      <li class="tappa rivela">
+        <span class="tappa-ora">14:30</span>
+        <div class="tappa-corpo">
+          <h3>Messa</h3>
+          <p class="tappa-luogo">Chiesa di Santa Maria Assunta</p>
+          <p class="tappa-indirizzo">Piazza della Chiesa, Calcinate (BG)</p>
+          <p class="tappa-link">
+            <a class="btn btn-filo btn-piccolo" target="_blank" rel="noopener"
+               href="https://www.google.com/maps/search/?api=1&amp;query=Chiesa+di+Santa+Maria+Assunta%2C+Piazza+della+Chiesa%2C+Calcinate+BG">Portami lì</a>
+            <a class="link-freccia" href="#cerimonia">Parcheggi</a>
+          </p>
+        </div>
+      </li>
+      <li class="tappa rivela">
+        <span class="tappa-ora">16:30</span>
+        <div class="tappa-corpo">
+          <h3>Ricevimento</h3>
+          <p class="tappa-luogo">Cascina Camporosso</p>
+          <p class="tappa-indirizzo">Via Serioletto, Martinengo (BG)</p>
+          <p class="tappa-link">
+            <a class="btn btn-filo btn-piccolo" target="_blank" rel="noopener"
+               href="https://www.google.com/maps/search/?api=1&amp;query=Agriturismo+Il+Camporosso%2C+Via+Serioletto%2C+24057+Martinengo+BG">Portami lì</a>
+            <a class="link-freccia" href="#ricevimento">Come arrivare</a>
+          </p>
+        </div>
+      </li>
+    </ol>
+  </section>
 
-  <!-- ============ CERIMONIA ============ -->
+  <!-- ============ 3a. CERIMONIA ============ -->
   <section id="cerimonia" class="sezione luogo">
     <figure class="luogo-foto rivela">
       <img src="img/luoghi/chiesa.webp" width="640" height="479" loading="lazy"
@@ -183,61 +220,98 @@
     <div class="luogo-testo">
       <header class="titolo rivela">
         <p class="occhiello">Cerimonia &middot; ore 14:30</p>
-        <h2>Messa</h2>
+        <h2>La messa</h2>
       </header>
       <p class="rivela">Ci sposiamo nella <strong>Chiesa di Santa Maria Assunta</strong> di Calcinate.</p>
       <address class="indirizzo rivela">
         Piazza della Chiesa<br>
         24050 Calcinate (BG)
       </address>
-      <p class="rivela">
-        <a class="btn btn-filo btn-piccolo" target="_blank" rel="noopener"
-           href="https://www.google.com/maps/search/?api=1&amp;query=Chiesa+di+Santa+Maria+Assunta%2C+Piazza+della+Chiesa%2C+Calcinate+BG">Apri in Google Maps</a>
-      </p>
     </div>
 
+    <!-- Micromappa: sotto, le vie vere (img/luoghi/mappa-chiesa.svg, da
+         OpenStreetMap); sopra, nello stesso sistema di coordinate, la chiesa
+         e i pallini dei parcheggi, ognuno un link alla sua mappa. -->
     <div class="parcheggi rivela">
       <h3>Dove parcheggiare</h3>
-      <p class="nota">Dal più vicino alla chiesa.</p>
-      <ul class="tessere">
-        <li>
-          <a class="tessera" target="_blank" rel="noopener" href="https://maps.app.goo.gl/SagnneQ7xDmBn6Uk8">
-            <span class="dist">1 min</span>
-            <span class="desc">Il più vicino</span>
-            <span class="vai">Mappa</span>
+      <p class="nota">Toccate un pallino per aprire il parcheggio in Google Maps. I minuti sono a piedi fino alla chiesa.</p>
+      <figure class="micromappa">
+        <img src="img/luoghi/mappa-chiesa.svg" width="545" height="589" alt="" loading="lazy">
+        <svg class="micromappa-segni" viewBox="0 0 545 589" role="group" aria-label="Mappa dei parcheggi intorno alla chiesa">
+          <g class="mm-chiesa" aria-hidden="true">
+            <circle cx="211" cy="345" r="22"/>
+            <path d="M211 333v24M203 341h16"/>
+            <text x="211" y="388">Chiesa</text>
+          </g>
+          <a class="mm-p" href="https://maps.app.goo.gl/SagnneQ7xDmBn6Uk8" target="_blank" rel="noopener" aria-label="Parcheggio 1: il più vicino, 1 minuto a piedi. Apri in Google Maps">
+            <circle class="mm-p-area" cx="231" cy="261" r="34"/>
+            <circle class="mm-p-pallino" cx="231" cy="261" r="17"/>
+            <text x="231" y="267">1</text>
           </a>
-        </li>
-        <li>
-          <div class="tessera tessera-doppia">
-            <span class="dist">3 min</span>
-            <span class="desc">Due parcheggi vicini</span>
-            <span class="vai-doppio">
-              <a class="vai" target="_blank" rel="noopener" href="https://maps.app.goo.gl/jc8AfWM6DBBHQ9kz9">Mappa 1</a>
-              <a class="vai" target="_blank" rel="noopener" href="https://maps.app.goo.gl/ZZ5Xcmp1xtrPjvf88">Mappa 2</a>
-            </span>
-          </div>
-        </li>
-        <li>
-          <a class="tessera" target="_blank" rel="noopener" href="https://maps.app.goo.gl/yGabG8D2ogLYt7rQ6">
-            <span class="dist">5 min</span>
-            <span class="desc">Il più grande</span>
-            <span class="vai">Mappa</span>
+          <a class="mm-p" href="https://maps.app.goo.gl/jc8AfWM6DBBHQ9kz9" target="_blank" rel="noopener" aria-label="Parcheggio 2: a sud della chiesa, 3 minuti a piedi. Apri in Google Maps">
+            <circle class="mm-p-area" cx="239" cy="511" r="34"/>
+            <circle class="mm-p-pallino" cx="239" cy="511" r="17"/>
+            <text x="239" y="517">2</text>
           </a>
-        </li>
-        <li>
-          <a class="tessera" target="_blank" rel="noopener" href="https://maps.app.goo.gl/RzDdhkcigYFG6U2s7">
-            <span class="dist">8 min</span>
-            <span class="desc">Se gli altri sono pieni</span>
-            <span class="vai">Mappa</span>
+          <a class="mm-p" href="https://maps.app.goo.gl/ZZ5Xcmp1xtrPjvf88" target="_blank" rel="noopener" aria-label="Parcheggio 3: a est della chiesa, 3 minuti a piedi. Apri in Google Maps">
+            <circle class="mm-p-area" cx="363" cy="386" r="34"/>
+            <circle class="mm-p-pallino" cx="363" cy="386" r="17"/>
+            <text x="363" y="392">3</text>
           </a>
-        </li>
-      </ul>
+          <a class="mm-p" href="https://maps.app.goo.gl/yGabG8D2ogLYt7rQ6" target="_blank" rel="noopener" aria-label="Parcheggio 4: il più grande, 5 minuti a piedi. Apri in Google Maps">
+            <circle class="mm-p-area" cx="353" cy="189" r="34"/>
+            <circle class="mm-p-pallino" cx="353" cy="189" r="17"/>
+            <text x="353" y="195">4</text>
+          </a>
+          <a class="mm-p" href="https://maps.app.goo.gl/RzDdhkcigYFG6U2s7" target="_blank" rel="noopener" aria-label="Parcheggio 5: se gli altri sono pieni, 8 minuti a piedi. Apri in Google Maps">
+            <circle class="mm-p-area" cx="270" cy="73" r="34"/>
+            <circle class="mm-p-pallino" cx="270" cy="73" r="17"/>
+            <text x="270" y="79">5</text>
+          </a>
+          <g class="mm-nord" aria-hidden="true">
+            <path d="M510 22l9 22-9-5-9 5z"/>
+            <text x="510" y="62">N</text>
+          </g>
+          <g class="mm-scala" aria-hidden="true">
+            <path d="M20 566v6h100v-6"/>
+            <text x="70" y="556">100 m</text>
+          </g>
+        </svg>
+        <figcaption>Mappa © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></figcaption>
+      </figure>
+      <ol class="parcheggi-lista">
+        <li><a href="https://maps.app.goo.gl/SagnneQ7xDmBn6Uk8" target="_blank" rel="noopener">
+          <span class="pl-num" aria-hidden="true">1</span>
+          <span class="pl-testo"><strong>1 min</strong> Il più vicino</span>
+          <span class="vai">Mappa</span>
+        </a></li>
+        <li><a href="https://maps.app.goo.gl/jc8AfWM6DBBHQ9kz9" target="_blank" rel="noopener">
+          <span class="pl-num" aria-hidden="true">2</span>
+          <span class="pl-testo"><strong>3 min</strong> A sud della chiesa</span>
+          <span class="vai">Mappa</span>
+        </a></li>
+        <li><a href="https://maps.app.goo.gl/ZZ5Xcmp1xtrPjvf88" target="_blank" rel="noopener">
+          <span class="pl-num" aria-hidden="true">3</span>
+          <span class="pl-testo"><strong>3 min</strong> A est della chiesa</span>
+          <span class="vai">Mappa</span>
+        </a></li>
+        <li><a href="https://maps.app.goo.gl/yGabG8D2ogLYt7rQ6" target="_blank" rel="noopener">
+          <span class="pl-num" aria-hidden="true">4</span>
+          <span class="pl-testo"><strong>5 min</strong> Il più grande</span>
+          <span class="vai">Mappa</span>
+        </a></li>
+        <li><a href="https://maps.app.goo.gl/RzDdhkcigYFG6U2s7" target="_blank" rel="noopener">
+          <span class="pl-num" aria-hidden="true">5</span>
+          <span class="pl-testo"><strong>8 min</strong> Se gli altri sono pieni</span>
+          <span class="vai">Mappa</span>
+        </a></li>
+      </ol>
     </div>
   </section>
 
   <div class="divisore" aria-hidden="true"><svg><use href="#rametto"/></svg></div>
 
-  <!-- ============ RICEVIMENTO ============ -->
+  <!-- ============ 3b. RICEVIMENTO ============ -->
   <section id="ricevimento" class="sezione luogo luogo-inverso">
     <figure class="luogo-foto rivela">
       <img src="img/luoghi/cascina.webp" width="1024" height="682" loading="lazy"
@@ -256,7 +330,7 @@
       </address>
       <p class="rivela">
         <a class="btn btn-filo btn-piccolo" target="_blank" rel="noopener"
-           href="https://www.google.com/maps/search/?api=1&amp;query=Agriturismo+Il+Camporosso%2C+Via+Serioletto%2C+24057+Martinengo+BG">Apri in Google Maps</a>
+           href="https://www.google.com/maps/search/?api=1&amp;query=Agriturismo+Il+Camporosso%2C+Via+Serioletto%2C+24057+Martinengo+BG">Portami lì</a>
       </p>
     </div>
 
@@ -275,55 +349,71 @@
     </aside>
   </section>
 
-  <!-- ============ REGALO ============ -->
+  <!-- ============ 4. REGALO ============ -->
   <section id="regalo" class="regalo">
-    <header class="titolo sezione-stretta rivela">
+    <header class="titolo rivela">
       <p class="occhiello">Regalo di nozze</p>
       <h2>Se volete farci un regalo</h2>
       <p class="sottotitolo">Il regalo più bello è avervi con noi. Se però volete farci un pensiero, ecco due idee.</p>
     </header>
 
-    <!-- Due fasce fotografiche a tutta larghezza, ciascuna con la sua carta sopra -->
-    <div class="fascia">
-      <img class="fascia-foto"
-           src="img/regalo/islanda-800.webp"
-           srcset="img/regalo/islanda-800.webp 800w, img/regalo/islanda-1920.webp 1920w"
-           sizes="100vw" width="1920" height="1280" loading="lazy"
-           alt="Una strada che attraversa la campagna islandese, sotto una parete di roccia e un cielo rosa al tramonto">
+    <div class="regali">
       <article class="regalo-carta rivela">
-        <p class="occhiello">Viaggio di nozze</p>
-        <h3>Islanda</h3>
-        <p>Se volete contribuire al nostro viaggio di nozze, potete farlo con un bonifico.</p>
-        <div class="iban">
-          <span class="iban-etichetta">IBAN</span>
-          <code data-iban="IT94Z0329601601000067841707">IT94 Z032 9601 6010 0006 7841 707</code>
-          <button type="button" class="copia" data-copia hidden>Copia</button>
-        </div>
-        <p class="intestato">Intestato a <strong>Ambrogio Silecchia e Francesca Micheletti</strong></p>
-      </article>
-    </div>
+        <img class="regalo-foto" src="img/regalo/islanda-800.webp"
+             srcset="img/regalo/islanda-800.webp 800w, img/regalo/islanda-1920.webp 1920w"
+             sizes="(min-width: 900px) 540px, 100vw" width="1920" height="1280" loading="lazy"
+             alt="Una strada che attraversa la campagna islandese, sotto una parete di roccia e un cielo rosa al tramonto">
+        <div class="regalo-corpo">
+          <p class="occhiello">Viaggio di nozze</p>
+          <h3>Islanda</h3>
+          <p>Se volete contribuire al nostro viaggio di nozze, potete farlo con un bonifico. Toccate «Copia» e incollate nell'app della banca.</p>
 
-    <div class="fascia fascia-sinistra">
-      <img class="fascia-foto"
-           src="img/regalo/casa-up.webp" width="1200" height="750" loading="lazy"
-           alt="La casa di Up che vola appesa a centinaia di palloncini colorati">
+          <!-- Ogni dato ha il suo «Copia»: si incolla nell'app della banca
+               senza errori di battitura. data-copia è il testo copiato. -->
+          <dl class="bonifico">
+            <div class="bonifico-iban">
+              <dt>IBAN</dt>
+              <dd><code>IT94 Z032 9601 6010 0006 7841 707</code></dd>
+              <button type="button" class="copia copia-grande" data-copia="IT94Z0329601601000067841707" data-copia-avviso="IBAN copiato" hidden>
+                <svg class="icona" aria-hidden="true" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>
+                <span>Copia IBAN</span>
+              </button>
+            </div>
+            <div>
+              <dt>Intestato a</dt>
+              <dd>Ambrogio Silecchia e Francesca Micheletti</dd>
+              <button type="button" class="copia" data-copia="Ambrogio Silecchia e Francesca Micheletti" data-copia-avviso="Intestatari copiati" hidden><span>Copia</span></button>
+            </div>
+            <div>
+              <dt>Causale</dt>
+              <dd>Regalo di nozze Ambrogio e Francesca</dd>
+              <button type="button" class="copia" data-copia="Regalo di nozze Ambrogio e Francesca" data-copia-avviso="Causale copiata" hidden><span>Copia</span></button>
+            </div>
+          </dl>
+        </div>
+      </article>
+
       <article class="regalo-carta rivela">
-        <p class="occhiello">Lista nozze</p>
-        <h3>La nostra casa</h3>
-        <p>Se preferite aiutarci a costruire la nostra casa, abbiamo aperto una lista nozze da:</p>
-        <div class="negozio">
-          <strong>Bartolini</strong>
-          <span>Via dei Servi 72/R, 50122 Firenze</span>
-          <span class="link-negozio">
-            <a href="https://www.bartolinifirenze.it/" target="_blank" rel="noopener">Sito</a>
-            <a href="https://www.google.com/maps/search/?api=1&amp;query=Bartolini%2C+Via+dei+Servi+72R%2C+50122+Firenze" target="_blank" rel="noopener">Mappa</a>
-          </span>
+        <img class="regalo-foto" src="img/regalo/casa-up.webp" width="1200" height="750" loading="lazy"
+             alt="La casa di Up che vola appesa a centinaia di palloncini colorati">
+        <div class="regalo-corpo">
+          <p class="occhiello">Lista nozze</p>
+          <h3>La nostra casa</h3>
+          <p>Se preferite aiutarci a costruire la nostra casa, abbiamo aperto una lista nozze da:</p>
+          <div class="negozio">
+            <strong>Bartolini</strong>
+            <span>Via dei Servi 72/R, 50122 Firenze</span>
+            <span class="link-negozio">
+              <a href="https://www.bartolinifirenze.it/" target="_blank" rel="noopener">Sito</a>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=Bartolini%2C+Via+dei+Servi+72R%2C+50122+Firenze" target="_blank" rel="noopener">Mappa</a>
+            </span>
+          </div>
         </div>
       </article>
     </div>
   </section>
 
-  <!-- ============ RSVP ============
+  <!-- ============ 5. RSVP ============
        Le risposte vanno dritte nel modulo Google che Ambrogio e Francesca
        usavano già: stesse domande, stesso foglio delle risposte. Con il
        JavaScript l'invio resta nella pagina; senza, il modulo si invia
@@ -376,7 +466,7 @@
         <svg class="rametto" aria-hidden="true"><use href="#rametto"/></svg>
         <h3 data-grazie-titolo>Grazie!</h3>
         <p data-grazie-testo></p>
-        <button type="button" class="btn btn-filo btn-piccolo" data-di-nuovo>Invia un'altra risposta</button>
+        <button type="button" class="btn btn-filo btn-piccolo" data-di-nuovo>Rispondi per un'altra persona</button>
       </div>
     </div>
   </section>
@@ -386,7 +476,7 @@
 <footer class="piede">
   <svg class="rametto" aria-hidden="true"><use href="#rametto"/></svg>
   <p class="piede-nomi">Ambrogio <span>&amp;</span> Francesca</p>
-  <p class="piede-data">24.04.2027</p>
+  <p class="piede-data">24 aprile 2027</p>
   <p class="piede-contatti">Per qualsiasi domanda, scriveteci:</p>
   <p class="piede-link">
     <a class="btn btn-filo btn-piccolo" href="mailto:ambrogiosilecchia@gmail.com">Scrivi ad Ambrogio</a>
