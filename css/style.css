@@ -494,70 +494,103 @@ address{font-style:normal}
 .negozio > span:not(.link-esterni){font-size:.93rem;color:var(--tenue)}
 
 /* ---------- 5. RSVP ----------
-   Stessa carta delle sezioni del regalo; un solo componente («.scelta»)
-   per ogni risposta a tocco: Sì/No, quante persone, fascia d'età. */
-.rsvp{max-width:var(--larghezza);margin:0 auto;text-align:center;padding:var(--respiro) var(--gutter)}
+   Fascia verde a tutta larghezza, come la barra in alto, con dentro la «carta
+   di risposta»: carta chiara con un filo interno, campi sottolineati, scelte
+   a tocco morbide. Un solo componente («.scelta») per ogni risposta a tocco:
+   Sì/No, quante persone, fascia d'età. */
+.rsvp{
+  text-align:center;background:var(--salvia-scura);
+  padding:var(--respiro) var(--gutter) calc(var(--respiro) + 1rem);
+}
+.rsvp .titolo h2{color:var(--carta)}
 .rsvp-carta{
-  max-width:720px;margin:0 auto;text-align:left;
-  background:var(--carta);border:1px solid var(--filo);border-radius:var(--raggio);
-  padding:clamp(1.25rem, 4vw, 2.2rem);box-shadow:var(--ombra-carta);
+  position:relative;max-width:640px;margin:0 auto;text-align:left;
+  background:var(--carta);border-radius:var(--raggio);
+  padding:clamp(1.9rem, 6vw, 3.2rem) clamp(1.5rem, 6vw, 3rem);
+  box-shadow:0 34px 60px -36px rgba(0,0,0,.55);
+}
+/* il filo interno, come sulle partecipazioni */
+.rsvp-carta::before{
+  content:"";position:absolute;inset:7px;pointer-events:none;
+  border:1px solid var(--filo);border-radius:calc(var(--raggio) - 4px);
 }
 .modulo fieldset{border:0;padding:0;margin:0;min-width:0}
-.modulo fieldset.campo{margin-bottom:1.2rem}
+.modulo fieldset.campo{margin-bottom:1.5rem}
 [hidden]{display:none !important}
 .trappola{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 
-/* le domande: serif, come i titoli delle carte */
-.domanda{margin:0 0 1.6rem !important}
+/* le domande: serif, al centro */
+.domanda{margin:0 0 1.9rem !important;text-align:center}
 .domanda legend{
-  padding:0;margin:0 0 .9rem;
+  display:table;margin:0 auto 1.1rem;padding:0;
   font-family:var(--serif);font-size:var(--h3);font-weight:500;line-height:1.1;
 }
 
-/* il pulsante di risposta: contorno, e verde quando è scelto */
+/* le scelte: tessere morbide, verdi quando sono scelte */
 .scelte{display:grid;gap:.6rem}
 .scelte-2{grid-template-columns:1fr 1fr}
-.scelte-3{grid-template-columns:repeat(3, 1fr)}
-.scelte-numeri{grid-template-columns:repeat(5, 1fr)}
-@media (min-width:600px){ .scelte-numeri{grid-template-columns:repeat(10, 1fr)} }
+.scelte-numeri{display:flex;flex-wrap:wrap;justify-content:center;gap:.55rem}
 .scelta{position:relative;display:grid;cursor:pointer}
 .scelta input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
 .scelta span{
-  display:flex;align-items:center;justify-content:center;min-height:52px;
-  border:1px solid var(--inchiostro);border-radius:var(--pillola);background:transparent;
-  font-family:var(--sans);font-weight:600;font-size:1rem;color:var(--inchiostro);
-  transition:background-color .2s, color .2s, border-color .2s;
+  display:flex;align-items:center;justify-content:center;min-height:54px;
+  border:1px solid var(--filo);border-radius:var(--pillola);background:var(--lino);
+  font-family:var(--sans);font-weight:700;font-size:1.02rem;letter-spacing:.02em;color:var(--inchiostro);
+  transition:background-color .2s, color .2s, border-color .2s, box-shadow .2s;
 }
-.scelta:hover span{background:var(--sabbia)}
-.scelta input:checked + span{background:var(--salvia-scura);border-color:var(--salvia-scura);color:var(--carta)}
+.scelta:hover span{border-color:var(--salvia);background:var(--sabbia)}
+.scelta input:checked + span{background:var(--salvia-scura);border-color:var(--salvia-scura);color:var(--carta);box-shadow:0 8px 16px -10px rgba(78,92,69,.9)}
 .scelta input:focus-visible + span{outline:2px solid var(--cotto);outline-offset:3px}
+/* i numeri sono tondi */
+.scelte-numeri .scelta span{width:48px;min-height:48px;height:48px;padding:0;border-radius:50%}
+@media (min-width:600px){ .scelte-numeri{gap:.45rem} .scelte-numeri .scelta span{width:44px;min-height:44px;height:44px} }
 
-/* un ospite: filo verde a sinistra, come gli indirizzi */
-.ospite{margin:0 0 1.6rem;padding:.2rem 0 .1rem 1rem;border-left:2px solid var(--salvia)}
+/* un ospite: niente riquadri, solo un filo che separa uno dall'altro */
+.ospite{margin:0 0 1.7rem}
+.ospite ~ .ospite{padding-top:1.7rem;border-top:1px solid var(--filo)}
 
-/* campi: etichetta in sans, come i dati del bonifico */
-.campo{display:block;margin:0 0 1.2rem;padding:0}
-.campo > span,.campo > legend{display:block;float:none;padding:0;margin:0 0 .45rem;font-weight:600;font-size:1rem}
+/* campi: etichetta piccola in maiuscolo, riga sotto per scrivere */
+.campo{display:block;margin:0 0 1.5rem;padding:0;border:0}
+.campo > span,.campo > legend{
+  display:block;float:none;padding:0;margin:0 0 .35rem;
+  font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--tenue);
+}
 .campo input[type="text"],.campo textarea{
-  display:block;width:100%;font:inherit;font-size:max(16px, 1.05rem);line-height:1.4;color:var(--inchiostro);
-  padding:.8rem 1rem;border-radius:var(--pillola);border:1px solid var(--filo);background:#fff;
+  display:block;width:100%;font:inherit;font-size:max(16px, 1.08rem);line-height:1.4;color:var(--inchiostro);
+  padding:.45rem 0 .5rem;border:0;border-bottom:1px solid #A89C86;border-radius:0;background:transparent;
   transition:border-color .2s, box-shadow .2s;
 }
-.campo textarea{resize:vertical;min-height:4rem}
-.campo input:focus,.campo textarea:focus{outline:none;border-color:var(--salvia-scura);box-shadow:0 0 0 3px rgba(124,140,110,.22)}
-.facoltativo{font-style:normal;font-weight:400;font-size:.85rem;color:var(--tenue);margin-left:.35rem}
+.campo textarea{resize:none;min-height:2.6rem;field-sizing:content}
+.campo input:focus,.campo textarea:focus{outline:none;border-bottom-color:var(--salvia-scura);box-shadow:0 1px 0 var(--salvia-scura)}
+.facoltativo{font-style:normal;font-weight:400;letter-spacing:.02em;text-transform:none;font-size:.82rem;margin-left:.35rem}
 
-.btn-invia{width:100%;margin-top:.4rem}
+/* la fascia d'età: un'unica barra divisa in tre */
+.scelte-3{display:flex;gap:0;border:1px solid var(--filo);border-radius:var(--pillola);overflow:hidden;background:var(--lino)}
+.scelte-3 .scelta{flex:1}
+.scelte-3 .scelta span{min-height:46px;border:0;border-radius:0;background:transparent;box-shadow:none}
+.scelte-3 .scelta + .scelta span{border-left:1px solid var(--filo)}
+.scelte-3 .scelta:hover span{background:var(--sabbia)}
+.scelte-3 .scelta input:checked + span{background:var(--salvia-scura);color:var(--carta);box-shadow:none}
+.scelte-3 .scelta input:focus-visible + span{outline-offset:-4px}
+
+/* Invia: arancione, come il pulsante RSVP in alto */
+.btn-invia{width:100%;margin-top:.5rem;background:var(--cotto);border-color:var(--cotto);color:var(--carta)}
+.btn-invia:hover{background:var(--cotto-scuro);border-color:var(--cotto-scuro)}
 .btn-invia[disabled]{opacity:.6;cursor:progress}
 .modulo-stato{margin:.9rem 0 0;font-size:.98rem;text-align:center;color:var(--cotto-scuro)}
 .modulo-stato:empty{margin:0}
 .senza-script{color:var(--tenue);margin:0}
 
 /* risposta già data */
+.grazie{text-align:center}
 .grazie:focus{outline:none}
+.grazie::before{
+  content:"✓";display:grid;place-items:center;width:56px;height:56px;margin:0 auto 1rem;
+  border-radius:50%;background:var(--salvia-scura);color:var(--carta);font-size:1.6rem;font-weight:700;
+}
 .grazie h3{font-size:var(--h3);margin-bottom:.6rem}
 .grazie p{color:var(--tenue);margin:0 0 1.3rem}
-.grazie-azioni{display:flex;flex-wrap:wrap;gap:.6rem}
+.grazie-azioni{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem}
 button.link-esterno{background:transparent;font-family:inherit;cursor:pointer}
 
 /* ---------- piede ---------- */
