@@ -38,7 +38,7 @@ Il bottone RSVP resta sempre in alto; il menu ha solo Cerimonia, Ricevimento, Re
 ## L'RSVP
 
 Il modulo chiede prima se si viene. **No**: solo nome e cognome. **Sì**: quante persone
-(da 1 a 10) e, per ognuna, nome e cognome, fascia d'età (0–3, 4–11, 12 o più) e allergie.
+(da 1 a 10) e, per ognuna, Nome e Cognome, fascia d'età (0-3, 4-11, 12+) e allergie.
 L'invio va a `POST /api/rsvp` (`api/rsvp.js`, con la logica in `lib/rsvp.js`), che:
 
 1. controlla i dati;
