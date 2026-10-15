@@ -18,14 +18,18 @@ Vanno scritti con l'indirizzo assoluto, e ora contengono `https://www.ambrogioef
 
 ## Come si cambia qualcosa
 
+La pagina segue l'ordine in cui un invitato cerca le cose: **data → luoghi →
+messa e ricevimento (con parcheggi) → regalo → RSVP**.
+
 | Cosa | Dove |
 |---|---|
 | Testi, orari, indirizzi, link alle mappe | `index.html` |
-| Colori, spaziature, tondezza degli angoli | `css/style.css` (in cima, le variabili in `:root`) |
-| **Foto che scorrono** | `index.html`, sezione `data-nastro`: una riga `<li><img …></li>` per foto. Le copie per il giro continuo le crea `js/main.js`. Le foto vanno messe in `img/nastro/`, alte 560 px, in formato WebP. |
-| **Galleria «Un po' della nostra storia»** | `index.html`, sezione `id="foto"`: una riga `<li>` per foto (sono tutte sempre in vista). Per ogni foto servono due WebP in `img/foto/`: anteprima larga 560 px (`NN.webp`) e versione grande con lato lungo 1600 px (`NN-grande.webp`). Gli originali JPEG sono in `originali/` (non pubblicati). |
-| Foto grandi (apertura, Islanda, casa) | `img/apertura/`, `img/regalo/`, `img/luoghi/` e i relativi `<img>` in `index.html` |
-| Orari nel calendario | `download/matrimonio-ambrogio-francesca.ics` |
+| Colori, spaziature, caratteri | `css/style.css` (in cima, le variabili in `:root`) |
+| **Mosaico di foto** sotto l'apertura | `index.html`, sezione `data-mosaico`: una riga `<li>` per foto. Classe `v` = verticale (WebP 280×400), `o` = orizzontale (280×200), `g` = grande (560×400). Le miniature stanno in `img/mosaico/`, già ritagliate. La copia per il giro continuo la crea `js/main.js`. |
+| **Micromappa dei parcheggi** | Le vie sono in `img/luoghi/mappa-chiesa.svg` (da OpenStreetMap). I pallini sono in `index.html`, nella `.micromappa`: ogni `<a class="mm-p">` ha la posizione (`cx`/`cy`, in metri dall'angolo in alto a sinistra) e il link Google Maps. L'elenco sotto la mappa usa gli stessi numeri. |
+| Calendario | `download/matrimonio-ambrogio-francesca.ics` (evento di tutto il giorno) e il link Google Calendar in `index.html` (`data-cal-google`). Su Android il bottone principale usa Google Calendar, altrove il file `.ics`. |
+| IBAN, intestatari, causale | `index.html`, sezione `#regalo`: il testo copiato è nell'attributo `data-copia` di ogni bottone. |
+| Foto grandi (apertura, chiesa, cascina, Islanda, casa) | `img/apertura/`, `img/luoghi/`, `img/regalo/` |
 
 ## L'RSVP
 
@@ -57,13 +61,12 @@ npx serve .
 
 ```
 index.html            la pagina
-css/style.css         stili
-js/main.js            JavaScript (conto, galleria, RSVP…)
-fonts/                caratteri, serviti dal sito
+css/style.css         stili (prima per il telefono, poi per schermi grandi)
+js/main.js            JavaScript: menu, mosaico, calendario, copia, RSVP
+fonts/                Cormorant Garamond e Karla, serviti dal sito (licenza OFL)
 img/apertura/         foto a tutta pagina in testa
-img/nastro/           foto che scorrono sotto l'apertura
-img/foto/             galleria (NN.webp anteprima, NN-grande.webp ingrandita)
-img/luoghi/           chiesa e cascina
+img/mosaico/          miniature del mosaico
+img/luoghi/           chiesa, cascina e micromappa
 img/regalo/           Islanda e casa di Up
 img/og.jpg            anteprima per la condivisione del link
 download/             file scaricabili (calendario .ics)
