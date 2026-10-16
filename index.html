@@ -48,10 +48,17 @@
   </symbol>
 </svg>
 
-<!-- Barra in alto: monogramma, RSVP sempre in vista e menu a comparsa.
-     Il menu è un <details>: si apre e si chiude anche senza JavaScript. -->
+<!-- Barra in alto: monogramma, sezioni, RSVP sempre in vista.
+     Su schermi larghi le sezioni stanno tutte nella barra; sul telefono si
+     aprono da un pannello che entra da destra. Il pannello è un <details>:
+     si apre e si chiude anche senza JavaScript. -->
 <header class="barra">
   <a class="monogramma" href="#inizio" aria-label="Torna all'inizio">A<span>&amp;</span>F</a>
+  <nav class="barra-nav" aria-label="Sezioni">
+    <a href="#cerimonia">Cerimonia</a>
+    <a href="#ricevimento">Ricevimento</a>
+    <a href="#regalo">Regalo</a>
+  </nav>
   <a class="barra-rsvp" href="#rsvp">RSVP</a>
   <details class="menu" data-menu>
     <summary class="menu-bottone" aria-label="Menu">
@@ -63,6 +70,11 @@
         <li><a href="#ricevimento">Ricevimento</a></li>
         <li><a href="#regalo">Regalo</a></li>
       </ol>
+      <div class="menu-firma" aria-hidden="true">
+        <svg class="rametto" viewBox="0 0 120 40"><use href="#rametto"/></svg>
+        <p>Ambrogio <span>&amp;</span> Francesca</p>
+        <p class="menu-data">24 aprile 2027</p>
+      </div>
     </nav>
   </details>
 </header>
@@ -88,13 +100,26 @@
   </section>
 
   <!-- ============ CONTO ALLA ROVESCIA E CALENDARIO ============
-       Subito sotto la testata: a sinistra quanto manca, a destra il bottone
-       per il calendario. Un solo bottone per tutti i dispositivi (vedi js). -->
+       Subito sotto la testata: il timer che scorre (giorni, ore, minuti, secondi)
+       e, sotto, il bottone per il calendario. Un solo bottone per tutti i dispositivi (vedi js). -->
   <section id="quando" class="striscia" aria-label="Conto alla rovescia e calendario">
+    <!-- Il timer lo fa scorrere js/main.js; senza JavaScript restano i trattini. -->
+    <div class="timer" data-timer role="timer">
+      <div class="timer-cifre" data-timer-cifre aria-hidden="true">
+        <div class="timer-voce"><strong data-t="g">---</strong><span>giorni</span></div>
+        <span class="timer-sep">:</span>
+        <div class="timer-voce"><strong data-t="o">--</strong><span>ore</span></div>
+        <span class="timer-sep">:</span>
+        <div class="timer-voce"><strong data-t="m">--</strong><span>minuti</span></div>
+        <span class="timer-sep">:</span>
+        <div class="timer-voce"><strong data-t="s">--</strong><span>secondi</span></div>
+      </div>
+      <p class="timer-fine" data-timer-fine hidden></p>
+    </div>
     <a class="pill-calendario" href="download/matrimonio-ambrogio-francesca.ics"
-       data-calendario title="Aggiungi al calendario"
+       data-calendario
        data-android="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Matrimonio%20Ambrogio%20e%20Francesca&amp;dates=20270424%2F20270425&amp;location=Piazza%20della%20Chiesa%2C%20Calcinate%20%28BG%29&amp;details=Ore%2014%3A30%20messa%20nella%20Chiesa%20di%20Santa%20Maria%20Assunta%2C%20Calcinate.%20Dalle%2016%3A30%20ricevimento%20alla%20Cascina%20Camporosso%2C%20Martinengo.%20Tutte%20le%20informazioni%3A%20https%3A%2F%2Fwww.ambrogioefrancesca.it%2F">
-      <span data-conto>Aggiungi al calendario</span>
+      <span>Aggiungi al Calendario</span>
       <span class="pill-icona" aria-hidden="true"><svg class="icona" aria-hidden="true" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 10h17M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M12 13v5M9.5 15.5h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
     </a>
   </section>
@@ -411,11 +436,11 @@
       </noscript>
 
       <div class="grazie" data-grazie hidden tabindex="-1">
-        <h3 data-grazie-titolo>Grazie!</h3>
-        <p data-grazie-testo></p>
+        <h3>Grazie!</h3>
+        <p data-grazie-testo>Abbiamo ricevuto la vostra risposta, non vediamo l'ora di festeggiare insieme!</p>
         <div class="grazie-azioni">
-          <button type="button" class="link-esterno" data-modifica>Modifica la risposta</button>
-          <button type="button" class="link-esterno" data-di-nuovo>Rispondi per un'altra persona</button>
+          <button type="button" class="btn btn-filo btn-piccolo" data-modifica>Modifica</button>
+          <button type="button" class="btn btn-filo btn-piccolo" data-di-nuovo>Compila Nuovo</button>
         </div>
       </div>
     </div>

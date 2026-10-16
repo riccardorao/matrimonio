@@ -22,38 +22,80 @@
     timerAvviso = setTimeout(function () { avviso.classList.remove('visibile'); }, 2200);
   }
 
-  /* ---------- menu a comparsa ----------
-     Si chiude toccando una voce, toccando fuori o con Esc. */
+  /* ---------- menu a comparsa (telefono) ----------
+     Il pannello entra da destra. Si chiude toccando una voce, il velo scuro
+     o la X, oppure con Esc. Mentre è aperto la pagina sotto non scorre. */
   var menu = document.querySelector('[data-menu]');
   if (menu) {
+    var radice = document.documentElement;
+    var largo = window.matchMedia('(min-width: 768px)');
+    var meno = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var timerMenu;
+    var chiudiMenu = function (animato) {
+      if (!menu.open) return;
+      radice.classList.remove('menu-aperto');
+      clearTimeout(timerMenu);
+      if (animato === false || meno.matches) { menu.classList.remove('chiude'); menu.open = false; return; }
+      menu.classList.add('chiude');
+      timerMenu = setTimeout(function () { menu.classList.remove('chiude'); menu.open = false; }, 220);
+    };
+    menu.addEventListener('toggle', function () {
+      if (menu.open) { clearTimeout(timerMenu); menu.classList.remove('chiude'); radice.classList.add('menu-aperto'); }
+      else radice.classList.remove('menu-aperto');
+    });
+    // la X chiude con l'animazione (il clic normale la salterebbe)
+    menu.querySelector('summary').addEventListener('click', function (e) {
+      if (menu.open) { e.preventDefault(); chiudiMenu(); }
+    });
     menu.querySelectorAll('a').forEach(function (a) {
-      a.addEventListener('click', function () { menu.open = false; });
+      a.addEventListener('click', function () { chiudiMenu(); });
     });
     document.addEventListener('click', function (e) {
-      if (menu.open && !menu.contains(e.target)) menu.open = false;
+      if (menu.open && (e.target === menu || !menu.contains(e.target))) chiudiMenu();
     });
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && menu.open) {
-        menu.open = false;
+        chiudiMenu();
         menu.querySelector('summary').focus();
       }
     });
+    // se la finestra diventa larga, il pannello non serve più
+    var alCambio = function () { if (largo.matches) chiudiMenu(false); };
+    if (largo.addEventListener) largo.addEventListener('change', alCambio); else if (largo.addListener) largo.addListener(alCambio);
   }
 
-  /* ---------- conto alla rovescia ---------- */
-  var conto = document.querySelector('[data-conto]');
-  if (conto) {
-    var giorni = Math.ceil((MATRIMONIO - new Date()) / 86400000);
-    var testoConto;
-    if (giorni > 1) testoConto = 'Mancano ' + giorni.toLocaleString('it-IT') + ' giorni';
-    else if (giorni === 1) testoConto = 'Manca un giorno';
-    else if (giorni === 0) testoConto = 'Oggi è il giorno';
-    else testoConto = null;
-    if (testoConto) {
-      conto.textContent = testoConto;
-      var pill = conto.closest('a');
-      if (pill) pill.setAttribute('aria-label', testoConto + '. Aggiungi al calendario');
-    }
+  /* ---------- conto alla rovescia ----------
+     Giorni, ore, minuti e secondi che scorrono, fino alle 14:30 della messa. */
+  var timer = document.querySelector('[data-timer]');
+  if (timer) {
+    var celle = {};
+    ['g', 'o', 'm', 's'].forEach(function (k) { celle[k] = timer.querySelector('[data-t="' + k + '"]'); });
+    var cifre = timer.querySelector('[data-timer-cifre]');
+    var fine = timer.querySelector('[data-timer-fine]');
+    var FINE_GIORNO = new Date('2027-04-25T00:00:00+02:00');
+    var due = function (n) { return (n < 10 ? '0' : '') + n; };
+    var ultimoAria = '';
+    var tic = function () {
+      var resto = MATRIMONIO - new Date();
+      if (resto <= 0) {
+        cifre.hidden = true;
+        fine.hidden = false;
+        fine.textContent = new Date() < FINE_GIORNO ? 'Oggi è il giorno!' : 'Ci siamo sposati!';
+        clearInterval(intervallo);
+        return;
+      }
+      var s = Math.floor(resto / 1000);
+      var g = Math.floor(s / 86400);
+      celle.g.textContent = (g < 100 ? ('00' + g).slice(-3) : String(g));
+      celle.o.textContent = due(Math.floor(s % 86400 / 3600));
+      celle.m.textContent = due(Math.floor(s % 3600 / 60));
+      celle.s.textContent = due(s % 60);
+      // chi usa uno screen reader sente solo i giorni, e solo quando cambiano
+      var aria = g === 0 ? 'Manca meno di un giorno' : g === 1 ? 'Manca un giorno' : 'Mancano ' + g.toLocaleString('it-IT') + ' giorni';
+      if (aria !== ultimoAria) { timer.setAttribute('aria-label', aria); ultimoAria = aria; }
+    };
+    var intervallo = setInterval(tic, 1000);
+    tic();
   }
 
   /* ---------- aggiungi al calendario ----------
@@ -289,7 +331,6 @@
     var stato = modulo.querySelector('[data-stato]');
     var trappola = modulo.querySelector('[name="web"]');
     var grazie = document.querySelector('[data-grazie]');
-    var grazieTitolo = document.querySelector('[data-grazie-titolo]');
     var grazieTesto = document.querySelector('[data-grazie-testo]');
     var risposta = null; // { id, dati } della risposta salvata su questo dispositivo
 
@@ -365,11 +406,9 @@
       aggiorna();
     }
     function mostraGrazie(dati) {
-      var si = dati.presenza === 'si';
-      grazieTitolo.textContent = si ? 'Grazie, a presto!' : 'Grazie per avercelo detto';
-      grazieTesto.textContent = si
-        ? 'Abbiamo ricevuto la vostra risposta. Non vediamo l\'ora di festeggiare con voi il 24 aprile.'
-        : 'Abbiamo ricevuto la vostra risposta. Ci mancherete, e vi penseremo quel giorno.';
+      grazieTesto.textContent = dati.presenza === 'si'
+        ? 'Abbiamo ricevuto la vostra risposta, non vediamo l\'ora di festeggiare insieme!'
+        : 'Abbiamo ricevuto la vostra risposta, ci mancherete: vi penseremo quel giorno!';
       modulo.hidden = true;
       grazie.hidden = false;
     }
