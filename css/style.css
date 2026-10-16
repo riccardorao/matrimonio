@@ -590,7 +590,8 @@ address{font-style:normal}
 }
 .grazie h3{font-size:var(--h3);margin-bottom:.6rem}
 .grazie p{color:var(--tenue);margin:0 0 1.3rem}
-.grazie-azioni{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem}
+.grazie-azioni{display:flex;justify-content:center;gap:.6rem}
+.grazie-azioni .btn{flex:1 1 0;min-width:0;padding-left:.6rem;padding-right:.6rem;font-size:.88rem;line-height:1.2;text-align:center}
 button.link-esterno{background:transparent;font-family:inherit;cursor:pointer}
 
 /* ---------- piede ---------- */

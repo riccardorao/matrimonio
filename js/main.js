@@ -289,8 +289,6 @@
     var stato = modulo.querySelector('[data-stato]');
     var trappola = modulo.querySelector('[name="web"]');
     var grazie = document.querySelector('[data-grazie]');
-    var grazieTitolo = document.querySelector('[data-grazie-titolo]');
-    var grazieTesto = document.querySelector('[data-grazie-testo]');
     var risposta = null; // { id, dati } della risposta salvata su questo dispositivo
 
     function creaOspite(n) {
@@ -364,12 +362,7 @@
       }
       aggiorna();
     }
-    function mostraGrazie(dati) {
-      var si = dati.presenza === 'si';
-      grazieTitolo.textContent = si ? 'Grazie, a presto!' : 'Grazie per avercelo detto';
-      grazieTesto.textContent = si
-        ? 'Abbiamo ricevuto la vostra risposta. Non vediamo l\'ora di festeggiare con voi il 24 aprile.'
-        : 'Abbiamo ricevuto la vostra risposta. Ci mancherete, e vi penseremo quel giorno.';
+    function mostraGrazie() {
       modulo.hidden = true;
       grazie.hidden = false;
     }
@@ -385,7 +378,7 @@
     // Chi ha già risposto da questo dispositivo ritrova il ringraziamento.
     try {
       var salvata = JSON.parse(localStorage.getItem(CHIAVE) || 'null');
-      if (salvata && salvata.dati) { risposta = salvata; mostraGrazie(salvata.dati); }
+      if (salvata && salvata.dati) { risposta = salvata; mostraGrazie(); }
     } catch (e) {}
 
     document.querySelector('[data-modifica]').addEventListener('click', function () {
@@ -426,7 +419,7 @@
           return;
         }
         ricordaRisposta(esito.corpo.id || (risposta && risposta.id), dati);
-        mostraGrazie(dati);
+        mostraGrazie();
         grazie.focus();
       }, function () {
         stato.textContent = 'Non siamo riusciti a inviare la risposta. Controllate la connessione e riprovate, oppure scriveteci.';
