@@ -185,23 +185,59 @@ address{font-style:normal}
 .menu[open] .menu-icona i:nth-child(2){opacity:0}
 .menu[open] .menu-icona i:nth-child(3){top:6.2px;transform:rotate(-45deg)}
 
-.menu-pannello{
-  position:absolute;right:-8px;top:calc(100% + 10px);
-  width:min(calc(100vw - 2 * var(--gutter)), 260px);
-  background:var(--salvia-scura);border:1px solid rgba(251,248,242,.2);border-radius:var(--raggio);
-  box-shadow:var(--ombra-float);
-  padding:.4rem;
-  animation:comparsa .22s cubic-bezier(.2,.7,.2,1);
+/* Sul telefono il pannello entra da destra, a tutta altezza, sopra un velo scuro. */
+.menu-bottone{position:relative;z-index:2}
+.menu[open]::before{
+  content:"";position:fixed;inset:0;z-index:0;
+  background:rgba(25,24,30,.5);
+  animation:velo .25s ease;
 }
-@keyframes comparsa{from{opacity:0;transform:translateY(-6px)}}
+.menu-pannello{
+  position:fixed;top:0;right:0;bottom:0;z-index:1;
+  width:min(84vw, 340px);
+  display:flex;flex-direction:column;
+  padding:calc(var(--barra) + .6rem) 1.4rem calc(1.6rem + env(safe-area-inset-bottom));
+  background:var(--salvia-scura);color:var(--carta);
+  box-shadow:-24px 0 48px -20px rgba(15,14,12,.55);
+  overflow-y:auto;overscroll-behavior:contain;
+  animation:entra .3s cubic-bezier(.2,.7,.2,1);
+}
+.menu.chiude::before{animation:velo .22s ease reverse forwards}
+.menu.chiude .menu-pannello{animation:esce .22s ease-in forwards}
+@keyframes entra{from{transform:translateX(100%)}}
+@keyframes esce{to{transform:translateX(100%)}}
+@keyframes velo{from{opacity:0}}
 .menu-pannello ol{list-style:none;margin:0;padding:0}
 .menu-pannello li + li{border-top:1px solid rgba(251,248,242,.14)}
 .menu-pannello a{
-  display:block;padding:.8rem 1rem;border-radius:var(--pillola);text-decoration:none;
+  display:block;padding:1.05rem .2rem;text-decoration:none;
   /* stessi carattere e misura del pulsante RSVP */
   font-family:var(--sans);font-size:.92rem;font-weight:600;line-height:1.2;color:var(--carta);
+  transition:padding-left .2s, color .2s;
 }
-.menu-pannello a:hover{background:rgba(251,248,242,.12)}
+.menu-pannello a:hover{padding-left:.6rem;color:var(--rosa)}
+.menu-firma{margin-top:auto;padding-top:2rem;text-align:center}
+.menu-firma .rametto{width:96px;height:32px;margin:0 auto .7rem;color:var(--rosa);opacity:.85}
+.menu-firma p{margin:0;font-family:var(--serif);font-size:1.5rem;font-weight:500;line-height:1.1}
+.menu-firma p span{font-style:italic;font-weight:300;color:var(--rosa)}
+.menu-firma .menu-data{margin-top:.4rem;font-size:var(--occhiello-dimensione);font-family:var(--sans);font-weight:700;letter-spacing:var(--occhiello-spazio);text-transform:uppercase;color:rgba(251,248,242,.7)}
+html.menu-aperto{overflow:hidden}
+
+/* le sezioni nella barra: solo su schermi larghi */
+.barra-nav{display:none}
+@media (min-width:768px){
+  .barra{gap:.3rem}
+  .barra-nav{display:flex;align-items:center;gap:.2rem;margin-right:.7rem}
+  .barra-nav a{
+    display:inline-flex;align-items:center;min-height:var(--pulsante);padding:.4rem .95rem;
+    border-radius:var(--pillola);text-decoration:none;
+    /* stessi carattere e misura del pulsante RSVP */
+    font-family:var(--sans);font-size:.92rem;font-weight:600;line-height:1.2;color:var(--carta);
+    transition:background-color .2s;
+  }
+  .barra-nav a:hover{background:rgba(251,248,242,.14)}
+  .menu{display:none}
+}
 
 /* ---------- apertura: la mano con l'anello ----------
    Sul telefono lascia vedere sotto le prime foto del mosaico. */

@@ -22,22 +22,46 @@
     timerAvviso = setTimeout(function () { avviso.classList.remove('visibile'); }, 2200);
   }
 
-  /* ---------- menu a comparsa ----------
-     Si chiude toccando una voce, toccando fuori o con Esc. */
+  /* ---------- menu a comparsa (telefono) ----------
+     Il pannello entra da destra. Si chiude toccando una voce, il velo scuro
+     o la X, oppure con Esc. Mentre è aperto la pagina sotto non scorre. */
   var menu = document.querySelector('[data-menu]');
   if (menu) {
+    var radice = document.documentElement;
+    var largo = window.matchMedia('(min-width: 768px)');
+    var meno = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var timerMenu;
+    var chiudiMenu = function (animato) {
+      if (!menu.open) return;
+      radice.classList.remove('menu-aperto');
+      clearTimeout(timerMenu);
+      if (animato === false || meno.matches) { menu.classList.remove('chiude'); menu.open = false; return; }
+      menu.classList.add('chiude');
+      timerMenu = setTimeout(function () { menu.classList.remove('chiude'); menu.open = false; }, 220);
+    };
+    menu.addEventListener('toggle', function () {
+      if (menu.open) { clearTimeout(timerMenu); menu.classList.remove('chiude'); radice.classList.add('menu-aperto'); }
+      else radice.classList.remove('menu-aperto');
+    });
+    // la X chiude con l'animazione (il clic normale la salterebbe)
+    menu.querySelector('summary').addEventListener('click', function (e) {
+      if (menu.open) { e.preventDefault(); chiudiMenu(); }
+    });
     menu.querySelectorAll('a').forEach(function (a) {
-      a.addEventListener('click', function () { menu.open = false; });
+      a.addEventListener('click', function () { chiudiMenu(); });
     });
     document.addEventListener('click', function (e) {
-      if (menu.open && !menu.contains(e.target)) menu.open = false;
+      if (menu.open && (e.target === menu || !menu.contains(e.target))) chiudiMenu();
     });
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && menu.open) {
-        menu.open = false;
+        chiudiMenu();
         menu.querySelector('summary').focus();
       }
     });
+    // se la finestra diventa larga, il pannello non serve più
+    var alCambio = function () { if (largo.matches) chiudiMenu(false); };
+    if (largo.addEventListener) largo.addEventListener('change', alCambio); else if (largo.addListener) largo.addListener(alCambio);
   }
 
   /* ---------- conto alla rovescia ----------

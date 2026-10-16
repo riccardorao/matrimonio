@@ -20,9 +20,9 @@ Vanno scritti con l'indirizzo assoluto, e ora contengono `https://www.ambrogioef
 
 La pagina segue l'ordine in cui un invitato cerca le cose: **testata con la data
 → conto alla rovescia e calendario → foto → messa (con parcheggi) → ricevimento
-→ regalo → RSVP**. Il bottone RSVP resta sempre in alto; il menu ha solo Cerimonia,
-Ricevimento e Regalo.
-Il bottone RSVP resta sempre in alto; il menu ha solo Cerimonia, Ricevimento, Regalo.
+→ regalo → RSVP**. Il bottone RSVP resta sempre in alto. Su schermi larghi (da 768 px) Cerimonia,
+Ricevimento e Regalo stanno nella barra; sul telefono si aprono da un pannello che
+entra da destra (con velo scuro; si chiude con la X, toccando fuori, una voce o Esc).
 
 | Cosa | Dove |
 |---|---|

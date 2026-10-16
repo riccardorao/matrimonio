@@ -48,10 +48,17 @@
   </symbol>
 </svg>
 
-<!-- Barra in alto: monogramma, RSVP sempre in vista e menu a comparsa.
-     Il menu è un <details>: si apre e si chiude anche senza JavaScript. -->
+<!-- Barra in alto: monogramma, sezioni, RSVP sempre in vista.
+     Su schermi larghi le sezioni stanno tutte nella barra; sul telefono si
+     aprono da un pannello che entra da destra. Il pannello è un <details>:
+     si apre e si chiude anche senza JavaScript. -->
 <header class="barra">
   <a class="monogramma" href="#inizio" aria-label="Torna all'inizio">A<span>&amp;</span>F</a>
+  <nav class="barra-nav" aria-label="Sezioni">
+    <a href="#cerimonia">Cerimonia</a>
+    <a href="#ricevimento">Ricevimento</a>
+    <a href="#regalo">Regalo</a>
+  </nav>
   <a class="barra-rsvp" href="#rsvp">RSVP</a>
   <details class="menu" data-menu>
     <summary class="menu-bottone" aria-label="Menu">
@@ -63,6 +70,11 @@
         <li><a href="#ricevimento">Ricevimento</a></li>
         <li><a href="#regalo">Regalo</a></li>
       </ol>
+      <div class="menu-firma" aria-hidden="true">
+        <svg class="rametto" viewBox="0 0 120 40"><use href="#rametto"/></svg>
+        <p>Ambrogio <span>&amp;</span> Francesca</p>
+        <p class="menu-data">24 aprile 2027</p>
+      </div>
     </nav>
   </details>
 </header>
