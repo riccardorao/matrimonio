@@ -40,20 +40,38 @@
     });
   }
 
-  /* ---------- conto alla rovescia ---------- */
-  var conto = document.querySelector('[data-conto]');
-  if (conto) {
-    var giorni = Math.ceil((MATRIMONIO - new Date()) / 86400000);
-    var testoConto;
-    if (giorni > 1) testoConto = 'Mancano ' + giorni.toLocaleString('it-IT') + ' giorni';
-    else if (giorni === 1) testoConto = 'Manca un giorno';
-    else if (giorni === 0) testoConto = 'Oggi è il giorno';
-    else testoConto = null;
-    if (testoConto) {
-      conto.textContent = testoConto;
-      var pill = conto.closest('a');
-      if (pill) pill.setAttribute('aria-label', testoConto + '. Aggiungi al calendario');
-    }
+  /* ---------- conto alla rovescia ----------
+     Giorni, ore, minuti e secondi che scorrono, fino alle 14:30 della messa. */
+  var timer = document.querySelector('[data-timer]');
+  if (timer) {
+    var celle = {};
+    ['g', 'o', 'm', 's'].forEach(function (k) { celle[k] = timer.querySelector('[data-t="' + k + '"]'); });
+    var cifre = timer.querySelector('[data-timer-cifre]');
+    var fine = timer.querySelector('[data-timer-fine]');
+    var FINE_GIORNO = new Date('2027-04-25T00:00:00+02:00');
+    var due = function (n) { return (n < 10 ? '0' : '') + n; };
+    var ultimoAria = '';
+    var tic = function () {
+      var resto = MATRIMONIO - new Date();
+      if (resto <= 0) {
+        cifre.hidden = true;
+        fine.hidden = false;
+        fine.textContent = new Date() < FINE_GIORNO ? 'Oggi è il giorno!' : 'Ci siamo sposati!';
+        clearInterval(intervallo);
+        return;
+      }
+      var s = Math.floor(resto / 1000);
+      var g = Math.floor(s / 86400);
+      celle.g.textContent = (g < 100 ? ('00' + g).slice(-3) : String(g));
+      celle.o.textContent = due(Math.floor(s % 86400 / 3600));
+      celle.m.textContent = due(Math.floor(s % 3600 / 60));
+      celle.s.textContent = due(s % 60);
+      // chi usa uno screen reader sente solo i giorni, e solo quando cambiano
+      var aria = g === 0 ? 'Manca meno di un giorno' : g === 1 ? 'Manca un giorno' : 'Mancano ' + g.toLocaleString('it-IT') + ' giorni';
+      if (aria !== ultimoAria) { timer.setAttribute('aria-label', aria); ultimoAria = aria; }
+    };
+    var intervallo = setInterval(tic, 1000);
+    tic();
   }
 
   /* ---------- aggiungi al calendario ----------
