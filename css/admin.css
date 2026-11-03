@@ -18,15 +18,22 @@
 .adm-campo input:focus,.adm-filtri-comandi input:focus,.adm-filtri-comandi select:focus{outline:2px solid var(--salvia);outline-offset:1px}
 
 .adm-aggiornato{margin:0 0 1rem;color:var(--tenue);font-size:.9rem}
-.adm-numeri{display:grid;grid-template-columns:repeat(6,1fr);gap:.7rem;margin-bottom:1.4rem}
-.adm-numeri .adm-numero{grid-column:span 2}
-.adm-numeri .adm-numero:nth-child(2),.adm-numeri .adm-numero:nth-child(3){grid-column:span 3}
-.adm-numero{background:var(--carta);border:1px solid var(--filo);border-radius:var(--raggio);padding:.9rem 1rem;display:flex;flex-direction:column}
-.adm-numero strong{font-family:var(--serif);font-size:2.4rem;font-weight:500;line-height:1;color:var(--salvia-scura)}
-.adm-numero span{margin-top:.3rem;font-size:.82rem;color:var(--tenue)}
-.adm-numeri .adm-numero-grande{grid-column:1 / -1;background:var(--salvia-scura);border-color:var(--salvia-scura)}
-.adm-numero-grande strong{color:var(--carta);font-size:3.4rem}
-.adm-numero-grande span{color:var(--sabbia)}
+/* in alto: il numero grande dei confermati e, sotto, adulti, bambini, neonati */
+.adm-riepilogo{
+  background:var(--salvia-scura);color:var(--carta);border-radius:var(--raggio);
+  padding:1.6rem 1.2rem 1.3rem;margin-bottom:1.4rem;text-align:center;
+  box-shadow:var(--ombra-carta);
+}
+.adm-riepilogo-titolo{margin:0;font-size:var(--occhiello-dimensione);font-weight:700;letter-spacing:var(--occhiello-spazio);text-transform:uppercase;color:var(--rosa)}
+.adm-grande{margin:.1rem 0 1.1rem}
+.adm-grande strong{font-family:var(--serif);font-weight:500;line-height:.95;font-size:clamp(6rem, 30vw, 10rem);font-variant-numeric:lining-nums;font-feature-settings:"lnum"}
+.adm-fasce{display:grid;grid-template-columns:repeat(3, 1fr);margin:0;border-top:1px solid rgba(251,248,242,.25);padding-top:1rem}
+.adm-fasce > div{display:flex;flex-direction:column;align-items:center;padding:0 .4rem}
+.adm-fasce > div + div{border-left:1px solid rgba(251,248,242,.2)}
+.adm-fasce dt{order:2;font-size:.8rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sabbia);margin-top:.2rem}
+.adm-fasce dd{order:1;margin:0;font-family:var(--serif);font-weight:500;font-size:clamp(2.4rem, 9vw, 3.4rem);line-height:1;font-variant-numeric:lining-nums;font-feature-settings:"lnum"}
+.adm-fasce span{order:3;font-size:.75rem;color:rgba(251,248,242,.6);margin-top:.1rem}
+.adm-risposte{margin:1rem 0 0;font-size:.9rem;color:rgba(251,248,242,.75)}
 
 .adm-blocco{background:var(--carta);border:1px solid var(--filo);border-radius:var(--raggio);padding:1.1rem 1.1rem 1.2rem;margin-bottom:1.2rem}
 .adm-blocco h2,.adm-avviso h2{font-family:var(--serif);font-weight:500;font-size:1.5rem;margin:0 0 .6rem}
@@ -70,8 +77,6 @@
 }
 
 @media (min-width:720px){
-  .adm-numeri{grid-template-columns:2fr repeat(5,1fr)}
-  .adm-numeri .adm-numero,.adm-numeri .adm-numero:nth-child(2),.adm-numeri .adm-numero:nth-child(3),.adm-numeri .adm-numero-grande{grid-column:auto}
   .adm-filtri{flex-direction:row;align-items:center;justify-content:space-between}
   .adm-filtri-comandi{width:min(100%,420px)}
 }

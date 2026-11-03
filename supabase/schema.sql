@@ -38,15 +38,18 @@ alter table public.rsvp_storico enable row level security;
 alter table public.rsvp_config enable row level security;
 revoke all on public.rsvp_risposte, public.rsvp_storico, public.rsvp_config from anon, authenticated;
 
--- Impronta della chiave segreta (la chiave in chiaro sta solo in Vercel: RSVP_TOKEN).
--- insert into public.rsvp_config values ('token_sha256', encode(sha256(convert_to('<chiave>','utf8')),'hex'));
+-- Impronta della password (la password in chiaro sta solo in Vercel: RSVP_TOKEN).
+-- Per cambiarla: inserire una nuova riga con un'altra chiave, per esempio
+--   insert into public.rsvp_config values ('token_sha256_v3', encode(sha256(convert_to('<password>','utf8')),'hex'));
+-- aggiornare RSVP_TOKEN su Vercel, rifare il deploy e poi far puntare rsvp_token_ok alla nuova riga.
+insert into public.rsvp_config values ('token_sha256_v2', encode(sha256(convert_to('<password>','utf8')),'hex'));
 
 create or replace function public.rsvp_token_ok(p_token text)
 returns boolean language sql stable security definer set search_path = ''
 as $$
   select coalesce(
     (select valore = encode(sha256(convert_to(coalesce(p_token,''),'utf8')),'hex')
-       from public.rsvp_config where chiave = 'token_sha256'),
+       from public.rsvp_config where chiave = 'token_sha256_v2'),
     false);
 $$;
 revoke all on function public.rsvp_token_ok(text) from public, anon, authenticated;

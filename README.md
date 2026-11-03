@@ -31,7 +31,7 @@ entra da destra (con velo scuro; si chiude con la X, toccando fuori, una voce o 
 | **Mosaico di foto** sotto l'apertura | `index.html`, sezione `data-mosaico`: una riga `<li>` per foto. Classe `v` = verticale (WebP 280×400), `o` = orizzontale (280×200), `g` = grande (560×400). Le miniature stanno in `img/mosaico/`, già ritagliate. La copia per il giro continuo la crea `js/main.js`, che lo fa scorrere e lo rende trascinabile (velocità e ritorno all'andatura in cima al blocco del mosaico). |
 | **Micromappa dei parcheggi** | Le vie sono in `img/luoghi/mappa-chiesa.svg` (da OpenStreetMap). I pallini sono in `index.html`, nella `.micromappa`: ogni `<a class="mm-p">` ha la posizione (`cx`/`cy`, in metri dall'angolo in alto a sinistra), il link Google Maps, `data-tempo` (il minuto mostrato) e `data-percorso` (il numero). Il tratteggio dal parcheggio alla chiesa è un `<path class="mm-percorso">` con lo stesso `data-percorso`: è calcolato a piedi sulla rete stradale OpenStreetMap; se si sposta un parcheggio, va ricalcolato. |
 | Conto alla rovescia e calendario | Sotto la testata (sezione `#quando`): il timer che scorre ogni secondo (giorni : ore : minuti : secondi, fino alle 14:30 della messa) e sotto la pill verde «Aggiungi al Calendario» (`.pill-calendario`). Un tocco aggiunge l'evento: scarica `download/matrimonio-ambrogio-francesca.ics` (evento di tutto il giorno); su Android `js/main.js` punta a Google Calendar, usando l'indirizzo nell'attributo `data-android`. |
-| IBAN, intestatari, causale, codice e password | `index.html`, sezione `#regalo`: il testo copiato è nell'attributo `data-copia` di ogni bottone; si scrivono in IBM Plex Mono (`--mono`, misura `--dato-mono` in `css/style.css`) così 0, O, 1 e I non si confondono. |
+| IBAN, intestatari, causale, login e password | `index.html`, sezione `#regalo`: il testo copiato è nell'attributo `data-copia` di ogni bottone; si scrivono in IBM Plex Mono (`--mono`, misura `--dato-mono` in `css/style.css`) così 0, O, 1 e I non si confondono. |
 | Negozi della lista nozze | `index.html`, sezione regalo: una `<div class="negozio">` per negozio. Sito e mappa sono `<a class="link-esterno">`, tutti con lo stesso stile. |
 | Foto grandi (apertura, chiesa, cascina, Islanda, casa) | `img/apertura/`, `img/luoghi/`, `img/regalo/` |
 
@@ -54,8 +54,9 @@ trappola per i robot.
 
 ### Dove gli sposi vedono le risposte
 
-- **`/admin`** (pagina privata, non indicizzata): si entra con la chiave segreta (`RSVP_TOKEN`).
-  Mostra persone confermate, sì/no, fasce d'età, allergie, nomi doppi, tutte le risposte con
+- **`/admin`** (pagina privata, non indicizzata): si entra con la password (`RSVP_TOKEN`).
+  In alto, grande, il numero dei confermati con adulti (12+), bambini (4-11) e neonati (0-3);
+  poi allergie (le risposte tipo «nessuna» o «no» non contano), nomi doppi, tutte le risposte con
   ricerca e filtro e le ultime modifiche; si aggiorna da sola ogni minuto e ha il pulsante
   «Scarica CSV». I numeri sono sempre calcolati dalle righe vere, non salvati a parte.
 - **Mail**: appena configurato Resend (sotto), a ogni invio arriva il report completo.
@@ -65,12 +66,13 @@ trappola per i robot.
 
 - Su Supabase le tabelle hanno RLS attivo e nessuna policy: dall'esterno non si legge e non si
   scrive nulla. Si passa solo dalle funzioni `rsvp_salva` e `rsvp_report`, che funzionano solo
-  con la chiave segreta (nel database c'è solo la sua impronta SHA-256).
+  con la password (nel database c'è solo la sua impronta SHA-256, riga `token_sha256_v2`).
 - Variabili del progetto Vercel: `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY` (il lasciapassare
-  pubblico di Supabase, da solo non dà accesso ai dati) e `RSVP_TOKEN` (la chiave segreta,
+  pubblico di Supabase, da solo non dà accesso ai dati) e `RSVP_TOKEN` (la password,
   «sensitive»: Vercel non la mostra più dopo il salvataggio).
-- Per cambiare la chiave: generarne una nuova, aggiornare `RSVP_TOKEN` su Vercel e l'impronta
-  nella tabella `rsvp_config` (`token_sha256`, vedi `supabase/schema.sql`), poi rifare il deploy.
+- Per cambiare la password: aggiungere la nuova impronta in `rsvp_config`, aggiornare `RSVP_TOKEN` su
+  Vercel e rifare il deploy, poi far puntare `rsvp_token_ok` alla nuova riga (vedi `supabase/schema.sql`).
+  Meglio una password lunga: chi la indovina vede nomi e allergie degli invitati.
 
 ### Attivare la mail (da fare una volta)
 

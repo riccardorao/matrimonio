@@ -1,3 +1,4 @@
+import { nessunaAllergia, pulisciAllergie } from '../js/allergie.js';
 import { leggiRisposta, gestisciRichiesta, costruisciReport, creaDb, MAX_PERSONE } from '../lib/rsvp.js';
 
 // Un finto database che si comporta come le funzioni SQL rsvp_salva / rsvp_report.
@@ -48,6 +49,12 @@ const v = leggiRisposta({ presenza: 'si', ospiti: [{ nome: '  Anna Rossi ', eta:
 ok(v.dati && v.dati.ospiti[0].nome === 'Anna Rossi' && v.dati.ospiti[0].allergie === 'noci' && v.dati.rispondente === 'Anna Rossi', 'nomi e allergie puliti, rispondente = primo ospite');
 ok(leggiRisposta({ presenza: 'si', id: 'non-un-uuid', ospiti: [{ nome: 'Ab', eta: '12+' }] }).dati.id === null, 'id non valido scartato');
 
+// «nessuna» e simili non sono allergie
+for (const x of ['nessuna', 'Nessuna.', 'NESSUNA ALLERGIA', 'no', 'No grazie', 'niente', 'nulla', 'non ho allergie', 'Nessuna allergia o intolleranza', 'nessuna intolleranza', 'n/a', '-', '.', '  ', 'Non ne abbiamo']) ok(nessunaAllergia(x), `«${x}» = nessuna allergia`);
+for (const x of ['glutine', 'no glutine', 'nessuna, tranne le noci', 'allergia ai crostacei', 'lattosio', 'non mangio carne', 'vegetariana']) ok(!nessunaAllergia(x), `«${x}» resta`);
+ok(pulisciAllergie(' Nessuna ') === '' && pulisciAllergie(' noci ') === 'noci', 'pulisciAllergie');
+ok(leggiRisposta({ presenza: 'si', ospiti: [{ nome: 'Ab', eta: '12+', allergie: 'Nessuna' }] }).dati.ospiti[0].allergie === '', 'al salvataggio «Nessuna» diventa vuoto');
+
 const db = fakeDb();
 const inviate = [];
 const finto = async (url, opt) => { inviate.push({ url, body: JSON.parse(opt.body) }); return { ok: true, status: 200, text: async () => '' }; };
@@ -67,7 +74,7 @@ const r2 = await gestisciRichiesta({ metodo: 'POST', db: db.db, fetch: finto, en
 ok(r2.corpo.id === id && r2.corpo.nuova === false, 'con lo stesso id si aggiorna, non si crea');
 ok(db.risposte.size === 1 && [...db.risposte.values()][0].ospiti.length === 3 && r2.corpo.versione === 2, 'dopo la modifica: 1 risposta, 3 ospiti, versione 2');
 ok(inviate[1].body.subject.includes('ha modificato') && inviate[1].body.subject.includes('totale 3'), 'mail di modifica: ha modificato, totale 3');
-ok(inviate[1].body.text.includes('0–3: 1') && inviate[1].body.text.includes('4–11: 1') && inviate[1].body.text.includes('12+: 1'), 'conteggio per fasce nel testo');
+ok(inviate[1].body.text.includes('adulti: 1') && inviate[1].body.text.includes('bambini 4–11: 1') && inviate[1].body.text.includes('neonati 0–3: 1'), 'conteggio adulti/bambini/neonati nel testo');
 ok(inviate[1].body.html.includes('latte'), 'allergie nel report');
 
 const r3 = await gestisciRichiesta({ metodo: 'POST', db: db.db, fetch: finto, env, corpo: { presenza: 'no', rispondente: 'Paolo Bianchi' } });
@@ -97,7 +104,7 @@ const rep = costruisciReport({
   ],
   duplicati: [{ nome: 'a', risposte: 2 }]
 }, { rispondente: 'A', presenza: 'si', persone: 2, nuova: true });
-ok(rep.testo.includes('Persone confermate: 2 (0–3: 1, 4–11: 1, 12+: 0)'), 'totali: 2 persone, fasce corrette');
+ok(rep.testo.includes('Persone confermate: 2 (adulti: 0, bambini 4–11: 1, neonati 0–3: 1)'), 'totali: 2 persone, adulti/bambini/neonati corretti');
 ok(rep.testo.includes('Risposte: 1 sì, 1 no'), 'totali: risposte sì/no');
 ok(rep.testo.includes('stesso nome in più risposte') && rep.html.includes('Attenzione'), 'duplicati segnalati nel report');
 
