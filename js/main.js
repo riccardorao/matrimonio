@@ -137,6 +137,8 @@
     b.hidden = false;
     b.addEventListener('click', function () {
       copiaTesto(b.getAttribute('data-copia')).then(function () {
+        b.classList.remove('fatto');
+        void b.offsetWidth; // fa ripartire l'animazione se si ricopia subito
         b.classList.add('fatto');
         mostraAvviso(b.getAttribute('data-copia-avviso') || 'Copiato');
         if (navigator.vibrate) navigator.vibrate(15);

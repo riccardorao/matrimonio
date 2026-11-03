@@ -323,24 +323,21 @@
           <h3>Viaggio di Nozze</h3>
           <p>Se volete contribuire al nostro viaggio di nozze, potete farlo con un bonifico.</p>
 
-          <!-- Ogni dato ha il suo bottone «copia» (l'icona a destra):
+          <!-- Ogni dato ha il suo bottone «copia» (la piccola icona subito dopo il testo):
                data-copia è il testo copiato. Senza JavaScript i bottoni
                restano nascosti e il testo si seleziona a mano. -->
           <dl class="bonifico">
             <div class="bonifico-iban">
               <dt>IBAN</dt>
-              <dd><code>IT94Z0329601601000067841707</code></dd>
-              <button type="button" class="copia" data-copia="IT94Z0329601601000067841707" data-copia-avviso="IBAN copiato" aria-label="Copia IBAN" hidden><svg class="icona" aria-hidden="true" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></button>
+              <dd><code>IT94Z0329601601000067841707</code><button type="button" class="copia" data-copia="IT94Z0329601601000067841707" data-copia-avviso="IBAN copiato" aria-label="Copia IBAN" hidden><svg class="icona" aria-hidden="true" viewBox="0 0 24 24"><rect class="copia-fronte" x="8" y="8" width="12" height="12" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></button></dd>
             </div>
             <div>
               <dt>Intestatari</dt>
-              <dd>Ambrogio Silecchia e Francesca Micheletti</dd>
-              <button type="button" class="copia" data-copia="Ambrogio Silecchia e Francesca Micheletti" data-copia-avviso="Intestatari copiati" aria-label="Copia intestatari" hidden><svg class="icona" aria-hidden="true" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></button>
+              <dd>Ambrogio Silecchia e Francesca Micheletti<button type="button" class="copia" data-copia="Ambrogio Silecchia e Francesca Micheletti" data-copia-avviso="Intestatari copiati" aria-label="Copia intestatari" hidden><svg class="icona" aria-hidden="true" viewBox="0 0 24 24"><rect class="copia-fronte" x="8" y="8" width="12" height="12" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></button></dd>
             </div>
             <div>
               <dt>Causale</dt>
-              <dd>Regalo Viaggio di Nozze</dd>
-              <button type="button" class="copia" data-copia="Regalo Viaggio di Nozze" data-copia-avviso="Causale copiata" aria-label="Copia causale" hidden><svg class="icona" aria-hidden="true" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></button>
+              <dd>Regalo Viaggio di Nozze<button type="button" class="copia" data-copia="Regalo Viaggio di Nozze" data-copia-avviso="Causale copiata" aria-label="Copia causale" hidden><svg class="icona" aria-hidden="true" viewBox="0 0 24 24"><rect class="copia-fronte" x="8" y="8" width="12" height="12" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></button></dd>
             </div>
           </dl>
         </div>
@@ -359,9 +356,19 @@
               <span>Via dei Servi 72/R, 50122 Firenze</span>
               <span class="link-esterni">
                 <a class="link-esterno" href="https://www.google.com/maps/search/?api=1&amp;query=Bartolini%2C+Via+dei+Servi+72R%2C+50122+Firenze" target="_blank" rel="noopener">Mappa</a>
-                <a class="link-esterno" href="https://www.bartolinifirenze.it/" target="_blank" rel="noopener">Sito</a>
+                <a class="link-esterno" href="https://listenozze.bartolinifirenze.it" target="_blank" rel="noopener">Sito</a>
               </span>
-              <p class="negozio-nota">Presto vi comunicheremo il codice per l'intestazione del regalo.</p>
+              <!-- Credenziali della lista nozze: stessi bottoni «copia» del bonifico. -->
+              <dl class="credenziali">
+                <div>
+                  <dt>Codice di accesso</dt>
+                  <dd>000254I<button type="button" class="copia" data-copia="000254I" data-copia-avviso="Codice copiato" aria-label="Copia codice di accesso" hidden><svg class="icona" aria-hidden="true" viewBox="0 0 24 24"><rect class="copia-fronte" x="8" y="8" width="12" height="12" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></button></dd>
+                </div>
+                <div>
+                  <dt>Password</dt>
+                  <dd>25823110<button type="button" class="copia" data-copia="25823110" data-copia-avviso="Password copiata" aria-label="Copia password" hidden><svg class="icona" aria-hidden="true" viewBox="0 0 24 24"><rect class="copia-fronte" x="8" y="8" width="12" height="12" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></button></dd>
+                </div>
+              </dl>
             </div>
             <div class="negozio">
               <strong>Rodeschini</strong>
