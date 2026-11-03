@@ -31,7 +31,7 @@ entra da destra (con velo scuro; si chiude con la X, toccando fuori, una voce o 
 | **Mosaico di foto** sotto l'apertura | `index.html`, sezione `data-mosaico`: una riga `<li>` per foto. Classe `v` = verticale (WebP 280×400), `o` = orizzontale (280×200), `g` = grande (560×400). Le miniature stanno in `img/mosaico/`, già ritagliate. La copia per il giro continuo la crea `js/main.js`, che lo fa scorrere e lo rende trascinabile (velocità e ritorno all'andatura in cima al blocco del mosaico). |
 | **Micromappa dei parcheggi** | Le vie sono in `img/luoghi/mappa-chiesa.svg` (da OpenStreetMap). I pallini sono in `index.html`, nella `.micromappa`: ogni `<a class="mm-p">` ha la posizione (`cx`/`cy`, in metri dall'angolo in alto a sinistra), il link Google Maps, `data-tempo` (il minuto mostrato) e `data-percorso` (il numero). Il tratteggio dal parcheggio alla chiesa è un `<path class="mm-percorso">` con lo stesso `data-percorso`: è calcolato a piedi sulla rete stradale OpenStreetMap; se si sposta un parcheggio, va ricalcolato. |
 | Conto alla rovescia e calendario | Sotto la testata (sezione `#quando`): il timer che scorre ogni secondo (giorni : ore : minuti : secondi, fino alle 14:30 della messa) e sotto la pill verde «Aggiungi al Calendario» (`.pill-calendario`). Un tocco aggiunge l'evento: scarica `download/matrimonio-ambrogio-francesca.ics` (evento di tutto il giorno); su Android `js/main.js` punta a Google Calendar, usando l'indirizzo nell'attributo `data-android`. |
-| IBAN, intestatari, causale | `index.html`, sezione `#regalo`: il testo copiato è nell'attributo `data-copia` di ogni bottone. |
+| IBAN, intestatari, causale, codice e password | `index.html`, sezione `#regalo`: il testo copiato è nell'attributo `data-copia` di ogni bottone; si scrivono in IBM Plex Mono (`--mono`, misura `--dato-mono` in `css/style.css`) così 0, O, 1 e I non si confondono. |
 | Negozi della lista nozze | `index.html`, sezione regalo: una `<div class="negozio">` per negozio. Sito e mappa sono `<a class="link-esterno">`, tutti con lo stesso stile. |
 | Foto grandi (apertura, chiesa, cascina, Islanda, casa) | `img/apertura/`, `img/luoghi/`, `img/regalo/` |
 
@@ -122,7 +122,7 @@ api/report.js         funzione che dà il report a /admin (serve la chiave)
 lib/rsvp.js           logica dell'RSVP: controllo, database, report via mail
 supabase/schema.sql   tabelle e funzioni del database
 package.json          solo gli script (nessuna dipendenza)
-fonts/                Cormorant Garamond e Karla, serviti dal sito (licenza OFL)
+fonts/                Cormorant Garamond, Karla e IBM Plex Mono (per i testi da copiare), serviti dal sito (licenza OFL)
 img/apertura/         foto a tutta pagina in testa
 img/mosaico/          miniature del mosaico
 img/luoghi/           chiesa, cascina e micromappa
