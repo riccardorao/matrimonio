@@ -1,5 +1,5 @@
 /* Il report per gli sposi (GET /api/report), letto dalla pagina /admin.
-   Serve la chiave segreta nell'intestazione "Authorization: Bearer …":
+   Serve la password nell'intestazione "Authorization: Bearer …":
    la controlla il database stesso, qui non c'è nessun confronto da sbagliare. */
 import { creaDb } from '../lib/rsvp.js';
 
@@ -12,7 +12,7 @@ export default async function handler(req, res) {
     return res.status(503).json({ ok: false, errore: 'Database non configurato.' });
   }
   const token = (req.headers.authorization || '').replace(/^Bearer\s+/i, '').trim();
-  if (!token) return res.status(401).json({ ok: false, errore: 'Chiave mancante.' });
+  if (!token) return res.status(401).json({ ok: false, errore: 'Password mancante.' });
 
   try {
     const report = await creaDb({ fetch, url: SUPABASE_URL, chiave: SUPABASE_PUBLISHABLE_KEY, token }).report();
@@ -20,7 +20,7 @@ export default async function handler(req, res) {
   } catch (e) {
     // Con una chiave sbagliata il database risponde con un errore di autorizzazione (28000, HTTP 400).
     if (/28000|non autorizzato/.test(String(e.message))) {
-      return res.status(401).json({ ok: false, errore: 'Chiave non valida.' });
+      return res.status(401).json({ ok: false, errore: 'Password non valida.' });
     }
     console.error('RSVP: lettura report non riuscita', e);
     return res.status(502).json({ ok: false, errore: 'Impossibile leggere i dati.' });

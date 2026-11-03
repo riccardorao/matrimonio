@@ -54,8 +54,9 @@ trappola per i robot.
 
 ### Dove gli sposi vedono le risposte
 
-- **`/admin`** (pagina privata, non indicizzata): si entra con la chiave segreta (`RSVP_TOKEN`).
-  Mostra persone confermate, sì/no, fasce d'età, allergie, nomi doppi, tutte le risposte con
+- **`/admin`** (pagina privata, non indicizzata): si entra con la password (`RSVP_TOKEN`).
+  In alto, grande, il numero dei confermati con adulti (12+), bambini (4-11) e neonati (0-3);
+  poi allergie (le risposte tipo «nessuna» o «no» non contano), nomi doppi, tutte le risposte con
   ricerca e filtro e le ultime modifiche; si aggiorna da sola ogni minuto e ha il pulsante
   «Scarica CSV». I numeri sono sempre calcolati dalle righe vere, non salvati a parte.
 - **Mail**: appena configurato Resend (sotto), a ogni invio arriva il report completo.
@@ -65,12 +66,13 @@ trappola per i robot.
 
 - Su Supabase le tabelle hanno RLS attivo e nessuna policy: dall'esterno non si legge e non si
   scrive nulla. Si passa solo dalle funzioni `rsvp_salva` e `rsvp_report`, che funzionano solo
-  con la chiave segreta (nel database c'è solo la sua impronta SHA-256).
+  con la password (nel database c'è solo la sua impronta SHA-256, riga `token_sha256_v2`).
 - Variabili del progetto Vercel: `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY` (il lasciapassare
-  pubblico di Supabase, da solo non dà accesso ai dati) e `RSVP_TOKEN` (la chiave segreta,
+  pubblico di Supabase, da solo non dà accesso ai dati) e `RSVP_TOKEN` (la password,
   «sensitive»: Vercel non la mostra più dopo il salvataggio).
-- Per cambiare la chiave: generarne una nuova, aggiornare `RSVP_TOKEN` su Vercel e l'impronta
-  nella tabella `rsvp_config` (`token_sha256`, vedi `supabase/schema.sql`), poi rifare il deploy.
+- Per cambiare la password: aggiungere la nuova impronta in `rsvp_config`, aggiornare `RSVP_TOKEN` su
+  Vercel e rifare il deploy, poi far puntare `rsvp_token_ok` alla nuova riga (vedi `supabase/schema.sql`).
+  Meglio una password lunga: chi la indovina vede nomi e allergie degli invitati.
 
 ### Attivare la mail (da fare una volta)
 

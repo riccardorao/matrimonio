@@ -1,11 +1,13 @@
 /* Pagina /admin: legge il report da /api/report e lo mostra agli sposi.
    La chiave segreta resta solo nella scheda del browser (sessionStorage). */
+import { nessunaAllergia } from './allergie.js';
+
 (() => {
-  'use strict';
 
   const CHIAVE = 'rsvp-admin-chiave';
   const AGGIORNA_OGNI = 60000;
-  const fasce = { '0-3': '0–3 anni', '4-11': '4–11 anni', '12+': '12+' };
+  const fasce = { '0-3': 'Neonato 0-3', '4-11': 'Bambino 4-11', '12+': 'Adulto 12+' };
+  const ha = (o) => !nessunaAllergia(o.allergie); // «nessuna», «no»… non sono allergie
 
   const $ = (s) => document.querySelector(s);
   const accesso = $('[data-accesso]');
@@ -31,7 +33,7 @@
 
   async function scarica(chiave) {
     const r = await fetch('/api/report', { headers: { Authorization: 'Bearer ' + chiave }, cache: 'no-store' });
-    if (r.status === 401) throw Object.assign(new Error('Chiave non valida.'), { chiaveErrata: true });
+    if (r.status === 401) throw Object.assign(new Error('Password non valida.'), { chiaveErrata: true });
     if (!r.ok) throw new Error('Impossibile leggere i dati. Riprovate tra poco.');
     return r.json();
   }
@@ -50,7 +52,7 @@
     // allergie
     const lista = $('[data-allergie]');
     svuota(lista);
-    risposte.forEach((r) => r.ospiti.filter((o) => o.allergie).forEach((o) => {
+    risposte.forEach((r) => r.ospiti.filter(ha).forEach((o) => {
       const li = crea('li', o.nome + ': ' + o.allergie);
       li.appendChild(crea('small', ' · risposta di ' + r.rispondente));
       lista.appendChild(li);
@@ -86,7 +88,7 @@
       r.ospiti.forEach((o) => {
         const blocco = crea('span', o.nome, 'adm-ospite');
         blocco.appendChild(crea('span', fasce[o.eta] || o.eta, 'adm-etichetta'));
-        if (o.allergie) blocco.appendChild(crea('span', o.allergie, 'adm-allergia'));
+        if (ha(o)) blocco.appendChild(crea('span', o.allergie, 'adm-allergia'));
         ospitiDentro.appendChild(blocco);
       });
       tr.appendChild(ospiti);
@@ -116,7 +118,7 @@
     const righe = [['Chi risponde', 'Viene', 'Persone in risposta', 'Ospite', 'Età', 'Allergie / intolleranze', 'Aggiornata'].map(cella).join(';')];
     dati.risposte.forEach((r) => {
       if (!r.ospiti.length) righe.push([r.rispondente, 'No', 0, '', '', '', quando(r.aggiornata)].map(cella).join(';'));
-      r.ospiti.forEach((o) => righe.push([r.rispondente, 'Sì', r.persone, o.nome, fasce[o.eta] || o.eta, o.allergie, quando(r.aggiornata)].map(cella).join(';')));
+      r.ospiti.forEach((o) => righe.push([r.rispondente, 'Sì', r.persone, o.nome, fasce[o.eta] || o.eta, ha(o) ? o.allergie : '', quando(r.aggiornata)].map(cella).join(';')));
     });
     const blob = new Blob(['﻿' + righe.join('\r\n')], { type: 'text/csv;charset=utf-8' });
     const a = document.createElement('a');

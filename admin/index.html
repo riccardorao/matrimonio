@@ -11,7 +11,7 @@
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../css/style.css">
 <link rel="stylesheet" href="../css/admin.css">
-<script src="../js/admin.js" defer></script>
+<script type="module" src="../js/admin.js"></script>
 </head>
 <body class="admin">
 
@@ -29,9 +29,9 @@
 <main class="adm-pagina">
 
   <form class="adm-accesso" data-accesso>
-    <p class="adm-nota">Pagina riservata agli sposi. Inserite la chiave segreta delle risposte.</p>
+    <p class="adm-nota">Pagina riservata agli sposi. Inserite la password.</p>
     <label class="adm-campo">
-      <span>Chiave</span>
+      <span>Password</span>
       <input type="password" name="chiave" autocomplete="current-password" required>
     </label>
     <button type="submit" class="btn btn-pieno btn-largo">Entra</button>
@@ -41,13 +41,15 @@
   <div data-cruscotto hidden>
     <p class="adm-aggiornato" data-aggiornato role="status" aria-live="polite"></p>
 
-    <section class="adm-numeri" aria-label="Riepilogo">
-      <div class="adm-numero adm-numero-grande"><strong data-n="persone">0</strong><span>persone confermate</span></div>
-      <div class="adm-numero"><strong data-n="risposte_si">0</strong><span>risposte sì</span></div>
-      <div class="adm-numero"><strong data-n="risposte_no">0</strong><span>risposte no</span></div>
-      <div class="adm-numero"><strong data-n="fascia_12_piu">0</strong><span>12 anni o più</span></div>
-      <div class="adm-numero"><strong data-n="fascia_4_11">0</strong><span>4–11 anni</span></div>
-      <div class="adm-numero"><strong data-n="fascia_0_3">0</strong><span>0–3 anni</span></div>
+    <section class="adm-riepilogo" aria-label="Conferme">
+      <p class="adm-riepilogo-titolo">Confermati</p>
+      <p class="adm-grande"><strong data-n="persone">0</strong></p>
+      <dl class="adm-fasce">
+        <div><dt>Adulti</dt><dd data-n="fascia_12_piu">0</dd><span>12+</span></div>
+        <div><dt>Bambini</dt><dd data-n="fascia_4_11">0</dd><span>4-11</span></div>
+        <div><dt>Neonati</dt><dd data-n="fascia_0_3">0</dd><span>0-3</span></div>
+      </dl>
+      <p class="adm-risposte"><span data-n="risposte_si">0</span> risposte sì · <span data-n="risposte_no">0</span> no</p>
     </section>
 
     <section class="adm-avviso" data-duplicati hidden>
